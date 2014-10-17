@@ -5,34 +5,22 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         uglify: {
             options: {
-                banner: '/*! <%= pkg.name %> by Michael Duve <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+                banner: '/*! <%= pkg.name %> by VideoChop-Team <%= grunt.template.today("yyyy-mm-dd") %> */\n',
                 preserveComments: false,
                 mangle: {
-                    except: ['jQuery', 'Backbone']
+                    except: ['jQuery']
                 },
                 compress: {
                     drop_console: true
                 }
             },
             app: {
-                src: ['<%= pkg.name %>/src/js/app.js'],
+                src: ['<%= pkg.name %>/js/app.js'],
                 dest: '<%= pkg.name %>/build/js/app.js'
             },
-            entry: {
-                src: ['<%= pkg.name %>/src/js/entry.js'],
-                dest: '<%= pkg.name %>/build/js/entry.js'
-            },
-            data: {
-                src: ['<%= pkg.name %>/src/js/data.js'],
-                dest: '<%= pkg.name %>/build/js/data.js'
-            },
-            world: {
-                src: ['<%= pkg.name %>/src/js/world.js'],
-                dest: '<%= pkg.name %>/build/js/world.js'
-            },
             vendor: {
-                src: ['<%= pkg.name %>/src/js/vendor/jquery-2.1.1.min.js', '<%= pkg.name %>/src/js/vendor/jquery-ui.min.js', '<%= pkg.name %>/src/js/vendor/modernizr.js', '<%= pkg.name %>/src/js/vendor/jquery.dataTables.min.js'],
-                dest: '<%= pkg.name %>/build/js/vendor/vendor.js'
+                src: ['<%= pkg.name %>/js/lib/jquery-2.1.1.min.js', '<%= pkg.name %>/js/lib/modernizr.js'],
+                dest: '<%= pkg.name %>/build/js/lib/vendor.js'
             }
         },
         compass: {
@@ -53,11 +41,11 @@ module.exports = function(grunt) {
         },
         watch: {
             js: {
-                files: ['<%= uglify.app.src %>', '<%= uglify.entry.src %>', '<%= uglify.data.src %>', '<%= uglify.world.src %>'],
+                files: ['<%= uglify.app.src %>', '<%= uglify.vendor.src %>'],
                 tasks: ['uglify']
             },
             css: {
-                files: ['<%= pkg.name %>/scss/main.scss', '<%= pkg.name %>/scss/_jquery.dataTables.scss'],
+                files: ['<%= pkg.name %>/scss/*.scss'],
                 tasks: ['compass']
             }
         }

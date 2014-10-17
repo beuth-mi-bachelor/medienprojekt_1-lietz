@@ -1,0 +1,172 @@
+// simple px to em conversion
+@function px2em($wanted-font-size, $base-size: $base-font-size) {
+    @return ($wanted-font-size / $base-size) + 'em';
+}
+
+// Set lightness of a given color
+// adapted from https://github.com/Team-Sass/color-schemer/blob/master/stylesheets/color-schemer/_color-adjustments.scss
+// Usage: background-color: set-lightness($color-main, 15%);
+//        aka 15% transparence of a color
+@function set-lightness($color, $lightness) {
+    @return hsla(hue($color), saturation($color), (100 - $lightness), alpha($color));
+}
+
+// Strips the unit for a given number
+// @param   $number     ('Number')  the number the unit should be stripped
+// @returns ('Number')  the number without an unit
+@function strip-units($number) {
+    @return $number / ($number * 0 + 1);
+}
+
+// Converts px to em
+// @param   $target     ('Number')  target pixel value
+// @param   $context    ('Number')  context (container) pixel size
+// @returns ('Number')        the px value converted to em
+@function em($target, $context: $base-font-size) {
+    @return ($target / $context) * 1em;
+}
+
+// Converts em to px
+// @param   $target     ('Number')  target em value
+// @param   $context    ('Number')  context (container) pixel size
+// @returns ('Number')  the px value converted to em
+@function px($target, $context: $base-font-size) {
+    @return (strip-units($target) * strip-units($context)) * 1px;
+}
+
+
+// To simulate associative arrays
+// Source: http://hugogiraudel.com/2013/08/12/sass-functions/#mapping
+@function match($haystack, $needle) {
+    @each $item in $haystack {
+        $index: index($item, $needle);
+        @if $index {
+            $return: if($index == 1, 2, $index);
+            @return nth($item, $return);
+        }
+    }
+    @return false;
+}
+
+@mixin vendor-prefix($name, $argument) {
+    -webkit-#{$name}: #{$argument};
+    -ms-#{$name}: #{$argument};
+    -moz-#{$name}: #{$argument};
+    -o-#{$name}: #{$argument};
+    #{$name}: #{$argument};
+}
+
+@mixin circle($size: 50px) {
+    width: $size;
+    height: $size;
+    border-radius: 100%;
+}
+
+@mixin linkColor($color: $base-font-color, $which: "lighten") {
+    color: $color;
+
+    &:hover, &:active, &:focus {
+        @if $which == "lighten" {
+            color: lighten($color, 30%);
+        }
+        @if $which == "darken" {
+            color: darken($color, 30%);
+        }
+
+    }
+}
+
+@function getUrlById($id, $width: -1) {
+    $host: "http://www.bild.de/";
+    $url: "";
+    @if $width != -1 {
+        $url: $host + "fotos-skaliert/-" + $id + "/0,w=" + $width + ",c=0.bild.jpeg";
+    } @else {
+        $url: $host + "-" + $id + ".bild.jpg";
+    }
+    @return url($url);
+}
+
+// Helper for old syntax in linear-gradients
+// Return the corrected angle or position for a css gradient
+@function angle($deg) {
+    @if type-of($deg) == 'number' {
+        @return mod(abs($deg - 450), 360deg);
+    } @else {
+        $position: to + " ";
+        @each $pos in $deg {
+            $position: $position + opposite-position($pos) + " ";
+        }
+        @return $position;
+    }
+}
+
+@function helper-gradient-angle($direction) {
+    $old-direction: $direction;
+    $veryold-direction: $direction;
+
+    // New Syntax has to be evaluated to old one
+    @if $direction == "to bottom" {
+        $old-direction: "top";
+    } @else if $direction == "to right" {
+        $old-direction: "left";
+    } @else if $direction == "to top" {
+        $old-direction: "bottom";
+    } @else if $direction == "to left" {
+        $old-direction: "right";
+    } @else {
+        $old-direction: angle($direction);
+    }
+
+    // And also for very old syntax
+    @if $direction == "to bottom" {
+        $veryold-direction: "left top, left bottom";
+    } @else if $direction == "to right" {
+        $veryold-direction: "top left, bottom right";
+    } @else if $direction == "to top" {
+        $veryold-direction: "left bottom, left top";
+    } @else if $direction == "to left" {
+        $veryold-direction: "top right, bottom left";
+    } @else {
+        $veryold-direction: angle($direction);
+    }
+
+    @return $old-direction, $veryold-direction;
+}
+
+// @mixin x-linear-gradient()
+//
+// Generates a linear gradient for a given element
+// Dependency: @function helper-gradient-angle;
+// usage: @include x-linear-gradient("to bottom", #ccc, #ddd, #bbb);
+// thanks Hans Christian Reinl for http://drublic.de/blog/rem-fallback-sass-less/
+//
+// $direction: "to bottom",
+// $from: $grey,
+// $to: $lightgrey,
+// $fallback: false
+//
+// Styleguide 5.5
+@mixin x-linear-gradient($direction: "to bottom", $from: $grey, $to: $lightgrey, $fallback: false) {
+    $directions: helper-gradient-angle($direction);
+
+    background-color: if($fallback != false, $fallback, mix(nth($from, 1),nth($to, 1)));
+    background-image: -webkit-gradient(linear, unquote(nth($directions, 2)), color-stop(nth($from, 2), nth($from, 1)), color-stop(nth($to, 2),nth($to, 1)));
+    background-image: -webkit-linear-gradient(unquote(nth($directions, 1)), $from, $to);
+    background-image: linear-gradient(unquote($direction), $from, $to);
+}
+
+@mixin keyframes($animationName) {
+	@-webkit-keyframes #{$animationName} {
+		@content;
+	}
+	@-moz-keyframes #{$animationName} {
+		@content;
+	}
+	@-o-keyframes #{$animationName} {
+		@content;
+	}
+	@keyframes #{$animationName} {
+		@content;
+	}
+}

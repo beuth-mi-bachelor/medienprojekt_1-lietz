@@ -1,0 +1,2 @@
+/*! videochop by VideoChop-Team 2014-10-17 */
+requirejs.config({paths:{jquery:"lib/jquery-2.1.1.min",modernizr:"lib/modernizr"}}),define(["jquery","modernizr"],function(a){"use strict";a(document).ready(function(){})});
