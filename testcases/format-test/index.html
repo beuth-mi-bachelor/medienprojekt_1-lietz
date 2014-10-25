@@ -5,15 +5,124 @@
         <meta charset="utf-8">
         <script src="../../videochop/js/lib/jquery-2.1.1.min.js"></script>
         <style>
-
+            .dropzone {
+                width: 200px;
+                background: #ccc;
+            }
+            .dropzone.over {
+                background: darkgreen;
+            }
+            .dropzone span {
+                text-align: center;
+                display: block;
+                padding: 10px;
+            }
+            .test-container {
+                width: 500px;
+                height: 500px;
+                background: grey;
+            }
         </style>
     </head>
     <body>
 
+        <div class="test-container">
+            <div class="dropzone">
+                <span class="drop-instructions">Drag & Drop Container</span>
+                <span class="drop-over">Drop files here!</span>
+            </div>
+
+            <input id="file-upload" type="file" multiple>
+            <p class="file-info"></p>
+
+            <div class="preview">
+
+            </div>
+        </div>
+        <script>
+            $(document).ready(function() {
+
+                var $dropArea = $(".dropzone");
+                var dropArea = $dropArea[0];
+                var $filesUpload = $("#file-upload");
+                var $fileInfo = $(".file-info");
+                var $preview = $(".preview");
+
+                $filesUpload[0].addEventListener("change", function () {
+                    traverseFiles(this.files);
+                }, false);
+
+                dropArea.addEventListener("dragleave", function (e) {
+                    var target = e.target;
+
+                    var rect = this.getBoundingClientRect();
+
+                    // Check the mouseEvent coordinates are outside of the rectangle
+                    if(e.x > rect.left + rect.width || e.x < rect.left
+                            || e.y > rect.top + rect.height || e.y < rect.top) {
+                        this.className = "dropzone";
+                    }
+
+                    e.preventDefault();
+                    e.stopPropagation();
+                }, false);
+
+                dropArea.addEventListener("dragenter", function (evt) {
+                    this.className = "dropzone over";
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                }, false);
+
+                dropArea.addEventListener("dragover", function (evt) {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                }, false);
+
+                dropArea.addEventListener("drop", function (evt) {
+                    traverseFiles(evt.dataTransfer.files);
+                    this.className = "dropzone";
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                }, false);
+
+                function traverseFiles(files) {
+                    if (typeof files !== "undefined") {
+                        for (var i = 0, l = files.length; i < l; i++) {
+                            var file = files[i];
+                            console.log(file);
+                            if (typeof FileReader !== "undefined") {
+                                var vid = document.createElement("video");
+                                $(vid).prop("controls", true);
+                                var source = document.createElement("source");
+                                var type = file.type;
+
+                                $preview.append(vid);
+                                var reader = new FileReader();
+
+                                reader.onload = (function (vid, source, type) {
+
+                                    return function (evt) {
+                                        source.src = evt.target.result;
+                                        source.type = type;
+                                        vid.appendChild(source);
+                                    };
+
+                                }(vid, source, type));
+
+                                reader.readAsDataURL(file);
+
+                            } else {
+                                $fileInfo.append("Wrong format");
+                            }
+                        }
+                    }
+                    else {
+                        $fileInfo.append("No support for the File API in this web browser");
+                    }
+                }
+            });
 
 
-    <script>
-
-    </script>
+        </script>
     </body>
 </html>
