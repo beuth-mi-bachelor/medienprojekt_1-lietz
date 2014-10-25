@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="de">
+<head>
+    <title>VideoChop: Test-Case Canvas</title>
+    <meta charset="utf-8">
+    <script src="../../videochop/js/lib/jquery-2.1.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <style>
+
+
+        .mainDiv {
+            position: relative;
+            background-color: #8c8c8c;
+            width: 1000px;
+            height: 300px;
+        }
+        #sec1, #sec2, #sec3 {
+            position: relative;
+            width: 100%;
+            height: 100px;
+        }
+        #box1 {
+            position: absolute;
+            background-color: #ff1c2b;
+            height: 100%;
+            width: 20%;
+            top: 0;
+            left: 20%;
+            z-index: 10;
+        }
+        #box2 {
+            position: absolute;
+            background-color: #4f55ff;
+            height: 100%;
+            width: 20%;
+            top: 0;
+            left: 50%;
+            z-index: 10;
+        }
+        #box3 {
+            position: absolute;
+            background-color: #64ff7d;
+            height: 100%;
+            width: 20%;
+            top: 0;
+            left: 80%;
+            z-index: 10;
+        }
+        .drop-hover {
+            background-color: #64ff7d;
+        }
+    </style>
+</head>
+<body>
+<div class="mainDiv">
+
+    <div id="sec1" class="sec">
+        <div class="box" id="box1"></div>
+    </div>
+    <div id="sec2" class="sec">
+        <div class="box" id="box2"></div>
+    </div>
+    <div id="sec3" class="sec">
+        <div class="box" id="box3"></div>
+    </div>
+
+</div>
+
+
+<script>
+    $(function() {
+        $( ".box" ).draggable({
+            snap: ".sec",
+            snapMode: "inner",
+            containment: ".mainDiv",
+            snapTolerance: 30,
+            revert: "invalid",
+            cursor: "move"
+        });
+        $(".sec").droppable({
+            hoverClass: "drop-hover",
+            accept: ".box",
+            drop: function(event, ui){
+                console.log(ui.draggable.position().left);
+                var top = $(event.target).position().top;
+                var left = ui.draggable.position().left;
+                //ui.draggable.position( { of: $(this), my: 'top', at: 'top' } );
+               // ui.draggable.draggable( 'option', 'revert', false );
+                ui.draggable.offset({top: top, left: left});
+
+            }
+
+
+        });
+
+    });
+</script>
+</body>
+</html>
