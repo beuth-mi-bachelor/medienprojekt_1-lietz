@@ -21,62 +21,64 @@
     </div>
 </div>
 <script>
-    var testvideo = document.getElementById("testvideo");
-    var intervalRewind;
+  //  $( document ).ready(function() {
+        var testvideo = document.getElementById("testvideo");
+        var intervalRewind;
 
-    function playPause() {
-        if (testvideo.paused)
-            testvideo.play();
-        else
-            testvideo.pause();
-
-        clearInterval(intervalRewind);
-    }
-
-    function videoStop() {
-        if (testvideo.paused)
-            testvideo.currentTime = 0;
-        else
-            testvideo.pause();
-            testvideo.currentTime = 0;
-        clearInterval(intervalRewind);
-    }
-
-    function videoForward() {
-        if (testvideo.paused)
-            testvideo.playbackRate = 4;
-        else
-            playPause();
-            testvideo.playbackRate = 4;
-        playPause();
-        clearInterval(intervalRewind);
-    }
-
-    function videoNormal() {
-        if (testvideo.paused)
-            testvideo.playbackRate = 1;
-        else
-            playPause();
-        testvideo.playbackRate = 1;
-        playPause();
-        clearInterval(intervalRewind);
-    }
-
-
-    // funktion adaptiert von http://jsfiddle.net/bplumb/h9EVQ/8/
-    // etwas unsauber aber anders nicht wirklich machbar !
-    function videoBackward() {
-        intervalRewind = setInterval(function(){
-            testvideo.playbackRate = 1.0;
-            if(testvideo.currentTime == 0){
-                clearInterval(intervalRewind);
+        function playPause() {
+            if (testvideo.paused)
+                testvideo.play();
+            else
                 testvideo.pause();
-            }
-            else{
-                testvideo.currentTime += -.1;
-            }
-        },30);
-    }
+
+            clearInterval(intervalRewind);
+        }
+
+        function videoStop() {
+            if (testvideo.paused)
+                testvideo.currentTime = 0;
+            else
+                testvideo.pause();
+                testvideo.currentTime = 0;
+            clearInterval(intervalRewind);
+        }
+
+        function videoForward() {
+            if (testvideo.paused)
+                testvideo.playbackRate = 4;
+            else
+                playPause();
+                testvideo.playbackRate = 4;
+            playPause();
+            clearInterval(intervalRewind);
+        }
+
+        function videoNormal() {
+            if (testvideo.paused)
+                testvideo.playbackRate = 1;
+            else
+                playPause();
+            testvideo.playbackRate = 1;
+            playPause();
+            clearInterval(intervalRewind);
+        }
+
+
+        // funktion adaptiert von http://jsfiddle.net/bplumb/h9EVQ/8/
+        // etwas unsauber aber anders nicht wirklich machbar !
+        function videoBackward() {
+            intervalRewind = setInterval(function(){
+                testvideo.playbackRate = 1.0;
+                if(testvideo.currentTime == 0){
+                    clearInterval(intervalRewind);
+                    testvideo.pause();
+                }
+                else{
+                    testvideo.currentTime += -.1;
+                }
+            },30);
+        }
+   // });
 </script>
 </body>
 </html>
