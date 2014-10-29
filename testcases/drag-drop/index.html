@@ -6,10 +6,17 @@
     <script src="../../videochop/js/lib/jquery-2.1.1.min.js"></script>
     <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <style>
-
-
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
         .mainDiv {
             position: relative;
+            top: 20px;
+            left: 20px;
+            padding: 20px;
+            margin: 20px;
             background-color: #8c8c8c;
             width: 1000px;
             height: 300px;
@@ -68,32 +75,33 @@
 
 
 <script>
-    $(function() {
-        $( ".box" ).draggable({
-            snap: ".sec",
-            snapMode: "inner",
-            containment: ".mainDiv",
-            snapTolerance: 30,
-            revert: "invalid",
-            cursor: "move"
-        });
-        $(".sec").droppable({
-            hoverClass: "drop-hover",
-            accept: ".box",
-            drop: function(event, ui){
-                console.log(ui.draggable.position().left);
-                var top = $(event.target).position().top;
-                var left = ui.draggable.position().left;
-                //ui.draggable.position( { of: $(this), my: 'top', at: 'top' } );
-               // ui.draggable.draggable( 'option', 'revert', false );
-                ui.draggable.offset({top: top, left: left});
 
-            }
-
-
-        });
-
+    $( ".box" ).draggable({
+        snap: ".sec",
+        snapMode: "inner",
+        containment: ".mainDiv",
+        snapTolerance: 30,
+        revert: "invalid",
+        cursor: "move"
     });
+
+    $(".sec").droppable({
+        hoverClass: "drop-hover",
+        accept: ".box",
+        drop: function(event, ui) {
+
+            var targetOffset = $(event.target).offset();
+
+            var top = targetOffset.top;
+            var left = ui.draggable.position().left + targetOffset.left;
+
+            ui.draggable.offset({
+                top: top,
+                left: left
+            });
+        }
+    });
+
 </script>
 </body>
 </html>
