@@ -3,9 +3,43 @@
 <head>
     <title>VideoChop: Test-Case Canvas</title>
     <meta charset="utf-8">
-    <script src="../../videochop/js/lib/jquery-2.1.1.min.js"></script>
-    <style>
+    <canvas id=c></canvas>
+    <video id=v controls loop>
 
+        <source src="../canvas/images/big_buck_bunny.mp4" type=video/mp4>
+    </video>
+    <video id=vx controls loop>
+
+        <source src="../canvas/images/small.mp4" type=video/mp4>
+    </video>
+    <style>
+        body {
+            background: black;
+        }
+
+        #c {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #v {
+            position: absolute;
+            top: 50%;
+            left: 70%;
+            margin: -50px 0 0 -240px;
+        }
+
+        #vx {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            margin: -180px 0 0 -240px;
+        }
     </style>
 </head>
 <body>
@@ -13,7 +47,31 @@
 
 
 <script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var v = document.getElementById('v');
+        var vx = document.getElementById('vx');
+        var canvas = document.getElementById('c');
+        var context = canvas.getContext('2d');
 
+        var cw = Math.floor(canvas.clientWidth / 100);
+        var ch = Math.floor(canvas.clientHeight / 100);
+        canvas.width = cw;
+        canvas.height = ch;
+
+        v.addEventListener('play', function(){
+            draw(this,context,cw,ch);
+        },false);
+        vx.addEventListener('play', function(){
+            draw(this,context,cw,ch);
+        },false);
+
+    },false);
+
+    function draw(v,c,w,h) {
+        if(v.paused || v.ended) return false;
+        c.drawImage(v,0,0,w,h);
+        setTimeout(draw,20,v,c,w,h);
+    }
 </script>
 </body>
 </html>
