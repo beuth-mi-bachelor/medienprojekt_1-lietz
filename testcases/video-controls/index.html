@@ -12,15 +12,16 @@
         <video id="testvideo"><source src="../format-test/videos/big_buck_bunny.webm" type="video/webm"></video>
     </div>
     <div class="controls">
-        <button onclick="playPause()">Play/Pause</button>
-        <button onclick="videoStop()">Stop</button>
-        <button onclick="videoNormal()">Normal Speed</button>
-        <button onclick="videoForward()">Forward 4x Speed</button>
-        <button onclick="videoBackward()">Backward</button>
+        <button class="control" onclick="playPause()">Play/Pause</button>
+        <button class="control" onclick="videoStop()">Stop</button>
+        <button class="control" onclick="videoNormal()">Normal Speed</button>
+        <button class="control" onclick="videoForward()">Forward 4x Speed</button>
+        <button class="control" onclick="videoBackward()">Backward</button>
     </div>
     </div>
 </div>
 <script>
+
     var testvideo = document.getElementById("testvideo");
     var intervalRewind;
 
