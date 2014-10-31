@@ -19,8 +19,17 @@
         <button class="control playpause">Play/Pause</button>
         <button class="control stop">Stop</button>
         <button class="control normal">Normal Speed</button>
-        <button class="control forward">Forward 4x Speed</button>
+        <button class="control faster">Faster</button>
         <button class="control backward">Backward</button>
+        <button class="control mute">Mute</button>
+    </div>
+    <div class="slides">
+        <form oninput="newVolume.value=volume.value">
+            <input class="slide volumeslider" type="range" value="100" name="volume" min="0" max="100" step="1">
+            <output name="newVolume"></output>
+        </form>
+        <input class="slide videoslider" type="range" min="0" max="100" value="0" step="1">
+        <span class="slide currenttime">00:00</span> / <span class="slide durtime">00:00</span>
     </div>
 </div>
 
@@ -28,6 +37,8 @@
     $(document).ready(function () {
 
         var testvideo = $(".testvideo")[0];
+        var currentslider = $(".slide.currenttime")[0];
+        var durslider = $(".slide.durtime")[0];
         var intervalRewind;
 
         $(".controls").on("click", ".control", function () {
@@ -38,10 +49,22 @@
                 videoStop();
             } else if ($this.hasClass("normal")) {
                 videoNormal();
-            } else if ($this.hasClass("forward")) {
-                videoForward();
+            } else if ($this.hasClass("faster")) {
+                videoFaster();
             } else if ($this.hasClass("backward")) {
                 videoBackward();
+            } else if ($this.hasClass("mute")) {
+                videoMute();
+            }
+        });
+
+        $(".slides").on("change", ".slide", function () {
+            var $this = $(this);
+            if ($this.hasClass("volumeslider")) {
+                changeVolume(this.value);
+            } else if ($this.hasClass("videoslider"))  {
+                this.max = testvideo.duration;
+                vidSeek(this.value);
             }
         });
 
@@ -66,13 +89,14 @@
             clearInterval(intervalRewind);
         }
 
-        function videoForward() {
+        // ab playbackRate 5 fängt es an zu ruckeln / bis 4 ist es flüssig
+        function videoFaster() {
             if (testvideo.paused) {
-                testvideo.playbackRate = 4;
+                testvideo.playbackRate += 1;
             }
             else {
                 playPause();
-                testvideo.playbackRate = 4;
+                testvideo.playbackRate += 1;
             }
             playPause();
             clearInterval(intervalRewind);
@@ -105,6 +129,37 @@
                 }
             }, 30);
         }
+
+        function changeVolume(value){
+            testvideo.volume = value/100;
+        }
+
+        function vidSeek(value){
+            testvideo.currentTime = value;
+
+            var curmins = Math.floor(testvideo.currentTime / 60);
+            var cursecs = Math.floor(testvideo.currentTime - curmins * 60);
+            var durmins = Math.floor(testvideo.duration / 60);
+            var dursecs = Math.floor(testvideo.duration - durmins * 60);
+
+            if(cursecs < 10){ cursecs = "0"+cursecs; }
+            if(dursecs < 10){ dursecs = "0"+dursecs; }
+            if(curmins < 10){ curmins = "0"+curmins; }
+            if(durmins < 10){ durmins = "0"+durmins; }
+
+            currentslider.innerHTML = curmins+":"+cursecs;
+            durslider.innerHTML = durmins+":"+dursecs;
+        }
+
+        function videoMute() {
+            if (testvideo.muted) {
+                testvideo.muted = false;
+            }
+            else {
+                testvideo.muted = true;
+            }
+        }
+
     });
 </script>
 </body>
