@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html lang="de">
+<head>
+    <title>VideoChop: Test-Case Video-Controls</title>
+    <meta charset="utf-8">
+    <script src="../../videochop/js/lib/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+
+<div class="test-container">
+    <div class="video">
+        <video class="testvideo">
+            <source src="../format-test/videos/big_buck_bunny.mp4" type="video/mp4">
+            <source src="../format-test/videos/big_buck_bunny.webm" type="video/webm">
+            <source src="../format-test/videos/big_buck_bunny.ogv" type="video/ogg">
+        </video>
+    </div>
+    <div class="controls">
+        <button class="control playpause">Play/Pause</button>
+        <button class="control stop">Stop</button>
+        <button class="control normal">Normal Speed</button>
+        <button class="control forward">Forward 4x Speed</button>
+        <button class="control backward">Backward</button>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var testvideo = $(".testvideo")[0];
+        var intervalRewind;
+
+        $(".controls").on("click", ".control", function () {
+            var $this = $(this);
+            if ($this.hasClass("playpause")) {
+                playPause();
+            } else if ($this.hasClass("stop")) {
+                videoStop();
+            } else if ($this.hasClass("normal")) {
+                videoNormal();
+            } else if ($this.hasClass("forward")) {
+                videoForward();
+            } else if ($this.hasClass("backward")) {
+                videoBackward();
+            }
+        });
+
+        function playPause() {
+            if (testvideo.paused) {
+                testvideo.play();
+            }
+            else {
+                testvideo.pause();
+            }
+            clearInterval(intervalRewind);
+        }
+
+        function videoStop() {
+            if (testvideo.paused) {
+                testvideo.currentTime = 0;
+            }
+            else {
+                testvideo.pause();
+                testvideo.currentTime = 0;
+            }
+            clearInterval(intervalRewind);
+        }
+
+        function videoForward() {
+            if (testvideo.paused) {
+                testvideo.playbackRate = 4;
+            }
+            else {
+                playPause();
+                testvideo.playbackRate = 4;
+            }
+            playPause();
+            clearInterval(intervalRewind);
+        }
+
+        function videoNormal() {
+            if (testvideo.paused) {
+                testvideo.playbackRate = 1;
+            }
+            else {
+                playPause();
+                testvideo.playbackRate = 1;
+            }
+            playPause();
+            clearInterval(intervalRewind);
+        }
+
+
+        // funktion adaptiert von http://jsfiddle.net/bplumb/h9EVQ/8/
+        // etwas unsauber aber anders nicht wirklich machbar !
+        function videoBackward() {
+            intervalRewind = setInterval(function () {
+                testvideo.playbackRate = 1.0;
+                if (testvideo.currentTime === 0) {
+                    clearInterval(intervalRewind);
+                    testvideo.pause();
+                }
+                else {
+                    testvideo.currentTime -= .1;
+                }
+            }, 30);
+        }
+    });
+</script>
+</body>
+</html>
