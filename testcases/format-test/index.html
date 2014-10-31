@@ -22,6 +22,16 @@
                 height: 500px;
                 background: grey;
             }
+            .progress {
+                vertical-align: middle;
+            }
+            .progress .text {
+                vertical-align: middle;
+                margin-left: 1em;
+            }
+            .progress .text:after {
+                content: "%";
+            }
         </style>
     </head>
     <body>
@@ -35,6 +45,10 @@
             <input id="file-upload" type="file" multiple>
             <p class="file-info"></p>
 
+            <div class="progress">
+                <progress class="visual" value="0" max="100"></progress><span class="text">0</span>
+            </div>
+
             <div class="preview">
 
             </div>
@@ -47,6 +61,9 @@
                 var $filesUpload = $("#file-upload");
                 var $fileInfo = $(".file-info");
                 var $preview = $(".preview");
+                var $progress = $(".progress");
+                var $loader = $progress.find(".visual");
+                var $loaderText = $progress.find(".text");
 
                 $filesUpload[0].addEventListener("change", function () {
                     traverseFiles(this.files);
@@ -96,20 +113,28 @@
                                 var source = document.createElement("source");
                                 var type = file.type;
 
-                                $preview.append(vid);
+
                                 var reader = new FileReader();
 
                                 reader.onload = (function (vid, source, type) {
-
                                     return function (evt) {
-                                        source.src = evt.target.result;
+                                        source.src = convertToBlob(evt.target.result);
                                         source.type = type;
                                         vid.appendChild(source);
+                                        $preview.append(vid);
+                                        $loaderText.text("100");
+                                        $loader.val(100);
                                     };
-
                                 }(vid, source, type));
 
+                                reader.onprogress = function(e) {
+                                    var p = Math.round(100 / e.total * e.loaded);
+                                    $loader.val(p);
+                                    $loaderText.text(p);
+                                };
+
                                 reader.readAsDataURL(file);
+
 
                             } else {
                                 $fileInfo.append("Wrong format");
@@ -120,6 +145,28 @@
                         $fileInfo.append("No support for the File API in this web browser");
                     }
                 }
+
+                function convertToBlob(dataURI) {
+                    // convert base64 to raw binary data held in a string
+                    // doesn't handle URLEncoded DataURIs
+                    var byteString;
+                    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+                        byteString = atob(dataURI.split(',')[1]);
+                    else
+                        byteString = unescape(dataURI.split(',')[1]);
+                    // separate out the mime component
+                    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+                    // write the bytes of the string to an ArrayBuffer
+                    var ab = new ArrayBuffer(byteString.length);
+                    var ia = new Uint8Array(ab);
+                    for (var i = 0; i < byteString.length; i++) {
+                        ia[i] = byteString.charCodeAt(i);
+                    }
+
+                    return window.URL.createObjectURL(new Blob([ab],{type: mimeString}));
+                }
+
             });
 
 
