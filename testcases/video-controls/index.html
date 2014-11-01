@@ -9,7 +9,7 @@
 
 <div class="test-container">
     <div class="video">
-        <video class="testvideo">
+        <video class="testvideo vid">
             <source src="../format-test/videos/big_buck_bunny.mp4" type="video/mp4">
             <source src="../format-test/videos/big_buck_bunny.webm" type="video/webm">
             <source src="../format-test/videos/big_buck_bunny.ogv" type="video/ogg">
@@ -22,6 +22,7 @@
         <button class="control faster">Faster</button>
         <button class="control backward">Backward</button>
         <button class="control mute">Mute</button>
+        <button class="control fullscreen">fullscreen</button>
     </div>
     <div class="slides">
         <form oninput="newVolume.value=volume.value">
@@ -36,11 +37,18 @@
 <script>
     $(document).ready(function () {
 
+        /**
+         * Variabledeclaration
+         */
         var testvideo = $(".testvideo")[0];
         var currentslider = $(".slide.currenttime")[0];
         var durslider = $(".slide.durtime")[0];
+        var slider = $(".slide.videoslider")[0];
         var intervalRewind;
 
+        /**
+         * JQuery Selector for all Click-Functions
+         */
         $(".controls").on("click", ".control", function () {
             var $this = $(this);
             if ($this.hasClass("playpause")) {
@@ -58,6 +66,9 @@
             }
         });
 
+        /**
+         * JQuery Selector for all Change-Functions
+         */
         $(".slides").on("change", ".slide", function () {
             var $this = $(this);
             if ($this.hasClass("volumeslider")) {
@@ -68,6 +79,22 @@
             }
         });
 
+        /**
+         * JQuery Selector for all Timeupdate-Functions
+         * funktioniert nicht ...
+         */
+        $(".video").on("timeupdate", ".testvideo", function() {
+            console.log("timeupdate");
+            var $this = $(this);
+            if ($this.hasClass("vid")) {
+                vidTimeUpdate(this.currentTime);
+            }
+        });
+
+
+        /**
+         * FUNCTION for Play and Pause
+         */
         function playPause() {
             if (testvideo.paused) {
                 testvideo.play();
@@ -78,6 +105,9 @@
             clearInterval(intervalRewind);
         }
 
+        /**
+         * FUNCTION for Stop
+         */
         function videoStop() {
             if (testvideo.paused) {
                 testvideo.currentTime = 0;
@@ -90,6 +120,9 @@
         }
 
         // ab playbackRate 5 fängt es an zu ruckeln / bis 4 ist es flüssig
+        /**
+         * FUNCTION for Faster
+         */
         function videoFaster() {
             if (testvideo.paused) {
                 testvideo.playbackRate += 1;
@@ -102,6 +135,9 @@
             clearInterval(intervalRewind);
         }
 
+        /**
+         * FUNCTION for Normal Speed
+         */
         function videoNormal() {
             if (testvideo.paused) {
                 testvideo.playbackRate = 1;
@@ -117,6 +153,9 @@
 
         // funktion adaptiert von http://jsfiddle.net/bplumb/h9EVQ/8/
         // etwas unsauber aber anders nicht wirklich machbar !
+        /**
+         * FUNCTION for Backward
+         */
         function videoBackward() {
             intervalRewind = setInterval(function () {
                 testvideo.playbackRate = 1.0;
@@ -130,10 +169,18 @@
             }, 30);
         }
 
+        /**
+         * FUNCTION for Volume
+         * @param value is the new Volume Level
+         */
         function changeVolume(value){
             testvideo.volume = value/100;
         }
 
+        /**
+         * FUNCTION for Seeking in Videos
+         * @param value is the new Position
+         */
         function vidSeek(value){
             testvideo.currentTime = value;
 
@@ -151,6 +198,17 @@
             durslider.innerHTML = durmins+":"+dursecs;
         }
 
+        /**
+         * FUNCTION for the Timeupdate of the Videoseekslider
+         * @param value is the curentTime of the Video
+         */
+        function vidTimeUpdate(value) {
+            slider.value = value;
+        }
+
+        /**
+         * FUNCTION for Mute
+         */
         function videoMute() {
             if (testvideo.muted) {
                 testvideo.muted = false;
