@@ -75,21 +75,20 @@
                 changeVolume(this.value);
             } else if ($this.hasClass("videoslider"))  {
                 this.max = testvideo.duration;
-                vidSeek(this.value);
+                vidJumpTo(this.value);
             }
         });
 
         /**
-         * JQuery Selector for all Timeupdate-Functions
-         * funktioniert nicht ...
+         * EventListener für timeupdate funktion auf HTML Objekt
          */
-        $(".video").on("timeupdate", ".testvideo", function() {
+        testvideo.addEventListener("timeupdate", function() {
             console.log("timeupdate");
             var $this = $(this);
             if ($this.hasClass("vid")) {
                 vidTimeUpdate(this.currentTime);
             }
-        });
+        }, false);
 
 
         /**
@@ -181,8 +180,7 @@
          * FUNCTION for Seeking in Videos
          * @param value is the new Position
          */
-        function vidSeek(value){
-            testvideo.currentTime = value;
+        function vidTime(value){
 
             var curmins = Math.floor(testvideo.currentTime / 60);
             var cursecs = Math.floor(testvideo.currentTime - curmins * 60);
@@ -199,11 +197,20 @@
         }
 
         /**
+         * FUNCTION FOR JUMPTO FUNCTION
+         */
+
+        function vidJumpTo(value) {
+            testvideo.currentTime = value;
+        }
+
+        /**
          * FUNCTION for the Timeupdate of the Videoseekslider
          * @param value is the curentTime of the Video
          */
         function vidTimeUpdate(value) {
             slider.value = value;
+            vidTime(value);
         }
 
         /**
