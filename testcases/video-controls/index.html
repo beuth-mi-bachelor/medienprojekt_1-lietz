@@ -22,14 +22,15 @@
         <button class="control faster">Faster</button>
         <button class="control backward">Backward</button>
         <button class="control mute">Mute</button>
-        <button class="control fullscreen">fullscreen</button>
+        <button class="control fullscreen">Fullscreen</button>
+        <button class="control loop">Loop</button>
     </div>
     <div class="slides">
         <form oninput="newVolume.value=volume.value">
             <input class="slide volumeslider" type="range" value="100" name="volume" min="0" max="100" step="1">
             <output name="newVolume"></output>
         </form>
-        <input class="slide videoslider" type="range" min="0" max="100" value="0" step="1">
+        <input class="slide videoslider" type="range" min="0" max="60" value="0" step="1">
         <span class="slide currenttime">00:00</span> / <span class="slide durtime">00:00</span>
     </div>
 </div>
@@ -63,6 +64,10 @@
                 videoBackward();
             } else if ($this.hasClass("mute")) {
                 videoMute();
+            } else if ($this.hasClass("fullscreen")) {
+
+            } else if ($this.hasClass("loop")) {
+
             }
         });
 
@@ -75,21 +80,20 @@
                 changeVolume(this.value);
             } else if ($this.hasClass("videoslider"))  {
                 this.max = testvideo.duration;
-                vidSeek(this.value);
+                vidJumpTo(this.value);
             }
         });
 
         /**
-         * JQuery Selector for all Timeupdate-Functions
-         * funktioniert nicht ...
+         * EventListener für timeupdate funktion auf HTML Objekt
          */
-        $(".video").on("timeupdate", ".testvideo", function() {
+        testvideo.addEventListener("timeupdate", function() {
             console.log("timeupdate");
             var $this = $(this);
             if ($this.hasClass("vid")) {
                 vidTimeUpdate(this.currentTime);
             }
-        });
+        }, false);
 
 
         /**
@@ -181,8 +185,7 @@
          * FUNCTION for Seeking in Videos
          * @param value is the new Position
          */
-        function vidSeek(value){
-            testvideo.currentTime = value;
+        function vidTime(){
 
             var curmins = Math.floor(testvideo.currentTime / 60);
             var cursecs = Math.floor(testvideo.currentTime - curmins * 60);
@@ -199,11 +202,20 @@
         }
 
         /**
+         * FUNCTION FOR JUMPTO FUNCTION
+         */
+
+        function vidJumpTo(value) {
+            testvideo.currentTime = value;
+        }
+
+        /**
          * FUNCTION for the Timeupdate of the Videoseekslider
          * @param value is the curentTime of the Video
          */
         function vidTimeUpdate(value) {
             slider.value = value;
+            vidTime();
         }
 
         /**
