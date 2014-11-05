@@ -1,0 +1,49 @@
+@import "settings";
+
+@import "partials/_functions.scss";
+@import "partials/_placeholder";
+
+.nav {
+    position: relative;
+    width: 100%;
+    height: $container-nav-height;
+    background: $color-medium;
+    .nav-list {
+        margin: 0;
+        padding: 0;
+    }
+    .nav-item {
+        float: left;
+        list-style: none;
+        font: {
+            size: 1em;
+            weight: 100;
+        }
+        text-transform: uppercase;
+        line-height: $container-nav-height;
+        margin-left: $spacer;
+        cursor: pointer;
+        color: $color-light;
+        &:hover {
+            color: $color-lightest;
+        }
+    }
+    .icons {
+        margin-right: ($spacer/5);
+        text-align: right;
+    }
+    .logo {
+        height: $container-nav-height + $spacer;
+        background: #fff;
+        margin: ($spacer/2) 0 0 $spacer;
+        padding: $spacer/2;
+        float: left;
+        img {
+            height: 100%;
+        }
+    }
+    .social {
+        float: right;
+        margin: 0;
+    }
+}

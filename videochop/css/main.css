@@ -1,4 +1,5 @@
 /* color definitions */
+/* container definitions */
 /* line 11, ../scss/partials/_placeholder.scss */
 .video-chop-application .no-content {
   border: 0;
@@ -29,6 +30,9 @@ body {
 .video-chop-application {
   font-family: "Roboto", sans-serif;
   /* color definitions */
+  /* container definitions */
+  /* color definitions */
+  /* container definitions */
 }
 /* line 11, ../scss/partials/_placeholder.scss */
 .video-chop-application .no-content {
@@ -41,7 +45,7 @@ body {
   position: absolute;
   width: 1px;
 }
-/* line 5, ../scss/_preloader.scss */
+/* line 6, ../scss/_preloader.scss */
 .video-chop-application .preloader {
   position: fixed;
   top: 0;
@@ -51,7 +55,7 @@ body {
   background: -webkit-linear-gradient(top, #ebebeb 0%, #888 100%);
   background: linear-gradient(to bottom, #ebebeb 0%, #888 100%);
 }
-/* line 12, ../scss/_preloader.scss */
+/* line 14, ../scss/_preloader.scss */
 .video-chop-application .preloader .logo-animated, .video-chop-application .preloader .inner-logo {
   position: absolute;
   top: 0;
@@ -62,11 +66,11 @@ body {
   width: 25vh;
   margin: auto;
 }
-/* line 22, ../scss/_preloader.scss */
+/* line 24, ../scss/_preloader.scss */
 .video-chop-application .preloader .inner-logo {
   padding: 5vh;
 }
-/* line 26, ../scss/_preloader.scss */
+/* line 28, ../scss/_preloader.scss */
 .video-chop-application .preloader .inner-logo-wrapper {
   position: static;
   border-radius: 100%;
@@ -75,7 +79,7 @@ body {
   height: 15vh;
   overflow: hidden;
 }
-/* line 34, ../scss/_preloader.scss */
+/* line 36, ../scss/_preloader.scss */
 .video-chop-application .preloader .inner-logo-content {
   position: static;
   width: 100%;
@@ -83,14 +87,14 @@ body {
   overflow: hidden;
   background: #000;
 }
-/* line 41, ../scss/_preloader.scss */
+/* line 43, ../scss/_preloader.scss */
 .video-chop-application .preloader .outer-logo {
   -webkit-animation: spin 3s ease 0s infinite;
           animation: spin 3s ease 0s infinite;
   -webkit-animation-fill-mode: forward;
           animation-fill-mode: forward;
 }
-/* line 45, ../scss/_preloader.scss */
+/* line 47, ../scss/_preloader.scss */
 .video-chop-application .preloader .percentage {
   position: absolute;
   left: 0;
@@ -106,11 +110,11 @@ body {
   margin: auto;
   color: #888;
 }
-/* line 59, ../scss/_preloader.scss */
+/* line 61, ../scss/_preloader.scss */
 .video-chop-application .preloader .percentage:after {
   content: " %";
 }
-/* line 63, ../scss/_preloader.scss */
+/* line 65, ../scss/_preloader.scss */
 .video-chop-application .preloader .currently-loading {
   position: absolute;
   top: 30vh;
@@ -135,9 +139,70 @@ body {
   -webkit-transition: opacity .3s ease;
           transition: opacity .3s ease;
 }
-/* line 31, ../scss/main.scss */
+/* line 32, ../scss/main.scss */
 .video-chop-application .application-wrapper.loading-complete {
   opacity: 1;
+}
+/* line 11, ../scss/partials/_placeholder.scss */
+.video-chop-application .no-content {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+/* line 6, ../scss/_navigation.scss */
+.video-chop-application .nav {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  background: #888;
+}
+/* line 11, ../scss/_navigation.scss */
+.video-chop-application .nav .nav-list {
+  margin: 0;
+  padding: 0;
+}
+/* line 15, ../scss/_navigation.scss */
+.video-chop-application .nav .nav-item {
+  float: left;
+  list-style: none;
+  font-size: 1em;
+  font-weight: 100;
+  text-transform: uppercase;
+  line-height: 40px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #ebebeb;
+}
+/* line 27, ../scss/_navigation.scss */
+.video-chop-application .nav .nav-item:hover {
+  color: #fff;
+}
+/* line 31, ../scss/_navigation.scss */
+.video-chop-application .nav .icons {
+  margin-right: 2px;
+  text-align: right;
+}
+/* line 35, ../scss/_navigation.scss */
+.video-chop-application .nav .logo {
+  height: 50px;
+  background: #fff;
+  margin: 5px 0 0 10px;
+  padding: 5px;
+  float: left;
+}
+/* line 41, ../scss/_navigation.scss */
+.video-chop-application .nav .logo img {
+  height: 100%;
+}
+/* line 45, ../scss/_navigation.scss */
+.video-chop-application .nav .social {
+  float: right;
+  margin: 0;
 }
 
 @-webkit-keyframes spin {
