@@ -44,9 +44,17 @@ module.exports = function(grunt) {
                 files: ['<%= uglify.app.src %>', '<%= uglify.vendor.src %>'],
                 tasks: ['uglify']
             },
-            css: {
+            scss: {
                 files: ['<%= pkg.name %>/scss/*.scss'],
-                tasks: ['compass']
+                tasks: ['compass', 'autoprefixer']
+            }
+        },
+        autoprefixer: {
+            options: {
+                browsers: ['last 4 versions']
+            },
+            single_file: {
+                src: '<%= pkg.name %>/css/main.css'
             }
         }
     });
@@ -54,6 +62,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-autoprefixer');
 
     // Default task(s).
     grunt.registerTask('default', []);
