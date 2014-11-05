@@ -17,10 +17,56 @@
         <link href='css/main.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300,100' rel='stylesheet' type='text/css'>
 
-        <script data-main="js/app" src="js/lib/require.js"></script>
-
     </head>
     <body class="video-chop-application">
+
+        <h1 class="no-content">Video Chop</h1>
+
+        <main class="application-wrapper">
+            <nav class="navv">
+                <h2 class="no-content">Menü</h2>
+                <ul class="nav-list">
+                    <li class="nav-item">New</li>
+                    <li class="nav-item">Add</li>
+                    <li class="nav-item">Save</li>
+                    <li class="nav-item">Help</li>
+                    <li class="nav-item">Impress</li>
+                </ul>
+            </nav>
+            <article class="application">
+                <h2 class="no-content">Video Chop Application</h2>
+                <section class="file-list">
+                    <h3 class="no-content">file list</h3>
+                </section>
+                <section class="preview">
+                    <h3 class="no-content">video preview</h3>
+                </section>
+                <section class="timeline">
+                    <h3 class="no-content">timeline</h3>
+                    <div class="left-section">
+
+                    </div>
+
+                    <div class="right-section">
+
+                    </div>
+
+                </section>
+            </article>
+        </main>
+        <aside class="preloader">
+            <img class="logo-animated outer-logo" src="media/img/preloader/outer.png" alt="VideoChop Preloader" />
+            <div class="inner-logo">
+                <div class="inner-logo-wrapper">
+                    <div id="percentage" class="inner-logo-content">
+                        <span id="percentage-text" class="percentage">0</span>
+                    </div>
+                </div>
+            </div>
+            <p id="currently-loading" class="currently-loading"></p>
+        </aside>
+
+        <script data-main="js/app" src="js/lib/require.js"></script>
 
     </body>
 </html>

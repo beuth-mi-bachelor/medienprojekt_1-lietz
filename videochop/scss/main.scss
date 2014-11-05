@@ -8,13 +8,37 @@ html,
 body {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
 }
 * {
     box-sizing: border-box;
 }
 .video-chop-application {
     font-family: $base-font;
-
+    .no-content {
+        @extend %nocontent;
+    }
+    @import "_preloader";
+    .application-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity .3s ease;
+        &.loading-complete {
+            opacity: 1;
+        }
+    }
 }
+
+@include keyframes(spin) {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+};
