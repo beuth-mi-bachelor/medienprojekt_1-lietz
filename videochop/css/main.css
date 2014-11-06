@@ -50,14 +50,13 @@ body {
 }
 /* line 6, ../scss/_preloader.scss */
 .video-chop-application .preloader {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: -webkit-linear-gradient(top, #ebebeb 0%, #888 100%);
-  background: linear-gradient(to bottom, #ebebeb 0%, #888 100%);
+  background: -webkit-linear-gradient(top, #fff 0%, #888 100%);
+  background: linear-gradient(to bottom, #fff 0%, #888 100%);
 }
 /* line 14, ../scss/_preloader.scss */
 .video-chop-application .preloader .logo-animated, .video-chop-application .preloader .inner-logo {
@@ -89,49 +88,51 @@ body {
   width: 100%;
   height: 0%;
   overflow: hidden;
-  background: #000;
+  background: #1d1d1b url(../media/img/preloader/inner.png) center center no-repeat;
+  background-attachment: fixed;
+  background-size: 15vh 15vh;
 }
-/* line 43, ../scss/_preloader.scss */
+/* line 45, ../scss/_preloader.scss */
 .video-chop-application .preloader .outer-logo {
   -webkit-animation: spin 3s ease 0s infinite;
           animation: spin 3s ease 0s infinite;
   -webkit-animation-fill-mode: forward;
           animation-fill-mode: forward;
 }
-/* line 47, ../scss/_preloader.scss */
+/* line 49, ../scss/_preloader.scss */
 .video-chop-application .preloader .percentage {
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
+  top: 30vh;
   bottom: 0;
   width: auto;
-  height: 5vh;
-  line-height: 5vh;
-  font-size: 2.5vh;
+  height: 3vh;
+  line-height: 3vh;
+  font-size: 1.5vh;
   text-align: center;
   display: block;
   margin: auto;
-  color: #888;
+  color: #1d1d1b;
 }
-/* line 61, ../scss/_preloader.scss */
+/* line 63, ../scss/_preloader.scss */
 .video-chop-application .preloader .percentage:after {
-  content: " %";
+  content: "%";
 }
-/* line 65, ../scss/_preloader.scss */
+/* line 67, ../scss/_preloader.scss */
 .video-chop-application .preloader .currently-loading {
   position: absolute;
-  top: 30vh;
+  top: 35vh;
   left: 0;
   right: 0;
   bottom: 0;
   width: auto;
-  height: 5vh;
+  height: 3vh;
   margin: auto;
   text-align: center;
   display: block;
-  font-size: 2.5vh;
-  color: #353535;
+  font-size: 1.5vh;
+  color: #1d1d1b;
 }
 /* line 25, ../scss/main.scss */
 .video-chop-application .application-wrapper {
@@ -141,7 +142,6 @@ body {
   width: 100%;
   height: 100%;
   opacity: 0;
-  opacity: 1;
   -webkit-transition: opacity .3s ease;
           transition: opacity .3s ease;
 }
