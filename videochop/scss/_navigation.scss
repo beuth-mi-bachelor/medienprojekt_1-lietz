@@ -53,7 +53,6 @@
             &:first-child {
                 display: none;
             }
-
         }
         &:hover {
             color: $color-lightest;
@@ -71,6 +70,22 @@
         float: left;
         img {
             height: 100%;
+            margin: 0 auto;
+            display: block;
+            &.logo-small {
+                display: block;
+            }
+            &.logo-full {
+                display: none;
+            }
+            @include breakpoint($breakpoint-smallest) {
+                &.logo-small {
+                    display: none;
+                }
+                &.logo-full {
+                    display: block;
+                }
+            }
         }
     }
     .social {

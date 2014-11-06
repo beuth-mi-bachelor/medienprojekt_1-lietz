@@ -222,16 +222,16 @@ body {
     display: none;
   }
 }
-/* line 58, ../scss/_navigation.scss */
+/* line 57, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-item:hover {
   color: #fff;
 }
-/* line 62, ../scss/_navigation.scss */
+/* line 61, ../scss/_navigation.scss */
 .video-chop-application .nav .icons {
   margin-right: 2px;
   text-align: right;
 }
-/* line 66, ../scss/_navigation.scss */
+/* line 65, ../scss/_navigation.scss */
 .video-chop-application .nav .logo {
   height: 50px;
   background: #fff;
@@ -239,11 +239,31 @@ body {
   padding: 5px;
   float: left;
 }
-/* line 72, ../scss/_navigation.scss */
+/* line 71, ../scss/_navigation.scss */
 .video-chop-application .nav .logo img {
   height: 100%;
+  margin: 0 auto;
+  display: block;
 }
-/* line 76, ../scss/_navigation.scss */
+/* line 75, ../scss/_navigation.scss */
+.video-chop-application .nav .logo img.logo-small {
+  display: block;
+}
+/* line 78, ../scss/_navigation.scss */
+.video-chop-application .nav .logo img.logo-full {
+  display: none;
+}
+@media (min-width: 420px) {
+  /* line 82, ../scss/_navigation.scss */
+  .video-chop-application .nav .logo img.logo-small {
+    display: none;
+  }
+  /* line 85, ../scss/_navigation.scss */
+  .video-chop-application .nav .logo img.logo-full {
+    display: block;
+  }
+}
+/* line 91, ../scss/_navigation.scss */
 .video-chop-application .nav .social {
   float: right;
   margin: 0 10px 0 0;
