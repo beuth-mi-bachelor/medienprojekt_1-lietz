@@ -8,6 +8,7 @@
     width: 100%;
     height: $container-nav-height;
     background: $color-medium;
+    z-index: $z-index-high;
     .nav-list {
         margin: 0;
         padding: 0;

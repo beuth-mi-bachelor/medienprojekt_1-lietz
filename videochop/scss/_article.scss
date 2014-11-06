@@ -1,0 +1,14 @@
+@import "settings";
+
+@import "partials/_functions.scss";
+@import "partials/_placeholder";
+
+.application {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 40px;
+    background: $color-dark;
+}
