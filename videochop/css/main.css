@@ -1,5 +1,6 @@
 /* color definitions */
 /* container definitions */
+/* breakpoint definitions */
 /* line 11, ../scss/partials/_placeholder.scss */
 .video-chop-application .no-content {
   border: 0;
@@ -12,7 +13,7 @@
   width: 1px;
 }
 
-/* line 7, ../scss/main.scss */
+/* line 9, ../scss/main.scss */
 html,
 body {
   margin: 0;
@@ -21,18 +22,20 @@ body {
   height: 100vh;
 }
 
-/* line 14, ../scss/main.scss */
+/* line 16, ../scss/main.scss */
 * {
   box-sizing: border-box;
 }
 
-/* line 17, ../scss/main.scss */
+/* line 19, ../scss/main.scss */
 .video-chop-application {
   font-family: "Roboto", sans-serif;
   /* color definitions */
   /* container definitions */
+  /* breakpoint definitions */
   /* color definitions */
   /* container definitions */
+  /* breakpoint definitions */
 }
 /* line 11, ../scss/partials/_placeholder.scss */
 .video-chop-application .no-content {
@@ -47,6 +50,7 @@ body {
 }
 /* line 6, ../scss/_preloader.scss */
 .video-chop-application .preloader {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -129,7 +133,7 @@ body {
   font-size: 2.5vh;
   color: #353535;
 }
-/* line 23, ../scss/main.scss */
+/* line 25, ../scss/main.scss */
 .video-chop-application .application-wrapper {
   position: absolute;
   top: 0;
@@ -137,10 +141,11 @@ body {
   width: 100%;
   height: 100%;
   opacity: 0;
+  opacity: 1;
   -webkit-transition: opacity .3s ease;
           transition: opacity .3s ease;
 }
-/* line 32, ../scss/main.scss */
+/* line 34, ../scss/main.scss */
 .video-chop-application .application-wrapper.loading-complete {
   opacity: 1;
 }
@@ -166,29 +171,67 @@ body {
 .video-chop-application .nav .nav-list {
   margin: 0;
   padding: 0;
-}
-/* line 15, ../scss/_navigation.scss */
-.video-chop-application .nav .nav-item {
   float: left;
+  background: #888;
+  height: 40px;
+  overflow: hidden;
+}
+/* line 18, ../scss/_navigation.scss */
+.video-chop-application .nav .nav-list:hover {
+  height: auto;
+}
+@media (min-width: 768px) {
+  /* line 11, ../scss/_navigation.scss */
+  .video-chop-application .nav .nav-list {
+    float: none;
+    background: transparent;
+    height: auto;
+    overflow: visible;
+  }
+}
+/* line 29, ../scss/_navigation.scss */
+.video-chop-application .nav .nav-item {
+  float: none;
   list-style: none;
   font-size: 1em;
   font-weight: 100;
   text-transform: uppercase;
   line-height: 40px;
-  margin-left: 10px;
+  margin: 0;
+  padding: 5px 10px;
   cursor: pointer;
   color: #ebebeb;
 }
-/* line 27, ../scss/_navigation.scss */
+/* line 42, ../scss/_navigation.scss */
+.video-chop-application .nav .nav-item.social, .video-chop-application .nav .nav-item:first-child {
+  padding: 0;
+}
+/* line 46, ../scss/_navigation.scss */
+.video-chop-application .nav .nav-item:first-child {
+  margin-left: 10px;
+}
+@media (min-width: 768px) {
+  /* line 29, ../scss/_navigation.scss */
+  .video-chop-application .nav .nav-item {
+    float: left;
+    margin-left: 10px;
+    padding: 0;
+  }
+  /* line 53, ../scss/_navigation.scss */
+  .video-chop-application .nav .nav-item:first-child {
+    display: none;
+  }
+}
+/* line 58, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-item:hover {
   color: #fff;
 }
-/* line 31, ../scss/_navigation.scss */
+/* line 62, ../scss/_navigation.scss */
 .video-chop-application .nav .icons {
   margin-right: 2px;
   text-align: right;
 }
-/* line 35, ../scss/_navigation.scss */
+/* line 66, ../scss/_navigation.scss */
 .video-chop-application .nav .logo {
   height: 50px;
   background: #fff;
@@ -196,11 +239,11 @@ body {
   padding: 5px;
   float: left;
 }
-/* line 41, ../scss/_navigation.scss */
+/* line 72, ../scss/_navigation.scss */
 .video-chop-application .nav .logo img {
   height: 100%;
 }
-/* line 45, ../scss/_navigation.scss */
+/* line 76, ../scss/_navigation.scss */
 .video-chop-application .nav .social {
   float: right;
   margin: 0 10px 0 0;

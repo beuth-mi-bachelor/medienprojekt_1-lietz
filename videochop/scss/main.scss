@@ -1,6 +1,8 @@
 @charset "UTF-8";
 
 @import "settings";
+@import "breakpoint";
+
 @import "partials/_functions.scss";
 @import "partials/_placeholder";
 
@@ -27,7 +29,7 @@ body {
         width: 100%;
         height: 100%;
         opacity: 0;
-//        opacity: 1; //TODO: delete after markup complete
+        opacity: 1; //TODO: delete after markup complete
         transition: opacity .3s ease;
         &.loading-complete {
             opacity: 1;

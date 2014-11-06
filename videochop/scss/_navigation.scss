@@ -11,9 +11,23 @@
     .nav-list {
         margin: 0;
         padding: 0;
+        float: left;
+        background: $color-medium;
+        height: $container-nav-height;
+        overflow: hidden;
+        &:hover {
+            height: auto;
+        }
+        @include breakpoint($breakpoint-small) {
+            float: none;
+            background: transparent;
+            height: auto;
+            overflow: visible;
+        }
+
     }
     .nav-item {
-        float: left;
+        float: none;
         list-style: none;
         font: {
             size: 1em;
@@ -21,9 +35,26 @@
         }
         text-transform: uppercase;
         line-height: $container-nav-height;
-        margin-left: $spacer;
+        margin: 0;
+        padding: ($spacer/2) $spacer;
         cursor: pointer;
         color: $color-light;
+        &.social,
+        &:first-child {
+            padding: 0;
+        }
+        &:first-child {
+            margin-left: $spacer;
+        }
+        @include breakpoint($breakpoint-small) {
+            float: left;
+            margin-left: $spacer;
+            padding: 0;
+            &:first-child {
+                display: none;
+            }
+
+        }
         &:hover {
             color: $color-lightest;
         }
