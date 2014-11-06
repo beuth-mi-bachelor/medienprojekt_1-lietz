@@ -127,6 +127,7 @@ body {
   text-align: center;
   display: block;
   font-size: 2.5vh;
+  color: #353535;
 }
 /* line 23, ../scss/main.scss */
 .video-chop-application .application-wrapper {
@@ -202,7 +203,7 @@ body {
 /* line 45, ../scss/_navigation.scss */
 .video-chop-application .nav .social {
   float: right;
-  margin: 0;
+  margin: 0 10px 0 0;
 }
 
 @-webkit-keyframes spin {

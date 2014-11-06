@@ -1,39 +1,62 @@
+/**
+ * global require config
+ */
 requirejs.config({
     paths: {
         "jquery": "lib/jquery-2.1.1.min",
         "modernizr": "lib/modernizr",
-        "ffmpeg": "lib/ffmpeg"
+        "ffmpeg": "lib/ffmpeg",
+        "useragent": "lib/ua-parser.min"
     },
     waitSeconds: 0
 });
 
-var modulesToLoadInDefine = ["jquery", "modernizr"];
-var modulesToLoadAfterDefine = ["ffmpeg"];
+/**
+ * what is to load
+ * @type {string[]}
+ */
+var modulesToLoadInDefine = ["jquery", "modernizr", "useragent"],
+    modulesToLoadAfterDefine = ["ffmpeg"];
 
-var modulesLoaded = 0;
-var modulesToLoad = modulesToLoadInDefine.length + modulesToLoadAfterDefine.length + 1;
+/**
+ * counter for loading modules
+ * @type {number}
+ */
+var modulesLoaded = 0,
+    modulesToLoad = modulesToLoadInDefine.length + modulesToLoadAfterDefine.length + 1;
 
+/**
+ * percentage calculations
+ * @type {number}
+ */
 var percentage = 0;
 var percentageForEachModule = 100 / modulesToLoad;
 
+/**
+ * element bindings for displaying preloading
+ */
 var percentageContainer = document.getElementById("percentage");
 var percentageText = document.getElementById("percentage-text");
 var currentModuleText = document.getElementById("currently-loading");
 
+/**
+ * when resource is loaded via require count moduls and display progress
+ */
 require.onResourceLoad = function(context, map) {
     "use strict";
-
     modulesLoaded += 1;
-
     percentage = parseInt(modulesLoaded / modulesToLoad * 100, 10);
-
-    percentageText.innerText = percentage;
-    percentageContainer.style.height = percentage + "%";
-
-    currentModuleText.innerText = map.name;
+    displayLoadProgress(percentage);
+    currentModuleText.textContent = map.name;
 };
 
-define(modulesToLoadInDefine, function ($) {
+var displayLoadProgress = function(p) {
+    "use strict";
+    percentageText.textContent = p;
+    percentageContainer.style.height = p + "%";
+};
+
+define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
     "use strict";
 
     $(document).ready(function() {
@@ -41,34 +64,80 @@ define(modulesToLoadInDefine, function ($) {
         var $preloader,
             $appWrapper;
 
+        // User-Agent helper to identify user
+        var ua = new UserAgent();
+
         initializeVariables();
         getCustomScripts();
 
+        /**
+         * Content is loaded - preloader is hidden
+         */
+
+        // do something
 
 
 
 
+        /**
+         *
+         * Functions
+         *
+         */
 
+        /**
+         * appends a script to a head
+         * @param url {String} full url to js file
+         */
+        function appendScript(url) {
+            var head = document.getElementsByTagName("head")[0];
+            var js = document.createElement("script");
+            js.type = "text/javascript";
+            js.src = url;
+            head.appendChild(js);
+            modulesLoaded += 1;
+            checkIfAllScriptsAreLoaded();
+        }
 
-
-
-
-
-
+        /**
+         * initialize all variables used
+         */
         function initializeVariables() {
             $preloader = $(".preloader");
             $appWrapper = $(".application-wrapper");
         }
 
+        /**
+         * Iterate over all modules which should be loaded after define structure
+         */
         function getCustomScripts() {
             var requireJsConfig = requirejs.s.contexts._.config;
             for (var i = 0; i < modulesToLoadAfterDefine.length; i++) {
                 var url = requireJsConfig.baseUrl + requireJsConfig.paths[modulesToLoadAfterDefine[i]] + ".js";
-                currentModuleText.innerText = modulesToLoadAfterDefine[i];
-                requestScript(url);
+                currentModuleText.textContent = modulesToLoadAfterDefine[i];
+                // FF has a bug in loading large scripts with ajax
+                if (ua.getBrowser().name !== "Firefox") {
+                    requestScript(url);
+                } else {
+                    appendScript(url);
+                }
             }
         }
 
+        /**
+         * checks that loading ends and displays content and hides loader
+         */
+        function checkIfAllScriptsAreLoaded() {
+            if (modulesLoaded === modulesToLoad) {
+                $preloader.fadeOut(500);
+                $appWrapper.addClass("loading-complete");
+            }
+        }
+
+        /**
+         * request a script via Ajax and show percentage of download-progress
+         * @param url {String} full URL to a script
+         */
         function requestScript(url) {
             $.ajax({
                 url: url,
@@ -78,15 +147,15 @@ define(modulesToLoadInDefine, function ($) {
                     modulesLoaded += 1;
 
                     percentage = parseInt(modulesLoaded / modulesToLoad * 100, 10);
-                    percentageText.innerText = percentage;
-                    percentageContainer.style.height = percentage + "%";
+                    displayLoadProgress(percentage);
 
-                    if (modulesLoaded === modulesToLoad) {
-                        $preloader.fadeOut(500);
-                        $appWrapper.addClass("loading-complete");
-                    }
-                }, xhr: function () {
-                    var xhr = new window.XMLHttpRequest();
+                    checkIfAllScriptsAreLoaded();
+                },
+                error: function(e) {
+                    console.error("Error", e);
+                },
+                xhr: function () {
+                    var xhr = new XMLHttpRequest();
 
                     xhr.addEventListener("progress", function (evt) {
                         if (evt.lengthComputable) {
@@ -94,8 +163,7 @@ define(modulesToLoadInDefine, function ($) {
                             var percentageDependend = percentageForEachModule * percentComplete;
                             var tempPercentage = parseInt(percentage + percentageDependend, 10);
 
-                            percentageText.innerText = tempPercentage;
-                            percentageContainer.style.height = tempPercentage + "%";
+                            displayLoadProgress(tempPercentage);
                         }
                     }, false);
 
