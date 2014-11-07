@@ -112,6 +112,35 @@
                     </section>
                     <section class="preview">
                         <h3 class="no-content">video preview</h3>
+                        <div class="video-wrapper">
+                            <video class="preview-video">
+                                <source src="../testcases/format-test/videos/big_buck_bunny.mp4" type="video/mp4">
+                                <source src="../testcases/format-test/videos/big_buck_bunny.webm" type="video/webm">
+                                <source src="../testcases/format-test/videos/big_buck_bunny.ogv" type="video/ogg">
+                            </video>
+                        </div>
+                        <div class="controls-wrapper">
+                            <div class="controls-left">
+                                <div class="time-slider">
+                                    <span class="indicator video-current">00:00</span>
+                                    <input class="control time" type="range" min="0" value="0" step="1" max="100" />
+                                    <span class="indicator video-length">13:53</span>
+                                </div>
+                                <div class="controls">
+                                    <div class="control play"></div>
+                                    <div class="control pause"></div>
+                                    <div class="control stop"></div>
+                                    <div class="control speed-up"></div>
+                                    <div class="control speed-down"></div>
+                                    <div class="control fullscreen"></div>
+                                    <div class="control loop"></div>
+                                </div>
+                            </div>
+                            <div class="controls-right">
+                                <input class="control loudness" orient="vertical" type="range" min="0" value="0" step="1" max="100" />
+                                <div class="control mute icon_vol-mute_alt"></div>
+                            </div>
+                        </div>
                     </section>
                 </div>
                 <section class="timeline">

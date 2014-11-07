@@ -4,7 +4,9 @@ $container-height: 100%;
 $base-font-size: 21px;
 $base-line-width: 1em;
 $base-font-color: #000;
+
 $base-font: 'Roboto', sans-serif;
+$icon-font: 'ElegantIcons';
 
 /* color definitions */
 $color-lightest: #fff;
@@ -22,6 +24,10 @@ $spacer: 10px;
 $container-nav-height: 40px;
 $timeline-height: 300px;
 $file-list-width: 300px;
+$controls-height: 100px;
+$audio-slider-height: $controls-height - ($spacer*4);
+$mute-button: ($controls-height - $audio-slider-height) / 2;
+$control-icon-size: 40px;
 
 /* breakpoint definitions */
 $breakpoint-smallest: 420px;
