@@ -9,6 +9,42 @@
     left: 0;
     width: 100%;
     height: 100%;
-    padding-top: 40px;
-    background: $color-dark;
+    padding-top: $container-nav-height;
+    .app-mid {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        left: 0;
+        top: $container-nav-height;
+        bottom: $timeline-height;
+        .file-list {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: $file-list-width;
+            height: 100%;
+            background: $color-dark;
+        }
+        .preview {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin-left: $file-list-width;
+            top: 0;
+            width: auto;
+            height: 100%;
+            background: $color-light;
+        }
+    }
+    .timeline {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: $timeline-height;
+        background: $color-darkest;
+    }
+
+    @import "_filelist";
+
 }

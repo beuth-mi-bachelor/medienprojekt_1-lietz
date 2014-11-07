@@ -1,0 +1,52 @@
+@import "settings";
+
+@import "partials/_functions.scss";
+@import "partials/_placeholder";
+
+.file-list {
+    overflow-x: hidden;
+    overflow-y: auto;
+    .files {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        display: block;
+    }
+    .file {
+        list-style-type: none;
+        background: $color-dark;
+        color: $color-medium;
+        padding: 5px 0;
+        cursor: move;
+        &:nth-child(even) {
+            background: $color-medium;
+            color: $color-dark;
+        }
+        &:first-child {
+            margin-top: 10px;
+        }
+        .file-delete {
+            display: inline-block;
+            width: 16px;
+            vertical-align: middle;
+            cursor: pointer;
+            &:hover {
+                color: $color-lightest;
+            }
+        }
+    }
+    .file-info {
+        width: 150px;
+        margin-left: 3px;
+        display: inline-block;
+        vertical-align: middle;
+        p {
+            margin: 0;
+            padding: 0;
+        }
+    }
+    .file-thumb {
+        width: 120px;
+        vertical-align: middle;
+    }
+}

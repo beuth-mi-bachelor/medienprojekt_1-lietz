@@ -295,7 +295,116 @@ body {
   width: 100%;
   height: 100%;
   padding-top: 40px;
+  /* color definitions */
+  /* container definitions */
+  /* breakpoint definitions */
+  /* z-indices definitions */
+}
+/* line 13, ../scss/_article.scss */
+.video-chop-application .application .app-mid {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  left: 0;
+  top: 40px;
+  bottom: 300px;
+}
+/* line 20, ../scss/_article.scss */
+.video-chop-application .application .app-mid .file-list {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 300px;
+  height: 100%;
   background: #353535;
+}
+/* line 28, ../scss/_article.scss */
+.video-chop-application .application .app-mid .preview {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: 300px;
+  top: 0;
+  width: auto;
+  height: 100%;
+  background: #ebebeb;
+}
+/* line 39, ../scss/_article.scss */
+.video-chop-application .application .timeline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background: #000;
+}
+/* line 11, ../scss/partials/_placeholder.scss */
+.video-chop-application .application .no-content {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+/* line 6, ../scss/_filelist.scss */
+.video-chop-application .application .file-list {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+/* line 9, ../scss/_filelist.scss */
+.video-chop-application .application .file-list .files {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: block;
+}
+/* line 15, ../scss/_filelist.scss */
+.video-chop-application .application .file-list .file {
+  list-style-type: none;
+  background: #353535;
+  color: #888;
+  padding: 5px 0;
+  cursor: move;
+}
+/* line 21, ../scss/_filelist.scss */
+.video-chop-application .application .file-list .file:nth-child(even) {
+  background: #888;
+  color: #353535;
+}
+/* line 25, ../scss/_filelist.scss */
+.video-chop-application .application .file-list .file:first-child {
+  margin-top: 10px;
+}
+/* line 28, ../scss/_filelist.scss */
+.video-chop-application .application .file-list .file .file-delete {
+  display: inline-block;
+  width: 16px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+/* line 33, ../scss/_filelist.scss */
+.video-chop-application .application .file-list .file .file-delete:hover {
+  color: #fff;
+}
+/* line 38, ../scss/_filelist.scss */
+.video-chop-application .application .file-list .file-info {
+  width: 150px;
+  margin-left: 3px;
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 43, ../scss/_filelist.scss */
+.video-chop-application .application .file-list .file-info p {
+  margin: 0;
+  padding: 0;
+}
+/* line 48, ../scss/_filelist.scss */
+.video-chop-application .application .file-list .file-thumb {
+  width: 120px;
+  vertical-align: middle;
 }
 
 @-webkit-keyframes spin {
