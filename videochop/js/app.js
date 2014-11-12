@@ -62,7 +62,9 @@ define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
     $(document).ready(function() {
 
         var $preloader,
-            $appWrapper;
+            $appWrapper,
+            $impress,
+            $navItems;
 
         // User-Agent helper to identify user
         var ua = new UserAgent();
@@ -74,7 +76,7 @@ define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
          * Content is loaded - preloader is hidden
          */
 
-        // do something
+        bindEvents();
 
 
 
@@ -105,6 +107,18 @@ define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
         function initializeVariables() {
             $preloader = $(".preloader");
             $appWrapper = $(".application-wrapper");
+            $impress = $(".impress-wrapper");
+            $navItems = $(".nav-item");
+        }
+
+        function bindEvents() {
+            $navItems.on("click", function() {
+                var $this = $(this);
+                $this.toggleClass("active");
+                if ($this.hasClass("impress")) {
+                    $impress.toggleClass("active");
+                }
+            });
         }
 
         /**

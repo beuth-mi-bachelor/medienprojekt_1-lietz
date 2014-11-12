@@ -55,7 +55,8 @@
                 display: none;
             }
         }
-        &:hover {
+        &:hover,
+        &.active {
             color: $color-lightest;
         }
     }

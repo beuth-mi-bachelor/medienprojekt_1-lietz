@@ -40,6 +40,36 @@ body {
 
     @import "_article";
 
+    .impress-wrapper {
+        position: fixed;
+        width: 75vw;
+        height: 75vh;
+        top: 100vh;
+        left: 12.5vw;
+        padding: $spacer * 3;
+        background: $color-lightest;
+        box-shadow: 0 0 ($spacer*2) $color-dark;
+        z-index: 1000000;
+        transition: top .3s ease-out;
+        &.active {
+            top: 12.5vh;
+            transition: top .3s ease-in;
+        }
+        table {
+            width: 80%;
+            text-align: center;
+            margin: 0 auto;
+            padding: $spacer*2 0;
+        }
+        h2,
+        h3,
+        h4 {
+            margin: 0;
+        }
+        thead {
+            margin-bottom: $spacer * 2;
+        }
+    }
 }
 
 @include keyframes(spin) {
