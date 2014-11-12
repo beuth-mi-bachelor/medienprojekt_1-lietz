@@ -5,7 +5,10 @@
  * @requires: jQuery
  * TODO: add more dependencies here
  *
- * TODO: add description here
+ * This module describes the properties of an video item.
+ * video: adress of the video file, name: name of the video, length: duration of the video,
+ * start: starttime of the video, end: endtime of the video,
+ * size: volume of the video, resolution: width and height pixel, thumbnail: picture from the video
  */
 
 define(["jquery"], (function ($) {
@@ -22,7 +25,9 @@ define(["jquery"], (function ($) {
             video: null,
             name: "TEST",
             length: 100,
-            size: 5000,
+            start: 0,
+            end: 100,
+            size: 5500,
             //format: ["mp4", "webM", "ogg"],
             //codec: "FFmpeg",
             resolution: {
@@ -55,7 +60,7 @@ define(["jquery"], (function ($) {
         },
 
         timeFormat: function () {
-            var sek = Math.abs(this.settings.length); //TODO
+            var sek = Math.abs(this.settings.length);
             return this.fuehrendeNull((sek/60/60)%24) + ":" +
                 this.fuehrendeNull((sek/60)%60) + ":" + this.fuehrendeNull(sek%60);
         },
@@ -70,7 +75,13 @@ define(["jquery"], (function ($) {
         },
 
         sizeFormat: function () {
-            return this.settings.size;
+            var kb = Math.abs(this.settings.size);
+            if (kb<1000) {
+                return "0" + "," + kb/100;
+            }
+            else {
+                return parseInt(kb/1000) + "," + parseInt(kb%1000/100);
+            }
         },
 
         deleteItem: function () {
