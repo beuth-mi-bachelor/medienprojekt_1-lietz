@@ -55,11 +55,22 @@ define(["jquery"], (function ($) {
         },
 
         timeFormat: function () {
-            return this.settings.length; //TODO
+            var sek = Math.abs(this.settings.length); //TODO
+            return this.fuehrendeNull((sek/60/60)%24) + ":" +
+                this.fuehrendeNull((sek/60)%60) + ":" + this.fuehrendeNull(sek%60);
+        },
+
+        fuehrendeNull: function(wert) {
+            if (wert<10) {
+                return "0" + parseInt(wert);
+            }
+            else {
+                return parseInt(wert);
+            }
         },
 
         sizeFormat: function () {
-            return this.settings.size; //TODO
+            return this.settings.size;
         },
 
         deleteItem: function () {
@@ -73,7 +84,7 @@ define(["jquery"], (function ($) {
          * @returns {String} representation of this Object
          */
         toString: function () {
-            return "VideoItem=[" + this.settings.name + "," + this.settings.length + ","+ this.settings.size"]";
+            return "VideoItem=[" + this.settings.name + "," + this.settings.length + ","+ this.settings.size + "]";
         }
     };
 
