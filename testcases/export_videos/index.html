@@ -36,7 +36,7 @@
     </video>
     <h2>Saving a video</h2>
     <form id="canvas-options">
-        <label>Filename: <input type="text" class="filename" id="canvas-filename" placeholder="doodle"/>.mp4</label>
+        <label>Filename: <input type="text" class="filename" id="filename" placeholder="doodle"/>.mp4</label>
         <input type="submit" value="Save"/>
     </form>
 </section>
@@ -55,27 +55,22 @@
 
         v.addEventListener('play', function () {
             draw(this, context, cw, ch);
+
         }, false);
 
-        canvas.toBlob(function(blob) {
-            saveAs(
-                    blob,
-                            ($("filename").value || $("filename").placeholder) + ".mp4"
-            );
-        });
+        var form = document.getElementById('canvas-options');
+
+        form.addEventListener('submit', function () {
+            var filename = document.getElementById("filename");
+            canvas.toBlob(function(blob) {
+                saveAs(
+                        blob,
+                                (filename.value || filename.placeholder) + ".mp4"
+                );
+            }, "video/mp4");
+        }, false);
+
     });
-
-    /*$("canvas-options").addEventListener('submit', function() {
-        var can = document.getElementById('c');
-        console.log(can);
-        can.toBlob(function(blob) {
-            saveAs(
-                    blob,
-                            ($("filename").value || $("filename").placeholder) + ".mp4"
-            );
-        }, "video/mp4");
-    }, false);*/
-
 
     function draw(v,c,w,h) {
         if(v.paused || v.ended) return false;
