@@ -56,7 +56,7 @@
             }
         }
         &:hover,
-        &.active {
+        .impress-open &.impress {
             color: $color-lightest;
         }
     }
@@ -90,8 +90,25 @@
             }
         }
     }
-    .social {
+    .nav-social {
         float: right;
-        margin: 0 10px 0 0;
+        margin: 0;
+        padding: 0 $spacer 0 0;
+        text-align: right;
+        background: $color-medium;
+        height: $container-nav-height;
+        overflow: hidden;
+        &:hover {
+            height: auto;
+        }
+        .nav-item {
+            float: none;
+            display: block;
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+        }
+
     }
 }

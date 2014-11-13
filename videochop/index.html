@@ -18,197 +18,215 @@
         <link href='fonts/elegant-icons/style.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300,100' rel='stylesheet' type='text/css'>
 
-        <!--<script src="js/lib/ffmpeg.js"></script>-->
-
     </head>
-    <body class="video-chop-application">
+    <body>
+        <div class="video-chop-application">
+            <h1 class="no-content">Video Chop</h1>
 
-        <h1 class="no-content">Video Chop</h1>
-
-        <main class="application-wrapper">
-            <nav class="nav">
-                <h2 class="no-content">Menü</h2>
-                <a class="logo" href="index.html" target="_self">
-                    <img class="logo-full" src="media/img/logo.png" alt="VideoChop Logo"/>
-                    <img class="logo-small" src="media/img/logo-small.png" alt="VideoChop Logo"/>
-                </a>
-                <ul class="nav-list">
-                    <li class="nav-item"><span class="icons icon_menu"></span>Menu</li>
-                    <li class="nav-item"><span class="icons icon_document_alt"></span>New Project</li>
-                    <li class="nav-item"><span class="icons icon_plus"></span>Add Video</li>
-                    <li class="nav-item"><span class="icons icon_cloud-upload_alt"></span>Export</li>
-                    <li class="nav-item"><span class="icons icon_question"></span>Help</li>
-                    <li class="nav-item impress"><span class="icons icon_quotations"></span>Impress</li>
-                </ul>
-                <p class="nav-item social"><span class="icons social_share"></span>Share</p>
-            </nav>
-            <article class="application">
-                <h2 class="no-content">Video Chop Application</h2>
-                <div class="app-mid">
-                    <section class="file-list">
-                        <h3 class="no-content">file list</h3>
-                        <ul class="files">
-                            <li class="file">
-                                <div class="file-delete icon_close"></div>
-                                <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
-                                <div class="file-info">
-                                    <p>Name: <span class="file-name">Beispielname sehr lang und voll</span></p>
-                                    <p>Type: <span class="file-type">MP4</span></p>
-                                    <p>Duration: <span class="file-duration">03:21</span></p>
-                                    <p>Size: <span class="file-size">50.04MB</span></p>
+            <main class="application-wrapper">
+                <nav class="nav">
+                    <h2 class="no-content">Menü</h2>
+                    <a class="logo" href="index.html" target="_self">
+                        <img class="logo-full" src="media/img/logo.png" alt="VideoChop Logo"/>
+                        <img class="logo-small" src="media/img/logo-small.png" alt="VideoChop Logo"/>
+                    </a>
+                    <ul class="nav-list">
+                        <li class="nav-item"><span class="icons icon_menu"></span>Menu</li>
+                        <li class="nav-item"><span class="icons icon_document_alt"></span>New Project</li>
+                        <li class="nav-item"><span class="icons icon_plus"></span>Add Video</li>
+                        <li class="nav-item"><span class="icons icon_cloud-upload_alt"></span>Export</li>
+                        <li class="nav-item"><span class="icons icon_question"></span>Help</li>
+                        <li class="nav-item impress"><span class="icons icon_quotations"></span>Impress</li>
+                    </ul>
+                    <ul class="nav-social">
+                        <li class="nav-item social"><span class="icons social_share"></span>Share</li>
+                        <li class="nav-item social_fb">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=http://videochop.de" target="_blank">
+                            <span class="icons social_facebook"></span>
+                                Facebook
+                            </a>
+                        </li>
+                        <li class="nav-item social_gp">
+                            <a href="https://plus.google.com/share?url=http://videochop.de" target="_blank">
+                                <span class="icons social_googleplus"></span>
+                                Goole+
+                            </a>
+                        </li>
+                        <li class="nav-item social_t">
+                            <a href="https://twitter.com/home?status=Your%20first%20online%20video%20chop%20application%20http://videochop.de" target="_blank">
+                                <span class="icons social_twitter"></span>
+                                Twitter
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <article class="application">
+                    <h2 class="no-content">Video Chop Application</h2>
+                    <div class="app-mid">
+                        <section class="file-list">
+                            <h3 class="no-content">file list</h3>
+                            <ul class="files">
+                                <li class="file">
+                                    <div class="file-delete icon_close"></div>
+                                    <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
+                                    <div class="file-info">
+                                        <p>Name: <span class="file-name">Beispielname sehr lang und voll</span></p>
+                                        <p>Type: <span class="file-type">MP4</span></p>
+                                        <p>Duration: <span class="file-duration">03:21</span></p>
+                                        <p>Size: <span class="file-size">50.04MB</span></p>
+                                    </div>
+                                </li>
+                                <li class="file">
+                                    <div class="file-delete icon_close"></div>
+                                    <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
+                                    <div class="file-info">
+                                        <p>Name: <span class="file-name">Beispielname</span></p>
+                                        <p>Type: <span class="file-type">MP4</span></p>
+                                        <p>Duration: <span class="file-duration">03:21</span></p>
+                                        <p>Size: <span class="file-size">50.04MB</span></p>
+                                    </div>
+                                </li>
+                                <li class="file">
+                                    <div class="file-delete icon_close"></div>
+                                    <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
+                                    <div class="file-info">
+                                        <p>Name: <span class="file-name">Beispielname sehr lang und voll und sehr viellllll länger als der davor</span></p>
+                                        <p>Type: <span class="file-type">MP4</span></p>
+                                        <p>Duration: <span class="file-duration">03:21</span></p>
+                                        <p>Size: <span class="file-size">50.04MB</span></p>
+                                    </div>
+                                </li>
+                                <li class="file">
+                                    <div class="file-delete icon_close"></div>
+                                    <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
+                                    <div class="file-info">
+                                        <p>Name: <span class="file-name">Beispielname</span></p>
+                                        <p>Type: <span class="file-type">MP4</span></p>
+                                        <p>Duration: <span class="file-duration">03:21</span></p>
+                                        <p>Size: <span class="file-size">50.04MB</span></p>
+                                    </div>
+                                </li>
+                                <li class="file">
+                                    <div class="file-delete icon_close"></div>
+                                    <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
+                                    <div class="file-info">
+                                        <p>Name: <span class="file-name">Beispielname</span></p>
+                                        <p>Type: <span class="file-type">MP4</span></p>
+                                        <p>Duration: <span class="file-duration">03:21</span></p>
+                                        <p>Size: <span class="file-size">50.04MB</span></p>
+                                    </div>
+                                </li>
+                                <li class="file">
+                                    <div class="file-delete icon_close"></div>
+                                    <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
+                                    <div class="file-info">
+                                        <p>Name: <span class="file-name">Beispielname</span></p>
+                                        <p>Type: <span class="file-type">MP4</span></p>
+                                        <p>Duration: <span class="file-duration">03:21</span></p>
+                                        <p>Size: <span class="file-size">50.04MB</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </section>
+                        <section class="preview">
+                            <h3 class="no-content">video preview</h3>
+                            <div class="video-wrapper">
+                                <video class="preview-video">
+                                    <source src="../testcases/format-test/videos/big_buck_bunny.mp4" type="video/mp4">
+                                    <source src="../testcases/format-test/videos/big_buck_bunny.webm" type="video/webm">
+                                    <source src="../testcases/format-test/videos/big_buck_bunny.ogv" type="video/ogg">
+                                </video>
+                            </div>
+                            <div class="controls-wrapper">
+                                <div class="controls-left">
+                                    <div class="time-slider">
+                                        <span class="indicator video-current">00:00</span>
+                                        <input class="control time" type="range" min="0" value="0" step="1" max="100" />
+                                        <span class="indicator video-length">13:53</span>
+                                    </div>
+                                    <div class="controls">
+                                        <div class="control play"></div>
+                                        <div class="control pause"></div>
+                                        <div class="control stop"></div>
+                                        <div class="control speed-up"></div>
+                                        <div class="control speed-down"></div>
+                                        <div class="control fullscreen"></div>
+                                        <div class="control loop"></div>
+                                    </div>
                                 </div>
-                            </li>
-                            <li class="file">
-                                <div class="file-delete icon_close"></div>
-                                <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
-                                <div class="file-info">
-                                    <p>Name: <span class="file-name">Beispielname</span></p>
-                                    <p>Type: <span class="file-type">MP4</span></p>
-                                    <p>Duration: <span class="file-duration">03:21</span></p>
-                                    <p>Size: <span class="file-size">50.04MB</span></p>
-                                </div>
-                            </li>
-                            <li class="file">
-                                <div class="file-delete icon_close"></div>
-                                <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
-                                <div class="file-info">
-                                    <p>Name: <span class="file-name">Beispielname sehr lang und voll und sehr viellllll länger als der davor</span></p>
-                                    <p>Type: <span class="file-type">MP4</span></p>
-                                    <p>Duration: <span class="file-duration">03:21</span></p>
-                                    <p>Size: <span class="file-size">50.04MB</span></p>
-                                </div>
-                            </li>
-                            <li class="file">
-                                <div class="file-delete icon_close"></div>
-                                <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
-                                <div class="file-info">
-                                    <p>Name: <span class="file-name">Beispielname</span></p>
-                                    <p>Type: <span class="file-type">MP4</span></p>
-                                    <p>Duration: <span class="file-duration">03:21</span></p>
-                                    <p>Size: <span class="file-size">50.04MB</span></p>
-                                </div>
-                            </li>
-                            <li class="file">
-                                <div class="file-delete icon_close"></div>
-                                <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
-                                <div class="file-info">
-                                    <p>Name: <span class="file-name">Beispielname</span></p>
-                                    <p>Type: <span class="file-type">MP4</span></p>
-                                    <p>Duration: <span class="file-duration">03:21</span></p>
-                                    <p>Size: <span class="file-size">50.04MB</span></p>
-                                </div>
-                            </li>
-                            <li class="file">
-                                <div class="file-delete icon_close"></div>
-                                <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
-                                <div class="file-info">
-                                    <p>Name: <span class="file-name">Beispielname</span></p>
-                                    <p>Type: <span class="file-type">MP4</span></p>
-                                    <p>Duration: <span class="file-duration">03:21</span></p>
-                                    <p>Size: <span class="file-size">50.04MB</span></p>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
-                    <section class="preview">
-                        <h3 class="no-content">video preview</h3>
-                        <div class="video-wrapper">
-                            <video class="preview-video">
-                                <source src="../testcases/format-test/videos/big_buck_bunny.mp4" type="video/mp4">
-                                <source src="../testcases/format-test/videos/big_buck_bunny.webm" type="video/webm">
-                                <source src="../testcases/format-test/videos/big_buck_bunny.ogv" type="video/ogg">
-                            </video>
-                        </div>
-                        <div class="controls-wrapper">
-                            <div class="controls-left">
-                                <div class="time-slider">
-                                    <span class="indicator video-current">00:00</span>
-                                    <input class="control time" type="range" min="0" value="0" step="1" max="100" />
-                                    <span class="indicator video-length">13:53</span>
-                                </div>
-                                <div class="controls">
-                                    <div class="control play"></div>
-                                    <div class="control pause"></div>
-                                    <div class="control stop"></div>
-                                    <div class="control speed-up"></div>
-                                    <div class="control speed-down"></div>
-                                    <div class="control fullscreen"></div>
-                                    <div class="control loop"></div>
+                                <div class="controls-right">
+                                    <input class="control loudness" orient="vertical" type="range" min="0" value="0" step="1" max="100" />
+                                    <div class="control mute icon_vol-mute_alt"></div>
                                 </div>
                             </div>
-                            <div class="controls-right">
-                                <input class="control loudness" orient="vertical" type="range" min="0" value="0" step="1" max="100" />
-                                <div class="control mute icon_vol-mute_alt"></div>
-                            </div>
+                        </section>
+                    </div>
+                    <section class="timeline">
+                        <h3 class="no-content">timeline</h3>
+                        <div class="left-section">
+
                         </div>
+
+                        <div class="right-section">
+
+                        </div>
+
                     </section>
-                </div>
-                <section class="timeline">
-                    <h3 class="no-content">timeline</h3>
-                    <div class="left-section">
-
-                    </div>
-
-                    <div class="right-section">
-
-                    </div>
-
-                </section>
-                <section class="impress-wrapper">
-                    <h2 class="no-content">impress</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th colspan="3">
-                                    <h3>information in accordance with section 5 TMG</h3>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <h4>Michael Duve</h4>
-                                    <address>Grazer Damm 150<br>12157 Berlin</address>
-                                </td>
-                                <td>
-                                    <h4>Felix Maulwurf</h4>
-                                    <address>Halker Zeile 21<br>12305 Berlin</address>
-                                </td>
-                                <td>
-                                    <h4>Angelina Staeck</h4>
-                                    <address>Falkenberger Str. 180<br>13088 Berlin</address>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p>
-                    contact email: <a href="mailto:info@videochop.de">info@videochop.de</a>
-                    </p>
-                    <h3>terms & conditions</h3>
-                    <p>
-                        The Website may include links to other websites or material which is beyond our control. We are not responsible for such websites. We will not be liable, whether directly or indirectly, for the privacy practices or content of such websites nor for any damage, loss or offence caused by such websites.
-                    </p>
-                    <h3>copyright</h3>
-                    <p>
-                        Our contents are subject to German copyright law. Unless expressly permitted by law (§44a), every form of using, reproducing or copying our code and/or content requires the compliance of the copyright owners. Unauthorized utilization of our works will be pursued.
-                    </p>
-                </section>
-            </article>
-        </main>
-        <aside class="preloader">
-            <h3 class="no-content">Preloader</h3>
-            <img class="logo-animated outer-logo" src="media/img/preloader/outer.png" alt="VideoChop Preloader" />
-            <div class="inner-logo">
-                <div class="inner-logo-wrapper">
-                    <div id="percentage" class="inner-logo-content">
-                        <span id="percentage-text" class="percentage">0</span>
+                    <section class="impress-wrapper">
+                        <h2 class="no-content">impress</h2>
+                        <div class="close-impress icon_close_alt"></div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th colspan="3">
+                                        <h3>information in accordance with section 5 TMG</h3>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h4>Michael Duve</h4>
+                                        <address>Grazer Damm 150<br>12157 Berlin</address>
+                                    </td>
+                                    <td>
+                                        <h4>Felix Maulwurf</h4>
+                                        <address>Halker Zeile 21<br>12305 Berlin</address>
+                                    </td>
+                                    <td>
+                                        <h4>Angelina Staeck</h4>
+                                        <address>Falkenberger Str. 180<br>13088 Berlin</address>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>
+                        contact email: <a href="mailto:info@videochop.de">info@videochop.de</a>
+                        </p>
+                        <h3>terms & conditions</h3>
+                        <p>
+                            The Website may include links to other websites or material which is beyond our control. We are not responsible for such websites. We will not be liable, whether directly or indirectly, for the privacy practices or content of such websites nor for any damage, loss or offence caused by such websites.
+                        </p>
+                        <h3>copyright</h3>
+                        <p>
+                            Our contents are subject to German copyright law. Unless expressly permitted by law (§44a), every form of using, reproducing or copying our code and/or content requires the compliance of the copyright owners. Unauthorized utilization of our works will be pursued.
+                        </p>
+                    </section>
+                </article>
+            </main>
+            <aside class="preloader">
+                <h3 class="no-content">Preloader</h3>
+                <img class="logo-animated outer-logo" src="media/img/preloader/outer.png" alt="VideoChop Preloader" />
+                <div class="inner-logo">
+                    <div class="inner-logo-wrapper">
+                        <div id="percentage" class="inner-logo-content">
+                            <span id="percentage-text" class="percentage">0</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <p id="currently-loading" class="currently-loading"></p>
-        </aside>
-
+                <p id="currently-loading" class="currently-loading"></p>
+            </aside>
+        </div>
         <script data-main="js/app" src="js/lib/require.js"></script>
-
     </body>
 </html>

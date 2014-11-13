@@ -64,7 +64,9 @@ define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
         var $preloader,
             $appWrapper,
             $impress,
-            $navItems;
+            $navItems,
+            $closeImpress,
+            $body;
 
         // User-Agent helper to identify user
         var ua = new UserAgent();
@@ -109,15 +111,20 @@ define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
             $appWrapper = $(".application-wrapper");
             $impress = $(".impress-wrapper");
             $navItems = $(".nav-item");
+            $closeImpress = $(".close-impress");
+            $body = $("body");
         }
 
         function bindEvents() {
+
             $navItems.on("click", function() {
-                var $this = $(this);
-                $this.toggleClass("active");
-                if ($this.hasClass("impress")) {
-                    $impress.toggleClass("active");
+                if ($(this).hasClass("impress")) {
+                    $body.toggleClass("impress-open");
                 }
+            });
+
+            $closeImpress.on("click", function() {
+                $body.toggleClass("impress-open");
             });
         }
 
