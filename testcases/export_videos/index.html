@@ -6,6 +6,7 @@
     <script src="../../videochop/js/lib/jquery-2.1.1.min.js"></script>
     <script src="canvas-to-blob.min.js"></script>
     <script src="FileSaver.js"></script>
+    <script src="ConcatenateBlobs.js"></script>
 
     <style>
         body {
@@ -48,10 +49,13 @@
 </section>
 <script>
     var array = [];
+    var i = 0;
+    var canvas = document.getElementById('c');
+
 
     document.addEventListener('DOMContentLoaded', function () {
         var v = document.getElementById('v');
-        var canvas = document.getElementById('c');
+        //var canvas = document.getElementById('c');
         var context = canvas.getContext('2d');
 
         v.addEventListener('play', function () {
@@ -62,35 +66,33 @@
         var form = document.getElementById('save');
 
         form.addEventListener('click', function (e) {
-            var filename = document.getElementById("filename");
-
-            canvas.toBlob(function (blob) {
-                array.push(blob);
-                /*saveAs(
-                 blob,
-                 (filename.value || filename.placeholder) + ".mp4"
-                 );*/
-            }, "video/mp4");
-
             e.preventDefault();
-            return false;
+            ConcatenateBlobs(array, 'image/png', function (resultingBlob) {
+                var filename = document.getElementById("filename");
 
+                saveAs(resultingBlob, (filename.value || filename.placeholder) + ".mp4");
+                return false;
+            });
         }, false);
-
     });
 
     function draw(v, c, w, h) {
         if (v.paused || v.ended) return false;
         c.drawImage(v, 0, 0, w, h);
-        c.toBlob(function (blob) {
-            array.push(blob);
+        canvas.toBlob(function (blob) {
+            while (i<200)
+            {
+                array.push(blob);
+                i++;
+            }
             /*saveAs(
              blob,
              (filename.value || filename.placeholder) + ".mp4"
              );*/
-        }, "image/png");
+        }, "video/mp4");
         setTimeout(draw, 20, v, c, w, h);
     }
+
 </script>
 </body>
 </html>
