@@ -65,9 +65,9 @@
             } else if ($this.hasClass("mute")) {
                 videoMute();
             } else if ($this.hasClass("fullscreen")) {
-
+                videoFullscreen();
             } else if ($this.hasClass("loop")) {
-
+                videoLoop();
             }
         });
 
@@ -228,6 +228,31 @@
             else {
                 testvideo.muted = true;
             }
+        }
+
+        /**
+         * FUCNTION for Fullscreen
+         */
+        function videoFullscreen() {
+            if (testvideo.requestFullScreen) {
+                testvideo.requestFullScreen();
+            } else if (testvideo.mozRequestFullScreen) {
+                testvideo.mozRequestFullScreen();
+            } else if (testvideo.webkitRequestFullScreen) {
+                testvideo.webkitRequestFullScreen();
+            }
+        }
+
+        /**
+         * FUNCTION for Loop
+         */
+        function videoLoop() {
+           if (testvideo.loop) {
+               testvideo.loop = false;
+           }
+           else {
+               testvideo.loop = true;
+           }
         }
 
     });
