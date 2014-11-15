@@ -64,17 +64,20 @@
     </style>
 </head>
 <body>
+<button class="add-row">Add Row</button>
+<button class="larger">larger grid</button>
+<button class="smaller">smaller grid</button>
 <div class="mainDiv">
-    <div id="sec1" class="sec">
+    <div id="sec0" class="sec">
         <div class="collision box" id="box1"></div>
     </div>
-    <div id="sec2" class="sec">
+    <div id="sec1" class="sec">
         <div class="collision box" id="box2"></div>
     </div>
-    <div id="sec3" class="sec">
+    <div id="sec2" class="sec">
         <div class="collision box" id="box3"></div>
     </div>
-    <div id="sec4" class="sec">
+    <div id="sec3" class="sec">
 
     </div>
 </div>
@@ -101,7 +104,7 @@
         start: function( event, ui ) {
             $(this).removeClass("collision");
         },
-        end: function( event, ui ) {
+        stop: function( event, ui ) {
             $(this).addClass("collision");
         }
     });
@@ -122,6 +125,40 @@
                 left: left
             });
         }
+    });
+
+    $(".add-row").on("click", function() {
+        var number = $(".sec").length;
+        var newRow = $('<div id="sec'+number+'" class="sec"></div>');
+        $(".mainDiv").append(newRow);
+    });
+
+    $(".larger").on("click", function() {
+        var sizes = $(".box").draggable("option", "grid");
+        var xSize = sizes[0];
+        var ySize = sizes[1];
+
+        var newXSize = xSize + 1;
+
+        $(".box").draggable(
+            "option", "grid", [ newXSize, ySize ]
+        );
+    });
+
+    $(".smaller").on("click", function() {
+        var sizes = $(".box").draggable("option", "grid");
+        var xSize = sizes[0];
+        var ySize = sizes[1];
+
+        var newXSize = xSize - 1;
+
+        if (newXSize < 1) {
+            newXSize = 1;
+        }
+
+        $(".box").draggable(
+                "option", "grid", [ newXSize, ySize ]
+        );
     });
 
 </script>
