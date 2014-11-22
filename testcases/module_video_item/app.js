@@ -8,7 +8,6 @@ define(["jquery", "../../videochop/js/modules/videoItem", "../../videochop/js/mo
 
         $(document).ready(function() {
 
-            console.log($(".btn"));
             var testItem = new VideoItem({});
             var testList = new VideoList([testItem, testItem]);
             console.log(testItem);
