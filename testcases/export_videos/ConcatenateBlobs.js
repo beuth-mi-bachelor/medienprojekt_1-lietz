@@ -14,6 +14,9 @@
 // This javascript library will concatenate all blobs in single "Blob" object.
 
 (function() {
+    "use strict";
+
+
     window.ConcatenateBlobs = function(blobs, type, callback) {
         var buffers = [];
 
@@ -44,7 +47,7 @@
             var lastOffset = 0;
             buffers.forEach(function(buffer) {
                 // BYTES_PER_ELEMENT == 2 for Uint16Array
-                if (buffer.byteLength % 2 != 0) {
+                if (buffer.byteLength % 2 !== 0) {
                     delete buffer[byteLength - 1];
                 }
                 tmp.set(new Uint16Array(buffer), lastOffset);
@@ -54,6 +57,7 @@
             var blob = new Blob([tmp.buffer], {
                 type: type
             });
+
 
             callback(blob);
         }

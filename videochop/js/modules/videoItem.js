@@ -3,7 +3,6 @@
  *
  * @module: VideoItem
  * @requires: jQuery
- * TODO: add more dependencies here
  *
  * This module describes the properties of an video item.
  * video: adress of the video file, name: name of the video, length: duration of the video,
