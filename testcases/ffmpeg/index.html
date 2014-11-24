@@ -4,7 +4,6 @@
     <title>VideoChop: FFMPEG</title>
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="../../videochop/js/lib/ffmpeg.js"></script>
     <style>
         body {
             margin: 0;
@@ -15,11 +14,32 @@
 </head>
 <body>
 
-
+<p id="output"></p>
 
 <script>
 
-    
+    window.onload = function() {
+
+        var output = document.getElementById("output");
+        if (window.Worker) {
+
+            // load web worker
+            var thread = new Worker("webworker.js");
+
+            // message received from web worker
+            thread.onmessage = function(e) {
+                console.log(e.data);
+            };
+
+            // start web worker
+            thread.postMessage("start");
+
+        }
+        else {
+            output.textContent = "Web Workers are not supported in your browser";
+        }
+
+    };
 
 </script>
 </body>
