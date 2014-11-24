@@ -3,27 +3,30 @@
 <head>
     <title>VideoChop: Test-Case Canvas</title>
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-    <script src="http://eruciform.com/static/jquidragcollide/jquery-collision.js"></script>
-    <script src="http://eruciform.com/static/jquidragcollide/jquery-ui-draggable-collision.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+    <script src="jquery-collision.js"></script>
+    <script src="jquery-ui-draggable-collision.js"></script>
     <style>
         body {
             margin: 0;
             width: 100%;
             height: 100%;
         }
-        .mainDiv {
+        .timeline-container {
             position: relative;
             top: 20px;
-            left: 20px;
-            padding: 20px;
-            margin: 20px;
-            background: #8c8c8c url(images/grid.jpg);
+            left: 0;
+            margin: 0 auto;
             border: 1px solid #000;
-            width: 1000px;
+            width: 80%;
             height: 300px;
+            background: #8c8c8c url(images/grid.jpg);
             overflow: auto;
+        }
+        .mainDiv {
+            position: relative;
+            width: 1000px;
         }
         .sec {
             position: relative;
@@ -31,32 +34,23 @@
             height: 100px;
             outline: 1px solid #000;
         }
-        #box1 {
+        .box {
             position: absolute;
-            background-color: #ff1c2b;
             height: 100%;
-            width: 20%;
-            top: 0;
-            left: 20%;
             z-index: 10;
+
+        }
+        #box1 {
+            background-color: #ff1c2b;
+            width: 212px;
         }
         #box2 {
-            position: absolute;
             background-color: #4f55ff;
-            height: 100%;
-            width: 20%;
-            top: 0;
-            left: 50%;
-            z-index: 10;
+            width: 20px;
         }
         #box3 {
-            position: absolute;
             background-color: #64ff7d;
-            height: 100%;
-            width: 20%;
-            top: 0;
-            left: 80%;
-            z-index: 10;
+            width: 115px;
         }
         .drop-hover {
             background: rgba(0, 150, 0, .5);
@@ -67,27 +61,27 @@
 <button class="add-row">Add Row</button>
 <button class="larger">larger grid</button>
 <button class="smaller">smaller grid</button>
-<div class="mainDiv">
-    <div id="sec0" class="sec">
-        <div class="collision box" id="box1"></div>
-    </div>
-    <div id="sec1" class="sec">
-        <div class="collision box" id="box2"></div>
-    </div>
-    <div id="sec2" class="sec">
-        <div class="collision box" id="box3"></div>
-    </div>
-    <div id="sec3" class="sec">
+<div class="timeline-container">
+    <div class="mainDiv">
+        <div id="sec0" class="sec">
+            <div class="collision box" id="box1"></div>
+        </div>
+        <div id="sec1" class="sec">
+            <div class="collision box" id="box2"></div>
+        </div>
+        <div id="sec2" class="sec">
+            <div class="collision box" id="box3"></div>
+        </div>
+        <div id="sec3" class="sec">
 
+        </div>
     </div>
 </div>
-
 
 <script>
 
     var $sec = $(".sec");
 
-    console.log($sec.innerHeight());
     $(".box").draggable({
         snap: ".sec",
         obstacle: ".collision",
@@ -101,15 +95,23 @@
         opacity: 0.5,
         // SNAP to a 10 x 100 grid
         grid: [ 10, $sec.innerHeight() ],
-        start: function( event, ui ) {
+        start: function() {
             $(this).removeClass("collision");
         },
-        stop: function( event, ui ) {
+        drag: function(e,u) {
+            console.log($(".mainDiv").innerWidth(), u.helper.position(), u.helper.width());
+            if ($(".mainDiv").innerWidth() < (u.helper.position().left + u.helper.width() + 100)) {
+                $(".mainDiv").width(($(".mainDiv").width()+200));
+            }
+
+          console.log(u.helper.position(), u.helper.width());
+        },
+        stop: function() {
             $(this).addClass("collision");
         }
     });
 
-    $sec.droppable({
+    var dropOptions = {
         hoverClass: "drop-hover",
         accept: ".box",
         greedy: true,
@@ -125,12 +127,14 @@
                 left: left
             });
         }
-    });
+    };
+
+    $(".mainDiv").children().droppable(dropOptions);
 
     $(".add-row").on("click", function() {
         var number = $(".sec").length;
-        var newRow = $('<div id="sec'+number+'" class="sec"></div>');
-        $(".mainDiv").append(newRow);
+        var newRow = $('<div id="sec'+number+'" class="sec ui-droppable"></div>');
+        newRow.droppable(dropOptions).appendTo($(".mainDiv"));
     });
 
     $(".larger").on("click", function() {
