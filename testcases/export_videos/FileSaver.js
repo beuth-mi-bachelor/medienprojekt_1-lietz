@@ -95,7 +95,7 @@ var saveAs = saveAs
 				, fs_error = function() {
 					// don't create more object URLs than needed
 					if (blob_changed || !object_url) {
-						object_url = get_URL().createObjectURL(blob);
+						object_url = (window.webkitURL ? webkitURL : URL).createObjectURL(blob);
 					}
 					if (target_view) {
 						target_view.location.href = object_url;
@@ -117,7 +117,7 @@ var saveAs = saveAs
 						}
 					};
 				}
-				, create_if_not_found = {create: true, exclusive: false}
+				, createIfNotFound = {create: true, exclusive: false}
 				, slice
 			;
 			filesaver.readyState = filesaver.INIT;
@@ -159,9 +159,9 @@ var saveAs = saveAs
 			}
 			fs_min_size += blob.size;
 			req_fs(view.TEMPORARY, fs_min_size, abortable(function(fs) {
-				fs.root.getDirectory("saved", create_if_not_found, abortable(function(dir) {
+				fs.root.getDirectory("saved", createIfNotFound, abortable(function(dir) {
 					var save = function() {
-						dir.getFile(name, create_if_not_found, abortable(function(file) {
+						dir.getFile(name, createIfNotFound, abortable(function(file) {
 							file.createWriter(abortable(function(writer) {
 								writer.onwriteend = function(event) {
 									target_view.location.href = file.toURL();
