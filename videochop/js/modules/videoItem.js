@@ -44,11 +44,12 @@ define(["jquery"], (function ($) {
 
     VideoItem.prototype = {
         initialize: function () {
-
+            VideoItem.indices = (VideoItem.indices || 0) + 1;
+            this.id = VideoItem.indices;
         },
 
         getMarkUp: function () {
-            return '<li class="file">' +
+            return '<li class="file" id="video-item-' + this.id + '">' +
                 '<div class="file-delete icon_close"></div>' +
                 '<img class="file-thumb" src="'+this.settings.thumbnail+'" alt="'+this.settings.name+'" />' +
                 '<div class="file-info">' +
@@ -84,6 +85,7 @@ define(["jquery"], (function ($) {
         },
 
         deleteItem: function () {
+            $("#video-item-" + this.id).remove();
              this.settings = null;
              delete this.settings; //TODO
         },
