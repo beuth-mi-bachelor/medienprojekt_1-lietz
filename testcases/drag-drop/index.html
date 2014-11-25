@@ -7,104 +7,83 @@
     <script src="jquery-ui.min.js"></script>
     <script src="jquery-collision.js"></script>
     <script src="jquery-ui-draggable-collision.js"></script>
-    <style>
-        body {
-            margin: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .timeline-container {
-            position: relative;
-            top: 20px;
-            left: 0;
-            margin: 0 auto;
-            border: 1px solid #000;
-            width: 80%;
-            height: 300px;
-            background: #8c8c8c url(images/grid.jpg);
-            overflow: auto;
-        }
-        .mainDiv {
-            position: relative;
-            width: 1000px;
-        }
-        .sec {
-            position: relative;
-            width: 100%;
-            height: 100px;
-            outline: 1px solid #000;
-        }
-        .box {
-            position: absolute;
-            height: 100%;
-            z-index: 10;
-
-        }
-        #box1 {
-            background-color: #ff1c2b;
-            width: 212px;
-        }
-        #box2 {
-            background-color: #4f55ff;
-            width: 20px;
-        }
-        #box3 {
-            background-color: #64ff7d;
-            width: 115px;
-        }
-        .drop-hover {
-            background: rgba(0, 150, 0, .5);
-        }
-    </style>
+    <link href='main.css' rel='stylesheet' type='text/css'>
+    <link href='../../videochop/fonts/elegant-icons/style.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <button class="add-row">Add Row</button>
 <button class="larger">larger grid</button>
 <button class="smaller">smaller grid</button>
 <div class="timeline-container">
-    <div class="mainDiv">
-        <div id="sec0" class="sec">
-            <div class="collision box" id="box1"></div>
-        </div>
-        <div id="sec1" class="sec">
-            <div class="collision box" id="box2"></div>
-        </div>
-        <div id="sec2" class="sec">
-            <div class="collision box" id="box3"></div>
-        </div>
-        <div id="sec3" class="sec">
+    <div class="left-timeline">
+        <label id="sec-name-0" class="sec sec-label">
+            <span class="sec-delete icon_close"></span>
+            <input type="text" name="sec-name-0" placeholder="add a title">
+        </label>
+        <label id="sec-name-1" class="sec sec-label">
+            <span class="sec-delete icon_close"></span>
+            <input type="text" name="sec-name-1" placeholder="add a title">
+        </label>
+        <label id="sec-name-2" class="sec sec-label">
+            <span class="sec-delete icon_close"></span>
+            <input type="text" name="sec-name-2" placeholder="add a title">
+        </label>
+        <label id="sec-name-3" class="sec sec-label">
+            <span class="sec-delete icon_close"></span>
+            <input type="text" name="sec-name-3" placeholder="add a title">
+        </label>
+    </div>
+    <div class="right-timeline-wrapper">
+        <div class="right-timeline">
+            <div id="sec-item-0" class="sec sec-item">
+                <div class="collision box" id="box1"></div>
+            </div>
+            <div id="sec-item-1" class="sec sec-item">
+                <div class="collision box" id="box2"></div>
+            </div>
+            <div id="sec-item-2" class="sec sec-item">
+                <div class="collision box" id="box3"></div>
+            </div>
+            <div id="sec-item-3" class="sec sec-item">
 
+            </div>
         </div>
     </div>
 </div>
 
 <script>
 
-    var $sec = $(".sec");
+    var sec = ".sec-item";
+    var $sec = $(sec);
+    var rightTimeline = ".right-timeline";
+    var $rightTimeline = $(rightTimeline);
+    var leftTimeline = ".left-timeline";
+    var $leftTimeline = $(leftTimeline);
 
     $(".box").draggable({
-        snap: ".sec",
+        snap: sec,
         obstacle: ".collision",
         preventCollision: true,
-        //snapMode: "inner",
-        containment: ".mainDiv",
+        containment: [
+            $rightTimeline.offset().left,
+            $rightTimeline.offset().top,
+            ($rightTimeline.offset().left + $rightTimeline.width()),
+            ($rightTimeline.height())
+        ],
         snapTolerance: 0,
         revert: "invalid",
         cursor: "move",
         scroll: true,
         opacity: 0.5,
         // SNAP to a 10 x 100 grid
-        grid: [ 10, $sec.innerHeight() ],
+        grid: [ 10, $sec.height() ],
         start: function() {
             $(this).removeClass("collision");
         },
         drag: function(e,u) {
-            console.log($(".mainDiv").innerWidth(), u.helper.position(), u.helper.width());
-            if ($(".mainDiv").innerWidth() < (u.helper.position().left + u.helper.width() + 100)) {
-                $(".mainDiv").width(($(".mainDiv").width()+200));
+            if ($rightTimeline.innerWidth() < (u.helper.position().left + u.helper.width() + 100)) {
+                $rightTimeline.width(($(".right-timeline").width()+200));
             }
-
-          console.log(u.helper.position(), u.helper.width());
         },
         stop: function() {
             $(this).addClass("collision");
@@ -129,13 +108,24 @@
         }
     };
 
-    $(".mainDiv").children().droppable(dropOptions);
+    $rightTimeline.children().droppable(dropOptions);
 
     $(".add-row").on("click", function() {
-        var number = $(".sec").length;
-        var newRow = $('<div id="sec'+number+'" class="sec ui-droppable"></div>');
-        newRow.droppable(dropOptions).appendTo($(".mainDiv"));
+        var number = $(".sec-item").length;
+        var newRow = $('<div id="sec-item-'+number+'" class="sec sec-item" />');
+        newRow.droppable(dropOptions).appendTo($rightTimeline);
+        var newRowLabel = $('<label id="sec-name-'+number+'" class="sec sec-label"><span class="sec-delete icon_close"></span><input type="text" name="sec-name-'+number+'" placeholder="add a title"></label>');
+        $leftTimeline.append(newRowLabel);
+        resizeContainment($rightTimeline);
     });
+
+    $leftTimeline.on("click", ".sec-delete", function() {
+        var $this = $(this);
+        var $parent = $this.parent();
+        var indexOfElem = $parent.parent().children().index($parent[0]);
+        $rightTimeline.children().eq(indexOfElem).remove();
+        $leftTimeline.children().eq(indexOfElem).remove();
+        });
 
     $(".larger").on("click", function() {
         var sizes = $(".box").draggable("option", "grid");
@@ -161,9 +151,20 @@
         }
 
         $(".box").draggable(
-                "option", "grid", [ newXSize, ySize ]
+            "option", "grid", [ newXSize, ySize ]
         );
     });
+
+    function resizeContainment($element) {
+        var newContainment = [
+            $element.offset().left,
+            $element.offset().top,
+            ($element.offset().left + $element.width()),
+            ($element.height() + $element.offset().top)
+        ];
+
+        $(".box").draggable("option", "containment", newContainment);
+    }
 
 </script>
 </body>
