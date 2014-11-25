@@ -3,41 +3,148 @@
 <head>
     <title>VideoChop: FFMPEG</title>
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="../../videochop/js/lib/jquery-2.1.1.min.js"></script>
+    <script src="filereader.js"></script>
+
     <style>
         body {
             margin: 0;
             width: 100%;
             height: 100%;
         }
+        p {
+            white-space: pre-wrap;
+        }
+        span {
+            width: 100px;
+            height: 100px;
+            background: red;
+            display: block;
+            white-space: normal;
+        }
     </style>
 </head>
 <body>
 
+<pre>
+    <span id="dropzone"> Drop a Video here and hit convert</span>
+    <button id="convert">Convert</button>
+    <button id="showhelp">Show Help</button>
+</pre>
+<video id="video-player" controls>
+    <source src="../format-test/videos/big_buck_bunny.mp4" type="video/mp4"/>
+    <source src="../format-test/videos/big_buck_bunny.webm" type="video/webM"/>
+    <source src="../format-test/videos/big_buck_bunny.ogv" type="video/ogg"/>
+</video>
+<div id="video">
+</div>
 <p id="output"></p>
+
 
 <script>
 
     window.onload = function() {
 
-        var output = document.getElementById("output");
-        if (window.Worker) {
+        var outputElement = document.getElementById("output");
+        var convertFile = document.getElementById("convert");
 
-            // load web worker
-            var thread = new Worker("webworker.js");
+        var showHelp = document.getElementById("showhelp");
+        var $videoBsp = $("#video");
 
-            // message received from web worker
-            thread.onmessage = function(e) {
-                console.log(e.data);
-            };
 
-            // start web worker
-            thread.postMessage("start");
+        var exampleVideos = [];
 
+        FileReaderJS.setupDrop(document.getElementById('dropzone'), {
+            readAsDefault: 'ArrayBuffer',
+            on:{
+                loadstart: function(e, file) {
+                    console.log("Loading:", file);
+                },
+                loadend: function(e, file) {
+                    exampleVideos.push([new Uint8Array(e.target.result), file.name]);
+                }
+            }
+        });
+
+        var worker = new Worker("webworker.js");
+
+        worker.onmessage = function (event) {
+            var message = event.data;
+            if (message.type == "ready") {
+                outputElement.textContent = "Loaded";
+            } else if (message.type == "stdout") {
+                outputElement.textContent += message.data + "\n";
+            } else if (message.type == "start") {
+                outputElement.textContent = "Worker has received command\n";
+            }
+        };
+
+        function parseArguments(text) {
+            text = text.replace(/\s+/g, ' ');
+            var args = [];
+            // Allow double quotes to not split args.
+            text.split('"').forEach(function(t, i) {
+                t = t.trim();
+                if ((i % 2) === 1) {
+                    args.push(t);
+                } else {
+                    args = args.concat(t.split(" "));
+                }
+            });
+            return args;
         }
-        else {
-            output.textContent = "Web Workers are not supported in your browser";
-        }
+
+
+
+
+        convertFile.addEventListener("click", function(){
+
+            // convert file to mp4
+            //var args = parseArguments('-i '+exampleVideos[0][1]+' -vf showinfo -strict -2 output.mp4');
+
+            //'-i '+ exampleVideos[0][1]+' -i '+ exampleVideos[1][1]+' -filter_complex "[0:0] [0:1] [1:0] [1:1] concat=n=2:v=1:a=1 [v] [a]" -map "[v]" -map "[a]" <encoding options> output.mkv'
+
+
+            var args = parseArguments("-i "+ exampleVideos[0][1]+" -i "+ exampleVideos[1][1]+" -filter_complex '[0:v] [0:a:0] [1:v] [1:a:0] concat=n=2:v=1:a=1 [v] [a]' -map '[v]' -map '[a]' output.mp4");
+            console.log(args);
+
+            worker.postMessage({
+                type: 'command',
+                arguments: [
+                    "-i",
+                    exampleVideos[0][1],
+                    "-i",
+                    exampleVideos[1][1],
+                    "-filter_complex",
+                    "[0:v]", "[0:a:0]" ,"[1:v]", "[1:a:0]", "concat=n=2:v=1:a=1", "[v]", "[a]",
+                    "-map",
+                    "'[v]'",
+                    "-map" ,
+                    "'[a]'",
+                    "output.mp4"
+                ],
+                files: [{
+                        data: exampleVideos[0][0],
+                        name: exampleVideos[0][1]
+                    },
+                    {
+                        data: exampleVideos[1][0],
+                        name: exampleVideos[1][1]
+                    }
+                ],
+                TOTAL_MEMORY: "ALLOW_MEMORY_GROWTH"
+            });
+
+        }, false);
+
+        showHelp.addEventListener("click", function(){
+
+            worker.postMessage({
+                type: 'command',
+                arguments: ['-h']
+            });
+
+        }, false);
 
     };
 
