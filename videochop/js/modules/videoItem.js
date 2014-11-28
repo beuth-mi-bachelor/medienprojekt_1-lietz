@@ -20,15 +20,12 @@ define(["jquery"], (function ($) {
      */
     function VideoItem(settings) {
         this.settings = {
-            //src: "../module_video_item/img/big_buck_bunny",
             video: null,
             name: "TEST",
             length: 100,
             start: 0,
             end: 100,
             size: 5500,
-            //format: ["mp4", "webM", "ogg"],
-            //codec: "FFmpeg",
             resolution: {
                 width: 3840,
                 height: 2160
