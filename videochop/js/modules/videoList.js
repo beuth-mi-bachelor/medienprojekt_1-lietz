@@ -5,7 +5,7 @@
  * @requires: jQuery
  * TODO: add more dependencies here
  *
- * TODO: add description here
+ * VideoList can save VideoItems in it. It provides the possibility to delete videos out of the list.
  */
 
 define(["jquery", "modules/videoItem"], (function ($, VideoItem) {
