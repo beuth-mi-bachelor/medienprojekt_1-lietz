@@ -35,6 +35,7 @@ define(["jquery", "modules/videoItem"], (function ($, VideoItem) {
             this.$container.append("<ul class='" + this.settings.listname + "'/>");
             this.$list = $("." + this.settings.listname);
             this.addItem(this.settings.items);
+            this.bindEvents();
         },
 
         addItem: function(listOfItems) {
@@ -46,6 +47,7 @@ define(["jquery", "modules/videoItem"], (function ($, VideoItem) {
                 if(videoItem instanceof VideoItem){
                     self.$list.append(videoItem.getMarkUp());
                     self.videolist[videoItem.id] = videoItem;
+                    console.log(videoItem.id);
                 }
             });
         },
@@ -53,6 +55,18 @@ define(["jquery", "modules/videoItem"], (function ($, VideoItem) {
         deleteItem: function(itemToBeRemoved) {
             this.videolist[itemToBeRemoved].deleteItem();
             delete this.videolist[itemToBeRemoved];
+        },
+
+        bindEvents: function(){
+            var self = this;
+            $("." + self.settings.listname).on("click", ".file-delete", function () {
+                var $this = $(this).parent();
+                var id = $this.attr("id");
+                var splittedarray = id.split("-");
+                id = splittedarray[splittedarray.length-1];
+                id = parseInt(id,10);
+                self.deleteItem(id);
+            });
         },
         /**
          * describes this Object to the user

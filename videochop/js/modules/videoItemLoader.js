@@ -81,26 +81,33 @@ define(["jquery", "modules/videoItem", "popcorn", "popcorn.capture"], (function 
             $(".vid").append(video);
             var $pop = Popcorn("#tempVideo");
             console.log($pop);
+
             var poster = $pop.currentTime( 10 ).capture();
             this.video.thumbnail = poster.video.poster;
             this.video.duration = $pop.media.duration;
-            console.log($pop.media);
+            console.log($pop.media.duration);
             this.video.width = $pop.media.clientWidth;
             this.video.height = $pop.media.clientHeight;
-            return new VideoItem({
-                video: this.video.data,
-                name: this.video.name,
-                length: this.video.duration,
+            var item = new VideoItem({
+                video: self.video.data,
+                name: self.video.name,
+                length: 0,
                 start: 0,
-                end: this.video.duration,
-                size: this.video.size,
+                end: 0,
+                size: self.video.size,
                 resolution: {
-                    width: this.video.width,
-                    height: this.video.height
+                    width: self.video.width,
+                    height: self.video.height
                 },
-                thumbnail: this.video.thumbnail});
+                thumbnail: self.video.thumbnail});
+           video.addEventListener('loadedmetadata', function() {
+                item.settings.length = this.duration;
+                item.settings.end = this.duration;
 
+               console.log(item);
+            });
 
+           return item;
         },
 
         /**
