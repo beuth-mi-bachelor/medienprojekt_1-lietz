@@ -71,13 +71,26 @@
         worker.onmessage = function (event) {
             var message = event.data;
             if (message.type == "ready") {
-                outputElement.textContent = "Loaded";
+                outputElement.textContent += "Loaded";
             } else if (message.type == "stdout") {
+                console.log(message);
                 outputElement.textContent += message.data + "\n";
             } else if (message.type == "start") {
-                outputElement.textContent = "Worker has received command\n";
+                outputElement.textContent += "Worker has received command\n";
+            } else if (message.type == "done") {
+                outputElement.textContent += "Done\n";
+                console.log(message);
+                createURL(message.data[0]);
             }
         };
+
+        function createURL(item) {
+            var fileArray = new Uint8Array(item.data);
+            var blob = new Blob([fileArray], {type: "video/mpg"});
+            var url = window.URL.createObjectURL(blob);
+            var link = $("<a href='"+url+"'>Download "+item.name+"</a>");
+            $("body").append(link);
+        }
 
         function parseArguments(text) {
             text = text.replace(/\s+/g, ' ');
@@ -99,37 +112,53 @@
 
         convertFile.addEventListener("click", function(){
 
-            // convert file to mp4
-            //var args = parseArguments('-i '+exampleVideos[0][1]+' -vf showinfo -strict -2 output.mp4');
+            /*EXPORT AUDIO ONLY*/
+            /*
+                arguments: [
+                    "-i",
+                    exampleVideos[0][1],
+                    "-ab",
+                    "128k",
+                    "-vn",
+                    "audio.ogg"
+                ],
+            */
+            /*EXPORT VIDEO ONLY*/
+            /*
+             arguments: [
+             "-i",
+             exampleVideos[0][1],
+             "-vcodec",
+             "copy",
+             "-an",
+             "test.mp4"
+             ],
+             */
 
-            //'-i '+ exampleVideos[0][1]+' -i '+ exampleVideos[1][1]+' -filter_complex "[0:0] [0:1] [1:0] [1:1] concat=n=2:v=1:a=1 [v] [a]" -map "[v]" -map "[a]" <encoding options> output.mkv'
+            /*EXPORT VIDEO TO IMAGES*/
+            /*
+             "-i",
+             exampleVideos[0][1],
+             "-r",
+             "25",
+             "output_%04d.png"
+            */
 
-
-            var args = parseArguments("-i "+ exampleVideos[0][1]+" -i "+ exampleVideos[1][1]+" -filter_complex '[0:v] [0:a:0] [1:v] [1:a:0] concat=n=2:v=1:a=1 [v] [a]' -map '[v]' -map '[a]' output.mp4");
-            console.log(args);
+            /*correct timestap */
+            /*
+            * ffmpeg -i film_t.mpeg -sameq langfilm.mpeg
+             * */
 
             worker.postMessage({
                 type: 'command',
                 arguments: [
                     "-i",
                     exampleVideos[0][1],
-                    "-i",
-                    exampleVideos[1][1],
-                    "-filter_complex",
-                    "[0:v]", "[0:a:0]" ,"[1:v]", "[1:a:0]", "concat=n=2:v=1:a=1", "[v]", "[a]",
-                    "-map",
-                    "'[v]'",
-                    "-map" ,
-                    "'[a]'",
-                    "output.mp4"
+                    "output.mpg"
                 ],
                 files: [{
                         data: exampleVideos[0][0],
                         name: exampleVideos[0][1]
-                    },
-                    {
-                        data: exampleVideos[1][0],
-                        name: exampleVideos[1][1]
                     }
                 ],
                 TOTAL_MEMORY: "ALLOW_MEMORY_GROWTH"
