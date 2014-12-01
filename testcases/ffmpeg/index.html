@@ -16,12 +16,42 @@
             white-space: pre-wrap;
         }
         span {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             background: red;
             display: block;
             white-space: normal;
         }
+        pre {
+            width: 100%;
+            background: #ccc;
+            border: 2px dashed #808080;
+        }
+        #array-content:before {
+            content: "VideoExample Content:";
+            font-weight: bold;
+            font-size: 1.2em;
+            display: block;
+        }
+        #array-content {
+            background: black;
+            color: #fff;
+            width: 100%;
+            padding: 10px;
+            margin: 0;
+        }
+        #output:before {
+            font-weight: bold;
+            font-size: 1.2em;
+            content: "Worker Debugging:";
+            display: block;
+        }
+        #output {
+            background: #ebebeb;
+            border: 3px dotted #ccc;
+            width: 100%;
+        }
+
     </style>
 </head>
 <body>
@@ -31,13 +61,9 @@
     <button id="convert">Convert</button>
     <button id="showhelp">Show Help</button>
 </pre>
-<video id="video-player" controls>
-    <source src="../format-test/videos/big_buck_bunny.mp4" type="video/mp4"/>
-    <source src="../format-test/videos/big_buck_bunny.webm" type="video/webM"/>
-    <source src="../format-test/videos/big_buck_bunny.ogv" type="video/ogg"/>
-</video>
-<div id="video">
-</div>
+<p id="array-content">
+
+</p>
 <p id="output"></p>
 
 
@@ -46,6 +72,7 @@
     window.onload = function() {
 
         var outputElement = document.getElementById("output");
+        var arrayContent = document.getElementById("array-content");
         var convertFile = document.getElementById("convert");
 
         var showHelp = document.getElementById("showhelp");
@@ -59,9 +86,17 @@
             on:{
                 loadstart: function(e, file) {
                     console.log("Loading:", file);
+                    outputElement.textContent += "file dropped is loading...\n";
                 },
                 loadend: function(e, file) {
                     exampleVideos.push([new Uint8Array(e.target.result), file.name]);
+                    outputElement.textContent += file.name + " was loaded...\n";
+                    console.log("exampleVideos Content: ", exampleVideos);
+                    var names = []
+                    for (var i = 0; i < exampleVideos.length; i++) {
+                        names.push(exampleVideos[i][1]);
+                    }
+                    arrayContent.textContent = (JSON.stringify(names, null, 4));
                 }
             }
         });
@@ -71,7 +106,7 @@
         worker.onmessage = function (event) {
             var message = event.data;
             if (message.type == "ready") {
-                outputElement.textContent += "Loaded";
+                outputElement.textContent += "Loaded\n";
             } else if (message.type == "stdout") {
                 console.log(message);
                 outputElement.textContent += message.data + "\n";
@@ -92,62 +127,7 @@
             $("body").append(link);
         }
 
-        function parseArguments(text) {
-            text = text.replace(/\s+/g, ' ');
-            var args = [];
-            // Allow double quotes to not split args.
-            text.split('"').forEach(function(t, i) {
-                t = t.trim();
-                if ((i % 2) === 1) {
-                    args.push(t);
-                } else {
-                    args = args.concat(t.split(" "));
-                }
-            });
-            return args;
-        }
-
-
-
-
         convertFile.addEventListener("click", function(){
-
-            /*EXPORT AUDIO ONLY*/
-            /*
-                arguments: [
-                    "-i",
-                    exampleVideos[0][1],
-                    "-ab",
-                    "128k",
-                    "-vn",
-                    "audio.ogg"
-                ],
-            */
-            /*EXPORT VIDEO ONLY*/
-            /*
-             arguments: [
-             "-i",
-             exampleVideos[0][1],
-             "-vcodec",
-             "copy",
-             "-an",
-             "test.mp4"
-             ],
-             */
-
-            /*EXPORT VIDEO TO IMAGES*/
-            /*
-             "-i",
-             exampleVideos[0][1],
-             "-r",
-             "25",
-             "output_%04d.png"
-            */
-
-            /*correct timestap */
-            /*
-            * ffmpeg -i film_t.mpeg -sameq langfilm.mpeg
-             * */
 
             worker.postMessage({
                 type: 'command',
