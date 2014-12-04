@@ -37,4 +37,3 @@
 \contentsline {subsection}{\numberline {7.7}UserAgent Parser}{17}{subsection.7.7}
 \contentsline {subsection}{\numberline {7.8}FileSaver}{17}{subsection.7.8}
 \contentsline {subsection}{\numberline {7.9}jQuery, Modernizr \& Require}{18}{subsection.7.9}
-\contentsline {section}{\numberline {8}Quellen}{19}{section.8}
