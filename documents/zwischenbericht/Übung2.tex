@@ -112,7 +112,8 @@ Zudem kann man die hier farbigen Objekte, die spätere Videos darstellen sollen,
 Die Videos können in neue Zeilen gezogen werden, allerdings ist es nicht möglich, dass sich Videos überschneiden. 
 \subsection{Video Export}
 \textbf{testcases - export\_videos - index.html} \\
-Dieser Test befasst sich mit der Möglichkeit Videos aus dem Browser zu exportieren.
+Dieser Test befasst sich mit der Möglichkeit Videos aus dem Browser zu exportieren. Wir haben versucht mit der Funktion toBlob() das aktuelle Bild, welches auf das Canvas gezeichnet wird, ein blob mit den Informationen in ein Array zu speichern. Dies hat funktioniert und wir konnten auch anschließend eine MP4-Datei exportieren. Jedoch konnte es nicht als Video abgespielt werden, da die gespeicherten Informationen nicht MP4-konform waren. Der filesaver hat demnach nicht zum gewünschten Ergebnis geführt in diesem Fall. Es konnte lediglich mit der Funktion toDataURL() das aktuelle Bild auf dem Canvas als URL gespeichert und angezeigt werden. \\
+Durch das erfolgreiche Testen des Aneinanderfügens von zwei Videos und das zur Verfügung stellen als URL, benötigen wir das Canvas wahrscheinlich nicht mehr.
 \subsection{Format Test}
 \textbf{testcases - format-test - index.html} \\
 Wir haben nur versucht ein Video per Drag \& Drop im Browser fallen zu lassen und es dann als HTML5-Video anzeigen zu lassen. Der Test war erfolgreich. WebM, MP4 und OGG können auf der Fläche platziert werden. Der Browser lädt das Video in den Cache und kann mittels createObjectUrl() das Video wieder in ein Source-Objekt verwandeln.
@@ -201,7 +202,7 @@ Das Video Timeline Modul stellt sämtliche Funktionen für die spätere Video Ti
 	
 	Coding Conventions & 30 Minuten \\ \hline
 	
-	Test-Case: Canvas & Zeitaufwand \\ \hline
+	Test-Case: Canvas & 2 Stunden \\ \hline
 	
 	Mockup & 7 Stunden \\ \hline
 	
@@ -211,7 +212,7 @@ Das Video Timeline Modul stellt sämtliche Funktionen für die spätere Video Ti
 	
 	Test-Case: Video Controls & 2 Stunden \\ \hline
 		
-	Wiki: Lizenz prüfen & Zeitaufwand \\ \hline
+	Wiki: Lizenz prüfen & 1 Stunde \\ \hline
 	
 	Logo & 2 Stunden \\ \hline
 	
@@ -229,21 +230,25 @@ Das Video Timeline Modul stellt sämtliche Funktionen für die spätere Video Ti
 	
 	Test-Case: Drag\&Drop Part III & 3 Stunden \\ \hline
 	
-	Module: VideoItem & Zeitaufwand \\ \hline
+	Module: VideoItem & 3 Stunden \\ \hline
 	
 	Module: VideoList & 4 Stunden \\ \hline
 			
-	Module: VideoItemLoader & Zeitaufwand \\ \hline
+	Module: VideoItemLoader & 3 Stunden \\ \hline
 		
 	Projektbeschreibung & 4 Stunden \\ \hline
 	
 	HTML-Gerüst: Timeline & 2 Stunden \\ \hline
 	
-	Test-Case: Video Part III & Zeitaufwand \\ \hline
+	Test-Case: Video Part III & offen \\ \hline
 	
-	Test-Case: Canvas Part II & Zeitaufwand \\ \hline
+	Test-Case: Canvas Part II & offen \\ \hline
 	
-	Module: Video Preview & Zeitaufwand \\ \hline
+	Module: Video Preview & offen \\ \hline
+	
+	Module: Video Controls & offen \\ \hline
+	
+	Module: Video Timeline & offen \\ \hline
 	
 	FFMPEG & 24 Stunden \\ \hline
  \end{tabular}
