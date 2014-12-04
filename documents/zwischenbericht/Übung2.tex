@@ -65,8 +65,24 @@ VideoChop ist eine Webanwendung basierend auf JavaScript, die dem Anwender  ein 
 Die Idee ist es, dass VideoChop dem Nutzer eine Plattform zur Verfügung stellt, die keinerlei Daten serverbasiert speichert. Das Projekt basiert auf JavaScript und nutzt somit die Rechenressourcen des Nutzers. Die Belastung für den Server sind damit minimal. VideoChop soll einfach, intuitiv und schnell sein. JavaScript ist sehr mächtig, allerdings sind zu Projektbeginn die Möglichkeiten und Umsetzbarkeiten noch nicht geklärt.
 \subsection{Zukunft}
 Zukünftig sollen weitere Funktionalitäten hinzukommen. 
+\begin{itemize}
+	\item Audiospuren manipulieren
+	\item Audio isolieren und neues Material auf Audio legen
+	\item Webcam Recorder zum erstellen eigener Videos
+	\item Export in verschiedene Formate
+	\end{itemize}
 \subsection{Probleme}
-Das Verbinden mehrerer Videos zu einem mit Hilfe von JavaScript ist sehr problematisch.
+\begin{itemize}
+	\item Das Verbinden mehrerer Videos zu einem mit Hilfe von JavaScript ist sehr problematisch.
+	\item FFMPEG ist kein Javascript, sondern lediglich umgeskriptet, sodass man nicht alle Befehle wie in der Konsole ausführen kann
+	\item Chrome liebt sein Aw... Snap! und das passiert sehr oft, wenn der Speicher voll wird
+	\end{itemize}
+\subsection{Was läuft gut?}
+Alles! Wir sind im Zeitplan. Haben Spaß am Projekt und immer wieder noch mehr Ideen für die Umsetzung. Langsam aber sicher geht es jetzt an das Module schreiben.
+\subsection{Was läuft nicht so gut?}
+Zusammensetzen. Meistens schaffen wir es nur alle 3 in Skype zusammen zu kommen. Das liegt aber an unseren Nebenjobs und der Zeitplanung.
+\subsection{Teamstruktur und Aufteilung?}
+Jeder macht alles. Jeder macht das, wozu er Lust hat. Michael teilt sein Wissen aus seinem Entwickler-Job.
 \newpage
 \section{Mockup}
 \textbf{mockup - mockup-vc-MD.pdf} \\
@@ -85,6 +101,7 @@ Allgemeiner Funtkionstest des Canvas Objekts.\\
 \includegraphics[height=176px, width=300px]{images/canvas1.png}\\
 \includegraphics[height=176px, width=300px]{images/canvas2.png}\\
 Abbilden eines Videos auf einem Canvas Objekt. 
+Wir wollten in diesem Test-Case versuchen ein Video auf einem Canvas abzuspielen. Wir hatten aber nicht im Blick, dass die Audiospur dann ja fehlt und das man jeden Frame des Videos nur als Bild aus dem Canvas speichern kann.
 \subsection{Drag-Drop}
 \textbf{testcases - drag-drop - index.html} \\
 Der Drag and Drop Testcase dient als Grundlage für die spätere Timeline.\\
@@ -95,9 +112,17 @@ Zudem kann man die hier farbigen Objekte, die spätere Videos darstellen sollen,
 Die Videos können in neue Zeilen gezogen werden, allerdings ist es nicht möglich, dass sich Videos überschneiden. 
 \subsection{Video Export}
 \textbf{testcases - export\_videos - index.html} \\
-Dieser Test befasst sich mit der Möglichkeit Videos aus dem Browser zu exportieren. 
+Dieser Test befasst sich mit der Möglichkeit Videos aus dem Browser zu exportieren.
 \subsection{Format Test}
 \textbf{testcases - format-test - index.html} \\
+Wir haben nur versucht ein Video per Drag \& Drop im Browser fallen zu lassen und es dann als HTML5-Video anzeigen zu lassen. Der Test war erfolgreich. WebM, MP4 und OGG können auf der Fläche platziert werden. Der Browser lädt das Video in den Cache und kann mittels createObjectUrl() das Video wieder in ein Source-Objekt verwandeln.
+\newpage
+\subsection{Video Concat}
+\textbf{testcases - concat-videos - index.html} \\
+Dieser Test sollte einzig dazu dienen zwei MPG-Videos mittels binärer Konkatenation zu einem Video zusammenzufügen. Der Test war erfolgreich. Das Projekt ist dadurch umsetzbar. Jetzt können wir 2 Videos aneinanderfügen. 
+\subsection{FFMPEG}
+\textbf{testcases - ffmpeg - index.html} \\
+Das liebe FFMPEG bereitete am meisten Probleme. Dadurch, dass es eine Konsolen-Applikation ist und nicht natives Javascript mussten wir erstmal den Umgang mit Webworkern lernen und verstehen, wie man die Parameter richtig übergibt. Wir können Audio und Video separat rausrendern, sowie ein Dateiformat in ein anderes verwandeln. Die unterstützte Codec-Liste ist: http://bgrins.github.io/videoconverter.js/demo/ hier zu finden. Einfach auf List Codecs klicken und den Command ausführen.
 \newpage
 \subsection{Video Controls}
 \textbf{testcases - video-controls - index.html} \\
@@ -164,63 +189,55 @@ Das Video Timeline Modul stellt sämtliche Funktionen für die spätere Video Ti
 \begin{tabular}{|c|c|c|}\hline
 	\textbf{Aufgabe} & \textbf{Zeitaufwand} \\ \hline
 	
-	Projektkonzept & Zeitaufwand \\ \hline
+	Projektkonzept & 3 Stunden \\ \hline
 	
-	Einrichten Entwicklungsumgebung & Zeitaufwand \\ \hline
+	Einrichten Entwicklungsumgebung & 5 Stunden \\ \hline
 	
-	Installation \& Konfiguration IDE & Zeitaufwand \\ \hline
+	Installation \& Konfiguration IDE & 4 Stunden \\ \hline
 	
-	HTML-Struktur & Zeitaufwand \\ \hline
+	HTML-Struktur & 2 Stunden \\ \hline
 	
-	JS-Module Template & Zeitaufwand \\ \hline
+	JS-Module Template & 1 Stunde \\ \hline
 	
-	Coding Conventions & Zeitaufwand \\ \hline
+	Coding Conventions & 30 Minuten \\ \hline
 	
 	Test-Case: Canvas & Zeitaufwand \\ \hline
 	
-	Mockup & Zeitaufwand \\ \hline
+	Mockup & 7 Stunden \\ \hline
 	
-	Test-Case: Drag\&Drop & Zeitaufwand \\ \hline
+	Test-Case: Drag\&Drop & 6 Stunden \\ \hline
 	
-	Test-Case: Video-Formate & Zeitaufwand \\ \hline
+	Test-Case: Video-Formate & 2 Stunden \\ \hline
 	
 	Test-Case: Video Controls & Zeitaufwand \\ \hline
 		
 	Wiki: Lizenz prüfen & Zeitaufwand \\ \hline
 	
-	Logo & Zeitaufwand \\ \hline
-
-	Mockup zu Layout & Zeitaufwand \\ \hline
+	Logo & 2 Stunden \\ \hline
 	
 	Test-Case: Video Controls Part II & Zeitaufwand \\ \hline
 	
-	Content: Impressum & Zeitaufwand \\ \hline
+	Content: Impressum & 1.5 Stunden \\ \hline
 	
-	HTML-Gerüst bauen & Zeitaufwand \\ \hline
+	HTML-Gerüst bauen & 6 Stunden \\ \hline
 	
-	Test-Case: Drag\&Drop Part II & Zeitaufwand \\ \hline
+	Test-Case: Drag\&Drop Part II & 7 Stunden \\ \hline
 	
 	Video Controls: Cross Browser Test & Zeitaufwand \\ \hline
 	
-	Dokumentation: IDE & Zeitaufwand \\ \hline
+	Dokumentation: IDE & 0.5 Stunden \\ \hline
 	
-	Test-Case: Drag\&Drop Part III & Zeitaufwand \\ \hline
+	Test-Case: Drag\&Drop Part III & 3 Stunden \\ \hline
 	
 	Module: VideoItem & Zeitaufwand \\ \hline
 	
 	Module: VideoList & Zeitaufwand \\ \hline
-	
-	Test-Case: Export Videos & Zeitaufwand \\ \hline
-	
-	Test-Case: Video-Converter & Zeitaufwand \\ \hline
-	
+			
 	Module: VideoItemLoader & Zeitaufwand \\ \hline
+		
+	Projektbeschreibung & 4 Stunden \\ \hline
 	
-	Präsentation des Projektstandes & Zeitaufwand \\ \hline
-	
-	Projektbeschreibung & Zeitaufwand \\ \hline
-	
-	HTML-Gerüst: Timeline & Zeitaufwand \\ \hline
+	HTML-Gerüst: Timeline & 2 Stunden \\ \hline
 	
 	Test-Case: Video Part III & Zeitaufwand \\ \hline
 	
@@ -228,8 +245,37 @@ Das Video Timeline Modul stellt sämtliche Funktionen für die spätere Video Ti
 	
 	Module: Video Preview & Zeitaufwand \\ \hline
 	
-	FFMPEG & Zeitaufwand \\ \hline
+	FFMPEG & 24 Stunden \\ \hline
  \end{tabular}
+ \newpage
+\section{Externe Plugins}
+\subsection{jQuery Draggable}
+URL: http://jqueryui.com/draggable/\\
+Wird benutzt um DOM-Elemente browserübergreifend dragbar zu machen
+\subsection{jQuery Droppable}
+URL: http://jqueryui.com/droppable/\\
+Wird benutzt um DOM-Elemente browserübergreifend auf bestimmten Elementen bestimmte Aktionen ausführen zu lassen.
+\subsection{jQuery Collision}
+URL: http://eruciform.com/static/jquidragcollide/jquery-ui-draggable-collision.js\\
+Wird benutzt, damit zwei VideoItems in der Timeline nicht aufeinander liegen dürfen
+\subsection{FFMPEG}
+URL: https://github.com/bgrins/videoconverter.js\\
+Wird benutzt um Videos umwandeln zu können.
+\subsection{Popcorn JS Capture}
+URL: https://github.com/rwaldron/popcorn.capture\\
+Wird benutzt, um ein Poster von einem Video an einer beliebigen Position als Thumbnail zu extrahieren
+\subsection{Filereader}
+URL: https://github.com/bgrins/filereader.js/\\
+Ein Plugin, die den Umgang mit Drag \& Drop von Dateien STARK vereinfacht
+\subsection{UserAgent Parser}
+URL: https://github.com/faisalman/ua-parser-js\\
+Wird benutzt um festzustellen mit welchem Browser der User unterwegs ist
+\subsection{FileSaver}
+URL: https://github.com/eligrey/FileSaver.js\\
+Hiermit können wir Dateien direkt auf dem Desktop des Users speichern, weil dieses Plugin die HTML5-Api ausbessert
+\subsection{jQuery, Modernizr \& Require}
+Dazu brauchen wir keine Beschreibung.
+
 \newpage
 \section{Quellen}
 \end{document}
