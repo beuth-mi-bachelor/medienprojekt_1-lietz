@@ -58,7 +58,8 @@
 
 <pre>
     <span id="dropzone"> Drop a Video here and hit convert</span>
-    <button id="convert">Convert</button>
+    <button id="convert">Convert Video</button>
+    <button id="combine">Combine 2 Videos</button>
     <button id="showhelp">Show Help</button>
 </pre>
 <p id="array-content">
@@ -74,6 +75,8 @@
         var outputElement = document.getElementById("output");
         var arrayContent = document.getElementById("array-content");
         var convertFile = document.getElementById("convert");
+        var combineFile = document.getElementById("combine");
+
 
         var showHelp = document.getElementById("showhelp");
         var $videoBsp = $("#video");
@@ -134,12 +137,51 @@
                 arguments: [
                     "-i",
                     exampleVideos[0][1],
+                    "-v",
+                    "debug",
                     "output.mpg"
                 ],
                 files: [{
                         data: exampleVideos[0][0],
                         name: exampleVideos[0][1]
                     }
+                ],
+                TOTAL_MEMORY: "ALLOW_MEMORY_GROWTH"
+            });
+
+        }, false);
+
+        function parseArguments(text) {
+            text = text.replace(/\s+/g, ' ');
+            var args = [];
+            // Allow double quotes to not split args.
+            text.split('"').forEach(function(t, i) {
+                t = t.trim();
+                if ((i % 2) === 1) {
+                    args.push(t);
+                } else {
+                    args = args.concat(t.split(" "));
+                }
+            });
+            return args;
+        }
+
+        combineFile.addEventListener("click", function(){
+
+            var args = parseArguments('-i '+exampleVideos[0][1]+' -i '+exampleVideos[1][1]+' -v debug -strict -2 -filter_complex "[0:v] [0:a:0] [1:v] [1:a:0] concat=n=2:v=1:a=1 [v] [a]" -map "[v]" -map "[a]" output.mp4');
+            console.log(args);
+
+            worker.postMessage({
+                type: 'command',
+                arguments: args,
+                files: [{
+                    data: exampleVideos[0][0],
+                    name: exampleVideos[0][1]
+                },
+                {
+                    data: exampleVideos[1][0],
+                    name: exampleVideos[1][1]
+                }
                 ],
                 TOTAL_MEMORY: "ALLOW_MEMORY_GROWTH"
             });
