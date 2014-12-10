@@ -41,11 +41,14 @@
         /**
          * Variabledeclaration
          */
-        var testvideo = $(".testvideo")[0];
+        var $testvideo = $(".testvideo");
+        var testvideo = $testvideo[0];
         var currentslider = $(".slide.currenttime")[0];
         var durslider = $(".slide.durtime")[0];
         var slider = $(".slide.videoslider")[0];
-        var intervalRewind;
+        var intervalRewind = null;
+
+        testvideo.controls = false;
 
         /**
          * JQuery Selector for all Click-Functions
@@ -88,13 +91,29 @@
          * EventListener für timeupdate funktion auf HTML Objekt
          */
         testvideo.addEventListener("timeupdate", function() {
-            console.log("timeupdate");
             var $this = $(this);
             if ($this.hasClass("vid")) {
                 vidTimeUpdate(this.currentTime);
             }
         }, false);
 
+
+        document.addEventListener("fullscreenchange", fShandler);
+        document.addEventListener("webkitfullscreenchange", fShandler);
+        document.addEventListener("mozfullscreenchange", fShandler);
+        document.addEventListener("MSFullscreenChange", fShandler);
+
+        function fShandler() {
+            var isFullScreen = document.fullScreen ||
+                    document.mozFullScreen ||
+                    document.webkitIsFullScreen;
+            if (isFullScreen) {
+                testvideo.controls = true;
+            } else {
+                testvideo.controls = false;
+            }
+
+        }
 
         /**
          * FUNCTION for Play and Pause
