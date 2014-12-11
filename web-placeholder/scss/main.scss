@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+@import "settings";
+@import "breakpoint";
+
+@import "partials/functions";
+@import "partials/placeholder";
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+* {
+    box-sizing: border-box;
+}
+.video-chop-application {
+    font-family: $base-font;
+    .no-content {
+        @extend %nocontent;
+    }
+    @import "placeholder";
+    .application-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        //opacity: 1; //TODO: delete after markup complete
+        transition: opacity .3s ease;
+        &.loading-complete {
+            opacity: 1;
+        }
+        .impress-open & {
+            &:after {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, .6);
+                content: '';
+            }
+        }
+    }
+
+    @import "impress";
+
+}
+
+@include keyframes(spin) {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+};

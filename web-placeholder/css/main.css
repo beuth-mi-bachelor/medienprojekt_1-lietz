@@ -1,0 +1,300 @@
+/* color definitions */
+/* container definitions */
+/* breakpoint definitions */
+/* z-indices definitions */
+/* line 11, ../scss/partials/_placeholder.scss */
+.video-chop-application .no-content {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* line 9, ../scss/main.scss */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* line 16, ../scss/main.scss */
+* {
+  box-sizing: border-box;
+}
+
+/* line 19, ../scss/main.scss */
+.video-chop-application {
+  font-family: "Roboto", sans-serif;
+  /* color definitions */
+  /* container definitions */
+  /* breakpoint definitions */
+  /* z-indices definitions */
+  /* color definitions */
+  /* container definitions */
+  /* breakpoint definitions */
+  /* z-indices definitions */
+}
+/* line 11, ../scss/partials/_placeholder.scss */
+.video-chop-application .no-content {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+/* line 6, ../scss/_placeholder.scss */
+.video-chop-application .preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: -webkit-linear-gradient(top, #fff 0%, #888 100%);
+  background: linear-gradient(to bottom, #fff 0%, #888 100%);
+}
+/* line 14, ../scss/_placeholder.scss */
+.video-chop-application .preloader .logo-animated, .video-chop-application .preloader .inner-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 25vh;
+  width: 25vh;
+  margin: auto;
+}
+/* line 24, ../scss/_placeholder.scss */
+.video-chop-application .preloader .inner-logo {
+  padding: 5vh;
+}
+/* line 28, ../scss/_placeholder.scss */
+.video-chop-application .preloader .inner-logo-wrapper {
+  position: static;
+  border-radius: 100%;
+  border: 1px solid #353535;
+  width: 15vh;
+  height: 15vh;
+  overflow: hidden;
+}
+/* line 36, ../scss/_placeholder.scss */
+.video-chop-application .preloader .inner-logo-content {
+  position: static;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #1d1d1b url(../media/img/preloader/inner.png) center center no-repeat;
+  background-attachment: fixed;
+  background-size: 15vh 15vh;
+}
+/* line 45, ../scss/_placeholder.scss */
+.video-chop-application .preloader .outer-logo {
+  -webkit-animation: spin 3s ease 0s infinite;
+          animation: spin 3s ease 0s infinite;
+  -webkit-animation-fill-mode: forward;
+          animation-fill-mode: forward;
+}
+/* line 49, ../scss/_placeholder.scss */
+.video-chop-application .preloader .percentage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30vh;
+  bottom: 0;
+  width: auto;
+  height: 3vh;
+  line-height: 3vh;
+  font-size: 1.5vh;
+  text-align: center;
+  display: block;
+  margin: auto;
+  color: #1d1d1b;
+}
+/* line 63, ../scss/_placeholder.scss */
+.video-chop-application .preloader .percentage:after {
+  content: "%";
+}
+/* line 67, ../scss/_placeholder.scss */
+.video-chop-application .preloader .currently-loading {
+  position: absolute;
+  top: 35vh;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: 3vh;
+  margin: auto;
+  text-align: center;
+  display: block;
+  font-size: 1.5vh;
+  color: #1d1d1b;
+}
+/* line 81, ../scss/_placeholder.scss */
+.video-chop-application .preloader h1 {
+  position: absolute;
+  top: 25vh;
+  width: 100%;
+  height: 10vh;
+  line-height: 10vh;
+  text-align: center;
+}
+/* line 89, ../scss/_placeholder.scss */
+.video-chop-application .preloader .impress {
+  font-size: .8em;
+  cursor: pointer;
+  text-decoration: underline;
+}
+/* line 94, ../scss/_placeholder.scss */
+.video-chop-application .preloader ul {
+  padding: 0;
+  width: 10vw;
+  text-align: center;
+  margin: 0 auto;
+}
+/* line 99, ../scss/_placeholder.scss */
+.video-chop-application .preloader ul li {
+  text-align: center;
+  list-style: none;
+  float: left;
+  width: 33%;
+}
+/* line 104, ../scss/_placeholder.scss */
+.video-chop-application .preloader ul li a {
+  font-size: 1.4em;
+  color: #353535;
+  text-decoration: none;
+}
+/* line 108, ../scss/_placeholder.scss */
+.video-chop-application .preloader ul li a:hover, .video-chop-application .preloader ul li a:focus {
+  color: #000;
+}
+/* line 25, ../scss/main.scss */
+.video-chop-application .application-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  -webkit-transition: opacity .3s ease;
+          transition: opacity .3s ease;
+}
+/* line 34, ../scss/main.scss */
+.video-chop-application .application-wrapper.loading-complete {
+  opacity: 1;
+}
+/* line 38, ../scss/main.scss */
+.impress-open .video-chop-application .application-wrapper:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  content: '';
+}
+/* line 11, ../scss/partials/_placeholder.scss */
+.video-chop-application .no-content {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+/* line 6, ../scss/_impress.scss */
+.video-chop-application .impress-wrapper {
+  position: fixed;
+  width: 75vw;
+  height: 75vh;
+  top: 120vh;
+  left: 12.5vw;
+  padding: 30px;
+  background: #fff;
+  box-shadow: 0 0 20px #353535;
+  z-index: 1000000;
+  -webkit-transition: top .3s ease-out;
+          transition: top .3s ease-out;
+  font-size: .9em;
+}
+/* line 18, ../scss/_impress.scss */
+.video-chop-application .impress-wrapper .close-impress {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  content: '\e051';
+  width: 30px;
+  height: 30px;
+  color: #888;
+  cursor: pointer;
+  font-family: "ElegantIcons";
+  font-size: 30px;
+}
+/* line 31, ../scss/_impress.scss */
+.video-chop-application .impress-wrapper .close-impress:hover {
+  color: #ebebeb;
+}
+/* line 35, ../scss/_impress.scss */
+.impress-open .video-chop-application .impress-wrapper {
+  top: 12.5vh;
+  -webkit-transition: top .3s ease-in;
+          transition: top .3s ease-in;
+}
+/* line 40, ../scss/_impress.scss */
+.video-chop-application .impress-wrapper table {
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+/* line 46, ../scss/_impress.scss */
+.video-chop-application .impress-wrapper h2,
+.video-chop-application .impress-wrapper h3,
+.video-chop-application .impress-wrapper h4 {
+  margin: 0;
+}
+/* line 51, ../scss/_impress.scss */
+.video-chop-application .impress-wrapper thead {
+  margin-bottom: 20px;
+}
+/* line 54, ../scss/_impress.scss */
+.video-chop-application .impress-wrapper p,
+.video-chop-application .impress-wrapper h3 {
+  width: 80%;
+  margin: 0 auto;
+}
+/* line 59, ../scss/_impress.scss */
+.video-chop-application .impress-wrapper h3 {
+  padding: 20px 0 5px 0;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
