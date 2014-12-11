@@ -2,6 +2,16 @@
 /* container definitions */
 /* breakpoint definitions */
 /* z-indices definitions */
+/* line 2, ../scss/partials/_placeholder.scss */
+.video-chop-application .preloader ul:before, .video-chop-application .preloader ul:after {
+  content: "";
+  display: table;
+}
+/* line 7, ../scss/partials/_placeholder.scss */
+.video-chop-application .preloader ul:after {
+  clear: both;
+}
+
 /* line 11, ../scss/partials/_placeholder.scss */
 .video-chop-application .no-content {
   border: 0;
@@ -39,6 +49,15 @@ body {
   /* container definitions */
   /* breakpoint definitions */
   /* z-indices definitions */
+}
+/* line 2, ../scss/partials/_placeholder.scss */
+.video-chop-application .preloader ul:before, .video-chop-application .preloader ul:after {
+  content: "";
+  display: table;
+}
+/* line 7, ../scss/partials/_placeholder.scss */
+.video-chop-application .preloader ul:after {
+  clear: both;
 }
 /* line 11, ../scss/partials/_placeholder.scss */
 .video-chop-application .no-content {
@@ -129,8 +148,8 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  width: auto;
-  height: 3vh;
+  width: 100%;
+  height: 6vh;
   margin: auto;
   text-align: center;
   display: block;
@@ -151,28 +170,32 @@ body {
   font-size: .8em;
   cursor: pointer;
   text-decoration: underline;
+  text-align: center;
+  text-transform: uppercase;
 }
-/* line 94, ../scss/_placeholder.scss */
+/* line 96, ../scss/_placeholder.scss */
 .video-chop-application .preloader ul {
-  padding: 0;
+  padding: 5px 0 0;
   width: 10vw;
   text-align: center;
   margin: 0 auto;
 }
-/* line 99, ../scss/_placeholder.scss */
+/* line 102, ../scss/_placeholder.scss */
 .video-chop-application .preloader ul li {
   text-align: center;
   list-style: none;
   float: left;
   width: 33%;
 }
-/* line 104, ../scss/_placeholder.scss */
+/* line 107, ../scss/_placeholder.scss */
 .video-chop-application .preloader ul li a {
   font-size: 1.4em;
   color: #353535;
   text-decoration: none;
+  display: block;
+  vertical-align: middle;
 }
-/* line 108, ../scss/_placeholder.scss */
+/* line 113, ../scss/_placeholder.scss */
 .video-chop-application .preloader ul li a:hover, .video-chop-application .preloader ul li a:focus {
   color: #000;
 }
@@ -200,6 +223,15 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
   content: '';
+}
+/* line 2, ../scss/partials/_placeholder.scss */
+.video-chop-application .preloader ul:before, .video-chop-application .preloader ul:after {
+  content: "";
+  display: table;
+}
+/* line 7, ../scss/partials/_placeholder.scss */
+.video-chop-application .preloader ul:after {
+  clear: both;
 }
 /* line 11, ../scss/partials/_placeholder.scss */
 .video-chop-application .no-content {

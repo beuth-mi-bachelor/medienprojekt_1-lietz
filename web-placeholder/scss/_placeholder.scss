@@ -70,8 +70,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        width: auto;
-        height: 3vh;
+        width: 100%;
+        height: 6vh;
         margin: auto;
         text-align: center;
         display: block;
@@ -90,9 +90,12 @@
         font-size: .8em;
         cursor: pointer;
         text-decoration: underline;
+        text-align: center;
+        text-transform: uppercase;
     }
     ul {
-        padding: 0;
+        @extend %clearfix;
+        padding: 5px 0 0;
         width: 10vw;
         text-align: center;
         margin: 0 auto;
@@ -105,6 +108,8 @@
                 font-size: 1.4em;
                 color: $color-dark;
                 text-decoration: none;
+                display: block;
+                vertical-align: middle;
                 &:hover,
                 &:focus {
                     color: $color-darkest;
