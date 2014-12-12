@@ -15,10 +15,12 @@
     z-index: 1000000;
     transition: top .3s ease-out;
     font-size: .9em;
+    overflow-y: auto;
+    overflow-x: hidden;
     .close-impress {
         position: absolute;
-        top: -($spacer*1.5);
-        right: -($spacer*1.5);
+        top: ($spacer*1.5);
+        right: ($spacer*1.5);
         content: '\e051';
         width: ($spacer*3);
         height: ($spacer*3);
@@ -58,6 +60,9 @@
     }
     h3 {
         padding: ($spacer*2) 0 ($spacer/2) 0;
-
+    }
+    dl {
+        width: 80%;
+        margin: 0 auto;
     }
 }

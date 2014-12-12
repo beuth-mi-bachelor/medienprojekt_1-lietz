@@ -38,9 +38,7 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background: $color-darker url(../media/img/preloader/inner.png) center center no-repeat;
-        background-attachment: fixed;
-        background-size: 15vh 15vh;
+        background: $color-darker;
     }
     .outer-logo {
         animation: spin 3s ease 0s infinite;
@@ -75,19 +73,29 @@
         margin: auto;
         text-align: center;
         display: block;
-        font-size: 1.5vh;
+        font-size: 16px;
         color: $color-darker;
     }
     h1 {
         position: absolute;
-        top: 25vh;
+        top: -30vh;
+        left: 0;
+        right: 0;
+        bottom: 55px;
+        height: 50px;
         width: 100%;
-        height: 10vh;
-        line-height: 10vh;
         text-align: center;
+        line-height: 1;
+        padding: 10px 0;
+        margin: auto;
+        span {
+            display: block;
+            font-size: .6em;
+            font-weight: 100;
+        }
     }
     .impress {
-        font-size: .8em;
+        font-size: 10px;
         cursor: pointer;
         text-decoration: underline;
         text-align: center;
@@ -105,7 +113,7 @@
             float: left;
             width: 33%;
             a {
-                font-size: 1.4em;
+                font-size: 20px;
                 color: $color-dark;
                 text-decoration: none;
                 display: block;

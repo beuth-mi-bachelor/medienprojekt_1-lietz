@@ -645,12 +645,14 @@ body {
   -webkit-transition: top .3s ease-out;
           transition: top .3s ease-out;
   font-size: .9em;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
-/* line 18, ../scss/_impress.scss */
+/* line 20, ../scss/_impress.scss */
 .video-chop-application .impress-wrapper .close-impress {
   position: absolute;
-  top: -15px;
-  right: -15px;
+  top: 15px;
+  right: 15px;
   content: '\e051';
   width: 30px;
   height: 30px;
@@ -659,42 +661,47 @@ body {
   font-family: "ElegantIcons";
   font-size: 30px;
 }
-/* line 31, ../scss/_impress.scss */
+/* line 33, ../scss/_impress.scss */
 .video-chop-application .impress-wrapper .close-impress:hover {
   color: #ebebeb;
 }
-/* line 35, ../scss/_impress.scss */
+/* line 37, ../scss/_impress.scss */
 .impress-open .video-chop-application .impress-wrapper {
   top: 12.5vh;
   -webkit-transition: top .3s ease-in;
           transition: top .3s ease-in;
 }
-/* line 40, ../scss/_impress.scss */
+/* line 42, ../scss/_impress.scss */
 .video-chop-application .impress-wrapper table {
   width: 80%;
   text-align: center;
   margin: 0 auto;
   padding: 20px 0;
 }
-/* line 46, ../scss/_impress.scss */
+/* line 48, ../scss/_impress.scss */
 .video-chop-application .impress-wrapper h2,
 .video-chop-application .impress-wrapper h3,
 .video-chop-application .impress-wrapper h4 {
   margin: 0;
 }
-/* line 51, ../scss/_impress.scss */
+/* line 53, ../scss/_impress.scss */
 .video-chop-application .impress-wrapper thead {
   margin-bottom: 20px;
 }
-/* line 54, ../scss/_impress.scss */
+/* line 56, ../scss/_impress.scss */
 .video-chop-application .impress-wrapper p,
 .video-chop-application .impress-wrapper h3 {
   width: 80%;
   margin: 0 auto;
 }
-/* line 59, ../scss/_impress.scss */
+/* line 61, ../scss/_impress.scss */
 .video-chop-application .impress-wrapper h3 {
   padding: 20px 0 5px 0;
+}
+/* line 64, ../scss/_impress.scss */
+.video-chop-application .impress-wrapper dl {
+  width: 80%;
+  margin: 0 auto;
 }
 
 @-webkit-keyframes spin {
