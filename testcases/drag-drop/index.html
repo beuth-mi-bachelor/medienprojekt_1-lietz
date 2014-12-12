@@ -166,6 +166,10 @@
         $(".box").draggable("option", "containment", newContainment);
     }
 
+    $(window).on("resize orientationchange", function() {
+        resizeContainment($rightTimeline);
+    });
+
 </script>
 </body>
 </html>
