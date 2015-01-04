@@ -124,7 +124,7 @@
 
         function createURL(item) {
             var fileArray = new Uint8Array(item.data);
-            var blob = new Blob([fileArray], {type: "video/mpg"});
+            var blob = new Blob([fileArray], {type: "video/mp4"});
             var url = window.URL.createObjectURL(blob);
             var link = $("<a href='"+url+"'>Download "+item.name+"</a>");
             $("body").append(link);
