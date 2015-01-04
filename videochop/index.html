@@ -33,7 +33,6 @@
                     <ul class="nav-list">
                         <li class="nav-item"><span class="icons icon_menu"></span>Menu</li>
                         <li class="nav-item"><span class="icons icon_document_alt"></span>New Project</li>
-                        <li class="nav-item"><span class="icons icon_plus"></span>Add Video</li>
                         <li class="nav-item"><span class="icons icon_cloud-upload_alt"></span>Export</li>
                         <li class="nav-item"><span class="icons icon_question"></span>Help</li>
                         <li class="nav-item impress"><span class="icons icon_quotations"></span>Impress</li>
@@ -65,7 +64,11 @@
                     <div class="app-mid">
                         <section class="file-list">
                             <h3 class="no-content">file list</h3>
-                            <!-- no more need for it
+                            <div class="file-menu">
+                                <div class="file-add-button icon_plus">add file</div>
+                                <input type="file" class="file-add no-content" multiple />
+                            </div>
+                            <!-- no need for dummy-content
                             <ul class="files">
                                 <li class="file">
                                     <div class="file-delete icon_close"></div>

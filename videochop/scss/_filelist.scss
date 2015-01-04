@@ -4,8 +4,39 @@
 @import "partials/_placeholder";
 
 .file-list {
+    padding-top: 2*$spacer;
     overflow-x: hidden;
     overflow-y: auto;
+    .file-menu {
+        position: fixed;
+        top: $container-nav-height;
+        left: 0;
+        width: $file-list-width;
+        height: $spacer*3;
+        user-select: none;
+        background: rgba(0, 0, 0, .5);
+        .file-add-button {
+            position: relative;
+            margin-right: $spacer;
+            font-family: $base-font;
+            height: 3*$spacer;
+            padding: 2px 4px;
+            float: right;
+            color: $color-medium;
+            cursor: pointer;
+            line-height: (3*$spacer) - ($spacer/2);
+            &:before {
+                font-size: (3*$spacer) - ($spacer/2);
+                font-family: $icon-font;
+                text-align: center;
+                position: absolute;
+                left: -(2*$spacer);
+            }
+            &:hover {
+                color: $color-highlight;
+            }
+        }
+    }
     .files {
         margin: 0;
         padding: 0;
@@ -18,7 +49,7 @@
         color: $color-medium;
         padding: 5px 0;
         cursor: move;
-        &:nth-child(even) {
+        &:nth-child(odd) {
             background: $color-medium;
             color: $color-dark;
         }

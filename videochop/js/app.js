@@ -109,7 +109,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
         // wrapper and instances of modules
         var moduleVideoList,
             moduleVideoItemLoader,
-            $wrapperVideoDrop;
+            $wrapperVideoDrop,
+            $wrapperVideoAdd;
 
         // User-Agent helper to identify user
         var ua = new UserAgent();
@@ -146,6 +147,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
 
             // placeholders for module wrappers
             $wrapperVideoDrop = $appWrapper.find(".file-list");
+            $wrapperVideoAdd = $appWrapper.find(".file-add");
 
         }
 
@@ -159,6 +161,10 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
 
             $closeImpress.on("click", function() {
                 $body.toggleClass("impress-open");
+            });
+
+            $(".file-add-button").on("click", function() {
+                $(".file-add").trigger("click");
             });
         }
 
@@ -179,7 +185,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                 tempWrapper: ".temporary-video",
                 list: moduleVideoList
             });
-            FileReaderJS.setupDrop($wrapperVideoDrop[0], {
+
+            var fileReaderOpts = {
                 readAsDefault: 'ArrayBuffer',
                 on: {
                     loadend: function (e, file) {
@@ -191,9 +198,18 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                             size: file.size,
                             type: file.type
                         });
+                    },
+                    groupend: function (e, file) {
+                        setTimeout(function() {
+                            $(moduleVideoItemLoader.settings.tempWrapper).empty();
+                        }, 5000);
+
                     }
                 }
-            });
+            };
+
+            FileReaderJS.setupDrop($wrapperVideoDrop[0], fileReaderOpts);
+            FileReaderJS.setupInput($wrapperVideoAdd[0], fileReaderOpts);
 
         }
 

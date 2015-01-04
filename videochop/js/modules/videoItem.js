@@ -30,7 +30,8 @@ define(["jquery"], (function ($) {
                 width: 3840,
                 height: 2160
             },
-            thumbnail: null
+            thumbnail: null,
+            prettySize: "0 MB"
         };
 
         // if settings where not set by initializing, fill with default settings
@@ -52,7 +53,7 @@ define(["jquery"], (function ($) {
                 '<div class="file-info">' +
                 '<p>Name: <span class="file-name">'+this.settings.name+'</span></p>' +
                 '<p>Duration: <span class="file-duration">'+this.timeFormat()+'</span></p>' +
-                '<p>Size: <span class="file-size">'+this.sizeFormat()+'</span></p>' +
+                '<p>Size: <span class="file-size">'+this.settings.prettySize+'</span></p>' +
                 '</div></li>';
         },
 

@@ -21,11 +21,6 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
     function VideoItemLoader(settings) {
 
         this.settings = {
-            data: null,
-            extension: "mp4",
-            name: "default",
-            prettySize: "0 MB",
-            size: 0,
             type: "video/mp4",
             tempWrapper: "#temp-video"
         };
@@ -77,7 +72,6 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
             src.type = type;
             video.appendChild(src);
             var $vidwrapper = $(this.settings.tempWrapper);
-            $vidwrapper.empty();
             $vidwrapper.append(video);
             var $pop = Popcorn("#tempVideo");
 
@@ -99,7 +93,8 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
                         width: self.video.width,
                         height: self.video.height
                     },
-                    thumbnail: self.video.thumbnail
+                    thumbnail: self.video.thumbnail,
+                    prettySize: self.video.prettySize
                 });
 
                 self.settings.list.addItem(item);
