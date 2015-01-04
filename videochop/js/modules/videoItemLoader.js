@@ -3,12 +3,14 @@
  *
  * @module: VideoItemLoader
  * @requires: jQuery
- * TODO: add more dependencies here
+ * @requires: VideoItem
+ * @requires: Popcorn
+ * @requires: Popcorn.capture
  *
  * this module handles the communication between video and videoItem
  */
 
-define(["jquery", "modules/videoItem", "popcorn", "popcorn.capture"], (function ($, VideoItem) {
+define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, VideoItem, Popcorn) {
     "use strict";
 
     /**
@@ -19,14 +21,13 @@ define(["jquery", "modules/videoItem", "popcorn", "popcorn.capture"], (function 
     function VideoItemLoader(settings) {
 
         this.settings = {
-
             data: null,
             extension: "mp4",
             name: "default",
             prettySize: "0 MB",
             size: 0,
-            type: "video/mp4"
-
+            type: "video/mp4",
+            tempWrapper: "#temp-video"
         };
 
         // if settings where not set by initializing, fill with default settings
@@ -53,9 +54,10 @@ define(["jquery", "modules/videoItem", "popcorn", "popcorn.capture"], (function 
 
             this.loaded = false;
 
-            if (this.video.data === null) {
+            if (this.settings.list === null) {
+                console.error("no list to append found");
+            } else if (this.video.data === null) {
                 console.error("no data found");
-                return;
             }
             else {
                 var url = window.URL.createObjectURL(new Blob(
@@ -63,11 +65,8 @@ define(["jquery", "modules/videoItem", "popcorn", "popcorn.capture"], (function 
                         type: this.video.type
                     }
                 ));
-                console.log(url);
-                return this.loadMetaData(url, this.video.type);
+                this.loadMetaData(url, this.video.type);
             }
-
-
         },
 
         loadMetaData: function (url, type) {
@@ -77,37 +76,34 @@ define(["jquery", "modules/videoItem", "popcorn", "popcorn.capture"], (function 
             src.src = url;
             src.type = type;
             video.appendChild(src);
-            var self = this;
-            $(".vid").append(video);
+            var $vidwrapper = $(this.settings.tempWrapper);
+            $vidwrapper.empty();
+            $vidwrapper.append(video);
             var $pop = Popcorn("#tempVideo");
-            console.log($pop);
 
-            var poster = $pop.currentTime( 10 ).capture();
-            this.video.thumbnail = poster.video.poster;
-            this.video.duration = $pop.media.duration;
-            console.log($pop.media.duration);
-            this.video.width = $pop.media.clientWidth;
-            this.video.height = $pop.media.clientHeight;
-            var item = new VideoItem({
-                video: self.video.data,
-                name: self.video.name,
-                length: 0,
-                start: 0,
-                end: 0,
-                size: self.video.size,
-                resolution: {
-                    width: self.video.width,
-                    height: self.video.height
-                },
-                thumbnail: self.video.thumbnail});
-           video.addEventListener('loadedmetadata', function() {
-                item.settings.length = this.duration;
-                item.settings.end = this.duration;
+            var self = this;
+            $pop.listen('canplayall', function() {
+                var poster = $pop.currentTime(3).capture();
+                self.video.thumbnail = poster.video.poster;
+                self.video.width = $pop.media.clientWidth;
+                self.video.height = $pop.media.clientHeight;
 
-               console.log(item);
+                var item = new VideoItem({
+                    video: self.video.data,
+                    name: self.video.name,
+                    length: self.duration,
+                    start: 0,
+                    end: self.duration,
+                    size: self.video.size,
+                    resolution: {
+                        width: self.video.width,
+                        height: self.video.height
+                    },
+                    thumbnail: self.video.thumbnail
+                });
+
+                self.settings.list.addItem(item);
             });
-
-           return item;
         },
 
         /**

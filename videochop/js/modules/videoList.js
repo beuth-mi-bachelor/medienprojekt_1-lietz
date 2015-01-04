@@ -3,12 +3,12 @@
  *
  * @module: VideoList
  * @requires: jQuery
- * TODO: add more dependencies here
+ * @requires: videoItem
  *
  * VideoList can save VideoItems in it. It provides the possibility to delete videos out of the list.
  */
 
-define(["jquery", "modules/videoItem"], (function ($, VideoItem) {
+define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
     "use strict";
 
     /**
@@ -47,7 +47,6 @@ define(["jquery", "modules/videoItem"], (function ($, VideoItem) {
                 if(videoItem instanceof VideoItem){
                     self.$list.append(videoItem.getMarkUp());
                     self.videolist[videoItem.id] = videoItem;
-                    console.log(videoItem.id);
                 }
             });
         },
@@ -56,10 +55,10 @@ define(["jquery", "modules/videoItem"], (function ($, VideoItem) {
             this.videolist[itemToBeRemoved].deleteItem();
             delete this.videolist[itemToBeRemoved];
         },
-
         bindEvents: function(){
             var self = this;
-            $("." + self.settings.listname).on("click", ".file-delete", function () {
+
+            this.$list.on("click", ".file-delete", function () {
                 var $this = $(this).parent();
                 var id = $this.attr("id");
                 var splittedarray = id.split("-");
@@ -67,6 +66,11 @@ define(["jquery", "modules/videoItem"], (function ($, VideoItem) {
                 id = parseInt(id,10);
                 self.deleteItem(id);
             });
+
+            this.$list.sortable({
+                placeholder: "ui-state-highlight"
+            });
+            this.$list.disableSelection();
         },
         /**
          * describes this Object to the user

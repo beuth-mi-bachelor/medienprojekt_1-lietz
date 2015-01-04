@@ -443,6 +443,12 @@ body {
   width: 120px;
   vertical-align: middle;
 }
+/* line 52, ../scss/_filelist.scss */
+.video-chop-application .application .file-list .ui-state-highlight {
+  width: 100%;
+  height: 75px;
+  background: #fff;
+}
 /* line 11, ../scss/partials/_placeholder.scss */
 .video-chop-application .application .no-content {
   border: 0;

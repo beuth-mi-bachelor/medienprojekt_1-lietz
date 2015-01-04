@@ -4,8 +4,9 @@ A lightweight wrapper for common FileReader usage.
 Copyright 2014 Brian Grinstead - MIT License.
 See http://github.com/bgrins/filereader.js for documentation.
 */
+define( function() {
 
-(function(window, document) {
+var filereader = (function(window, document) {
 
     var FileReader = window.FileReader;
     var FileReaderSyncSupport = false;
@@ -429,4 +430,8 @@ See http://github.com/bgrins/filereader.js for documentation.
     // The interface is supported, bind the FileReaderJS callbacks
     FileReaderJS.enabled = true;
 
+    return FileReaderJS;
+
 })(this, document);
+    return filereader;
+} );

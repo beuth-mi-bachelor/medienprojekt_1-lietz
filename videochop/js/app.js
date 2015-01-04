@@ -4,9 +4,35 @@
 requirejs.config({
     paths: {
         "jquery": "lib/jquery-2.1.1.min",
+        "jqueryui": "lib/jquery-ui.min",
         "modernizr": "lib/modernizr",
-        "ffmpeg": "lib/ffmpeg",
-        "useragent": "lib/ua-parser.min"
+        "useragent": "lib/ua-parser.min",
+        "filereader": 'lib/filereader',
+        "videoItemLoader": "modules/videoItemLoader",
+        "videoItem": "modules/videoItem",
+        "videoList": "modules/videoList",
+        "popcorn": "lib/popcorn.min",
+        "popcorn-capture": "lib/popcorn.capture"
+    },
+    shim: {
+        "videoItemLoader": {
+            deps: ["jquery", "videoItem", "popcorn", "popcorn-capture"]
+        },
+        "popcorn-capture": {
+            deps: ["popcorn"]
+        },
+        "popcorn": {
+            deps: ["jquery"]
+        },
+        "videoItem": {
+            deps: ["jquery"]
+        },
+        "modernizr": {
+            deps: ["jquery"]
+        },
+        "videoList": {
+            deps: ["jquery", "videoItem"]
+        }
     },
     waitSeconds: 0
 });
@@ -15,22 +41,34 @@ requirejs.config({
  * what is to load
  * @type {string[]}
  */
-var modulesToLoadInDefine = ["jquery", "modernizr", "useragent"],
-    modulesToLoadAfterDefine = ["ffmpeg"];
-
+var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "filereader", "videoItemLoader", "videoList"];
 /**
  * counter for loading modules
  * @type {number}
  */
 var modulesLoaded = 0,
-    modulesToLoad = modulesToLoadInDefine.length + modulesToLoadAfterDefine.length + 1;
+    modulesToLoad = modulesToLoadInDefine.length;
+
+for (var i = 0; i < modulesToLoadInDefine.length; i++) {
+    var currentModule = modulesToLoadInDefine[i];
+    var shims = requirejs.s.contexts._.config.shim;
+    if (shims.hasOwnProperty(currentModule)) {
+        if (shims[currentModule].deps) {
+            var deps = shims[currentModule].deps;
+            for (var j = 0; j < deps.length; j++) {
+                if (modulesToLoadInDefine.indexOf(deps[j]) < 0) {
+                    modulesToLoad++;
+                }
+            }
+        }
+    }
+}
 
 /**
  * percentage calculations
  * @type {number}
  */
 var percentage = 0;
-var percentageForEachModule = 100 / modulesToLoad;
 
 /**
  * element bindings for displaying preloading
@@ -56,7 +94,7 @@ var displayLoadProgress = function(p) {
     percentageContainer.style.height = p + "%";
 };
 
-define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
+define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJS, VideoItemLoader, VideoList) {
     "use strict";
 
     $(document).ready(function() {
@@ -68,11 +106,17 @@ define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
             $closeImpress,
             $body;
 
+        // wrapper and instances of modules
+        var moduleVideoList,
+            moduleVideoItemLoader,
+            $wrapperVideoDrop;
+
         // User-Agent helper to identify user
         var ua = new UserAgent();
 
         initializeVariables();
-        getCustomScripts();
+
+        checkIfAllScriptsAreLoaded();
 
         /**
          * Content is loaded - preloader is hidden
@@ -80,7 +124,7 @@ define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
 
         bindEvents();
 
-
+        startModules();
 
 
         /**
@@ -88,20 +132,6 @@ define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
          * Functions
          *
          */
-
-        /**
-         * appends a script to a head
-         * @param url {String} full url to js file
-         */
-        function appendScript(url) {
-            var head = document.getElementsByTagName("head")[0];
-            var js = document.createElement("script");
-            js.type = "text/javascript";
-            js.src = url;
-            head.appendChild(js);
-            modulesLoaded += 1;
-            checkIfAllScriptsAreLoaded();
-        }
 
         /**
          * initialize all variables used
@@ -113,6 +143,10 @@ define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
             $navItems = $(".nav-item");
             $closeImpress = $(".close-impress");
             $body = $("body");
+
+            // placeholders for module wrappers
+            $wrapperVideoDrop = $appWrapper.find(".file-list");
+
         }
 
         function bindEvents() {
@@ -128,21 +162,39 @@ define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
             });
         }
 
-        /**
-         * Iterate over all modules which should be loaded after define structure
-         */
-        function getCustomScripts() {
-            var requireJsConfig = requirejs.s.contexts._.config;
-            for (var i = 0; i < modulesToLoadAfterDefine.length; i++) {
-                var url = requireJsConfig.baseUrl + requireJsConfig.paths[modulesToLoadAfterDefine[i]] + ".js";
-                currentModuleText.textContent = modulesToLoadAfterDefine[i];
-                // FF has a bug in loading large scripts with ajax
-                if (ua.getBrowser().name !== "Firefox") {
-                    requestScript(url);
-                } else {
-                    appendScript(url);
+        function startModules() {
+            /**
+             * VideoList
+             */
+            moduleVideoList = new VideoList({
+                container: ".file-list"
+            });
+
+
+
+            /**
+             * VideoItemLoader
+             */
+            moduleVideoItemLoader = new VideoItemLoader({
+                tempWrapper: ".temporary-video",
+                list: moduleVideoList
+            });
+            FileReaderJS.setupDrop($wrapperVideoDrop[0], {
+                readAsDefault: 'ArrayBuffer',
+                on: {
+                    loadend: function (e, file) {
+                        moduleVideoItemLoader.add({
+                            data: new Uint8Array(e.target.result),
+                            extension: file.extra.extension,
+                            name: file.extra.nameNoExtension,
+                            prettySize: file.extra.prettySize,
+                            size: file.size,
+                            type: file.type
+                        });
+                    }
                 }
-            }
+            });
+
         }
 
         /**
@@ -155,44 +207,5 @@ define(modulesToLoadInDefine, function ($, Modernizr, UserAgent) {
             }
         }
 
-        /**
-         * request a script via Ajax and show percentage of download-progress
-         * @param url {String} full URL to a script
-         */
-        function requestScript(url) {
-            $.ajax({
-                url: url,
-                dataType: "script",
-                cache: true,
-                success: function() {
-                    modulesLoaded += 1;
-
-                    percentage = parseInt(modulesLoaded / modulesToLoad * 100, 10);
-                    displayLoadProgress(percentage);
-
-                    checkIfAllScriptsAreLoaded();
-                },
-                error: function(e) {
-                    console.error("Error", e);
-                },
-                xhr: function () {
-                    var xhr = new XMLHttpRequest();
-
-                    xhr.addEventListener("progress", function (evt) {
-                        if (evt.lengthComputable) {
-                            var percentComplete = evt.loaded / evt.total;
-                            var percentageDependend = percentageForEachModule * percentComplete;
-                            var tempPercentage = parseInt(percentage + percentageDependend, 10);
-
-                            displayLoadProgress(tempPercentage);
-                        }
-                    }, false);
-
-                    return xhr;
-                }
-            });
-        }
-
     });
-
 });

@@ -4,27 +4,36 @@ requirejs.config({
     paths: {
         "jquery": 'lib/jquery-2.1.1.min',
         "filereader": 'lib/filereader',
+        "videoItemLoader": "modules/videoItemLoader",
+        "videoItem": "modules/videoItem",
+        "videoList": "modules/videoList",
         "popcorn": "lib/popcorn.min",
-        "popcorn.capture": 'lib/popcorn.capture'
+        "popcorn-capture": "lib/popcorn.capture"
     },
     shim: {
-        "popcorn.capture": {
+        "popcorn-capture": {
             deps: ["popcorn"]
         }
     }
 });
-define(["jquery", "modules/videoItemLoader", "filereader"], (function ($, VideoItemLoader, filereader) {
+define(["jquery", "videoItemLoader", "filereader", "videoList"], (function ($, VideoItemLoader, FileReaderJS, VideoList) {
     "use strict";
 
     $(document).ready(function () {
 
+        var list = new VideoList({
+            container: ".videolist"
+        });
+
+        var loader = new VideoItemLoader({
+            tempWrapper: ".vid",
+            list: list
+        });
 
         FileReaderJS.setupDrop(document.getElementById('dropzone'), {
             readAsDefault: 'ArrayBuffer',
             on: {
                 loadend: function (e, file) {
-                    var loader = new VideoItemLoader();
-                    console.log(loader);
                     var item = loader.add({
                         data: new Uint8Array(e.target.result),
                         extension: file.extra.extension,
@@ -37,9 +46,6 @@ define(["jquery", "modules/videoItemLoader", "filereader"], (function ($, VideoI
                 }
             }
         });
-
-
-
 
     });
 
