@@ -68,7 +68,8 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
             });
 
             this.$list.sortable({
-                placeholder: "ui-state-highlight"
+                placeholder: "ui-state-highlight",
+                axis: "y"
             });
             this.$list.disableSelection();
         },
