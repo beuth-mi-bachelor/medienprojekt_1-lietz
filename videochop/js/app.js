@@ -115,6 +115,10 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
         // User-Agent helper to identify user
         var ua = new UserAgent();
 
+        // disableing selection of navigational elements
+        $(".nav").disableSelection();
+        $(".preview").disableSelection();
+
         initializeVariables();
 
         checkIfAllScriptsAreLoaded();
@@ -186,8 +190,13 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                 list: moduleVideoList
             });
 
+            $(document).on('drop dragover', function (e) {
+                e.preventDefault();
+            });
+
             var fileReaderOpts = {
                 readAsDefault: 'ArrayBuffer',
+                accept: "video/*",
                 on: {
                     loadend: function (e, file) {
                         moduleVideoItemLoader.add({
