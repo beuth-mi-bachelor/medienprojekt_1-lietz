@@ -66,14 +66,15 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
 
         loadMetaData: function (url, type) {
             var video = document.createElement("video");
-            video.setAttribute("id", "tempVideo");
+            var tempName = "tempVideo" + new Date().getTime();
+            video.setAttribute("id", tempName);
             var src = document.createElement("source");
             src.src = url;
             src.type = type;
             video.appendChild(src);
             var $vidwrapper = $(this.settings.tempWrapper);
             $vidwrapper.append(video);
-            var $pop = Popcorn("#tempVideo");
+            var $pop = Popcorn("#"+tempName);
 
             var self = this;
             $pop.listen('canplayall', function() {
@@ -96,6 +97,9 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
                     thumbnail: self.video.thumbnail,
                     prettySize: self.video.prettySize
                 });
+
+                $("#"+tempName).remove();
+                $("#popcorn-canvas-"+tempName).remove();
 
                 self.settings.list.addItem(item);
             });

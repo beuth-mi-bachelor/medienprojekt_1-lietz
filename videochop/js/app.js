@@ -198,12 +198,6 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                             size: file.size,
                             type: file.type
                         });
-                    },
-                    groupend: function (e, file) {
-                        setTimeout(function() {
-                            $(moduleVideoItemLoader.settings.tempWrapper).empty();
-                        }, 5000);
-
                     }
                 }
             };
