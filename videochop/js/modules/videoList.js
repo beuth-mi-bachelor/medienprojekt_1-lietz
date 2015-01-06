@@ -71,6 +71,14 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
                 placeholder: "ui-state-highlight",
                 axis: "y"
             });
+
+            this.$list.find("li").draggable({
+                revert: true,
+                scroll: false,
+                connectToSortable: ".timeline",
+                helper: "clone"
+            });
+
             this.$list.disableSelection();
         },
         /**
