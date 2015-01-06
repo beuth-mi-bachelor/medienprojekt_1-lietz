@@ -61,6 +61,8 @@
     <button id="convert">Convert Video</button>
     <button id="combine">Combine 2 Videos</button>
     <button id="showhelp">Show Help</button>
+    <button id="showcodecs">Show Codec</button>
+
 </pre>
 <p id="array-content">
 
@@ -79,6 +81,8 @@
 
 
         var showHelp = document.getElementById("showhelp");
+        var showCodecs = document.getElementById("showcodecs");
+
         var $videoBsp = $("#video");
 
 
@@ -197,6 +201,16 @@
 
         }, false);
 
+
+
+        showCodecs.addEventListener("click", function(){
+
+            worker.postMessage({
+                type: 'command',
+                arguments: ['-codecs']
+            });
+
+        }, false);
     };
 
 </script>
