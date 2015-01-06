@@ -34,23 +34,49 @@ requirejs.config({
     },
     waitSeconds: 0
 });
-define(["jquery", "jqueryui", "videoItem", "videoList"], (function ($, ui, VideoItem, VideoList) {
+define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "filereader"], (function ($, ui, VideoItem, VideoList, VideoItemLoader, FileReaderJS) {
     "use strict";
 
         $(document).ready(function() {
 
-            var vidItem = new VideoItem({
-
+            /*video list for debug reasons*/
+            var videoList = new VideoList({
+                container: ".file-list"
             });
 
-            console.log(vidItem);
+            /*video item loader for debug reasons*/
+            /**
+             * VideoItemLoader
+             */
+            var moduleVideoItemLoader = new VideoItemLoader({
+                tempWrapper: ".temporary-video",
+                list: videoList
+            });
+
+            var fileReaderOpts = {
+                readAsDefault: 'ArrayBuffer',
+                accept: "video/*",
+                on: {
+                    loadend: function (e, file) {
+                        moduleVideoItemLoader.add({
+                            data: new Uint8Array(e.target.result),
+                            extension: file.extra.extension,
+                            name: file.extra.nameNoExtension,
+                            prettySize: file.extra.prettySize,
+                            size: file.size,
+                            type: file.type
+                        });
+                    }
+                }
+            };
+
+            FileReaderJS.setupInput($(".file-add")[0], fileReaderOpts);
 
             $(".timeline").sortable({
                 revert: 10,
                 opacity: 0.3,
                 axis: "x"
             });
-
 
             $(".timeline li").resizable({
                 minWidth: 100,
