@@ -1,16 +1,40 @@
 requirejs.config({
     baseUrl:"../../videochop/js/",
     paths: {
-        "jquery": 'lib/jquery-2.1.1.min',
-        "ui": 'lib/jquery-ui.min'
+        "jquery": "lib/jquery-2.1.1.min",
+        "jqueryui": "lib/jquery-ui.min",
+        "modernizr": "lib/modernizr",
+        "useragent": "lib/ua-parser.min",
+        "filereader": 'lib/filereader',
+        "videoItemLoader": "modules/videoItemLoader",
+        "videoItem": "modules/videoItem",
+        "videoList": "modules/videoList",
+        "popcorn": "lib/popcorn.min",
+        "popcorn-capture": "lib/popcorn.capture"
     },
     shim: {
-        "ui": {
+        "videoItemLoader": {
+            deps: ["jquery", "videoItem", "popcorn", "popcorn-capture"]
+        },
+        "popcorn-capture": {
+            deps: ["popcorn"]
+        },
+        "popcorn": {
             deps: ["jquery"]
+        },
+        "videoItem": {
+            deps: ["jquery"]
+        },
+        "modernizr": {
+            deps: ["jquery"]
+        },
+        "videoList": {
+            deps: ["jquery", "videoItem"]
         }
-    }
+    },
+    waitSeconds: 0
 });
-define(["jquery", "ui", "modules/videoItem", "modules/videoList"], (function ($, ui, VideoItem, VideoList) {
+define(["jquery", "jqueryui", "videoItem", "videoList"], (function ($, ui, VideoItem, VideoList) {
     "use strict";
 
         $(document).ready(function() {
@@ -22,8 +46,9 @@ define(["jquery", "ui", "modules/videoItem", "modules/videoList"], (function ($,
             console.log(vidItem);
 
             $(".timeline").sortable({
-                revert: true,
-                revertDuration: 10
+                revert: 10,
+                opacity: 0.3,
+                axis: "x"
             });
 
 
@@ -31,7 +56,7 @@ define(["jquery", "ui", "modules/videoItem", "modules/videoList"], (function ($,
                 minWidth: 100,
                 maxWidth: 300,
                 handles: "e, w",
-                stop: function( event, ui ) {
+                stop: function(event) {
                     event.target.style.left = 0;
                 }
             });
