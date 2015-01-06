@@ -180,8 +180,6 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                 container: ".file-list"
             });
 
-
-
             /**
              * VideoItemLoader
              */
@@ -196,7 +194,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
 
             var fileReaderOpts = {
                 readAsDefault: 'ArrayBuffer',
-                accept: "video/*",
+                accept: "video/webm",
                 on: {
                     loadend: function (e, file) {
                         moduleVideoItemLoader.add({
@@ -207,6 +205,9 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                             size: file.size,
                             type: file.type
                         });
+                    },
+                    skip: function() {
+                        window.alert("only webm supported");
                     }
                 }
             };
