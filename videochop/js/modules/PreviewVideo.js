@@ -3,12 +3,13 @@
  *
  * @module: PreviewVideo
  * @requires: jQuery
+ * @requires: videoItemLoader
  * TODO: add more dependencies here
  *
  * this module shows a video and controls it
  */
 
-define(["jquery"], (function ($) {
+define(["jquery", "videoItemLoader"], (function ($, VideoItemLoader) {
     "use strict";
 
     /**
@@ -18,12 +19,13 @@ define(["jquery"], (function ($) {
      */
     function PreviewVideo(settings) {
         this.settings = {
-
-        };
+            videoItems: [],
+            vidContainer: ".default"
+    };
 
         // if settings where not set by initializing, fill with default settings
         $.extend(this.settings, settings || {});
-
+        //this.$vidContainer = $(this.settings.vidContainer);
         this.initialize();
     }
 
@@ -31,6 +33,22 @@ define(["jquery"], (function ($) {
         initialize: function () {
 
         },
+
+        showPreview: function (videoItemLoader) {
+            if(videoItemLoader instanceof VideoItemLoader){
+                var url = window.URL.createObjectURL(new Blob(
+                    [videoItemLoader.video.data], {
+                        type: videoItemLoader.video.type
+                    }
+                ));
+                var src = document.createElement("source");
+                src.src = url;
+                src.type = videoItemLoader.video.type;
+                var $vidwrapper = $(this.settings.vidContainer);
+                $vidwrapper.html(src);
+            }
+        },
+
         /**
          * describes this Object to the user
          * @returns {String} representation of this Object

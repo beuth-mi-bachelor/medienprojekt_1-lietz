@@ -11,6 +11,7 @@ requirejs.config({
         "videoItemLoader": "modules/videoItemLoader",
         "videoItem": "modules/videoItem",
         "videoList": "modules/videoList",
+        "previewVideo": "modules/PreviewVideo",
         "popcorn": "lib/popcorn.min",
         "popcorn-capture": "lib/popcorn.capture"
     },
@@ -32,6 +33,9 @@ requirejs.config({
         },
         "videoList": {
             deps: ["jquery", "videoItem"]
+        },
+        "previewVideo": {
+            deps: ["jquery"]
         }
     },
     waitSeconds: 0
@@ -41,7 +45,7 @@ requirejs.config({
  * what is to load
  * @type {string[]}
  */
-var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "filereader", "videoItemLoader", "videoList"];
+var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "filereader", "videoItemLoader", "videoList", "previewVideo"];
 /**
  * counter for loading modules
  * @type {number}
@@ -94,7 +98,7 @@ var displayLoadProgress = function(p) {
     percentageContainer.style.height = p + "%";
 };
 
-define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJS, VideoItemLoader, VideoList) {
+define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJS, VideoItemLoader, VideoList, PreviewVideo) {
     "use strict";
 
     $(document).ready(function() {
@@ -109,6 +113,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
         // wrapper and instances of modules
         var moduleVideoList,
             moduleVideoItemLoader,
+            modulePreviewVideo,
             $wrapperVideoDrop,
             $wrapperVideoAdd;
 
@@ -149,6 +154,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
             $closeImpress = $(".close-impress");
             $body = $("body");
 
+
             // placeholders for module wrappers
             $wrapperVideoDrop = $appWrapper.find(".file-list");
             $wrapperVideoAdd = $appWrapper.find(".file-add");
@@ -170,6 +176,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
             $(".file-add-button").on("click", function() {
                 $(".file-add").trigger("click");
             });
+
+
         }
 
         function startModules() {
@@ -190,9 +198,18 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                 list: moduleVideoList
             });
 
+            /**
+             * PreviewVideo
+             */
+            modulePreviewVideo = new PreviewVideo({
+               videoItems: moduleVideoItemLoader,
+               vidContainer: ".preview-video"
+            });
+
             $(document).on('drop dragover', function (e) {
                 e.preventDefault();
             });
+
 
             var fileReaderOpts = {
                 readAsDefault: 'ArrayBuffer',
@@ -207,12 +224,15 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                             size: file.size,
                             type: file.type
                         });
+                        console.log(moduleVideoItemLoader.video);
+                        modulePreviewVideo.showPreview(moduleVideoItemLoader);
                     }
                 }
             };
 
             FileReaderJS.setupDrop($wrapperVideoDrop[0], fileReaderOpts);
             FileReaderJS.setupInput($wrapperVideoAdd[0], fileReaderOpts);
+
 
         }
 
