@@ -15,10 +15,11 @@ $color-darkest: #000;
 
 $color-light: #ebebeb;
 $color-medium: #888;
+$color-medium-dark: #686868;
 $color-dark: #353535;
 $color-darker: #1d1d1b;
 
-$color-highlight: #d57304;
+$color-highlight: #FF6400;
 
 /* container definitions */
 $spacer: 10px;
@@ -33,6 +34,8 @@ $control-icon-size: 40px;
 /* breakpoint definitions */
 $breakpoint-smallest: 420px;
 $breakpoint-small: 768px;
+$breakpoint-menu: 820px;
+
 
 /* z-indices definitions */
 $z-index-high: 100;

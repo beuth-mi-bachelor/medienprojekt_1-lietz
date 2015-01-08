@@ -7,7 +7,7 @@
     padding-top: 3*$spacer;
     overflow-x: hidden;
     overflow-y: auto;
-    background: url(../media/img/beige_paper.png) top left;
+    background: $color-light;
     .file-menu {
         position: fixed;
         top: $container-nav-height;
@@ -116,9 +116,9 @@
             left: 0;
             content: "";
             width: $file-list-width;
-            height: 1px;
-            margin-top: -.5px;
-            background: rgba(213, 115, 4, .5);
+            height: 2px;
+            margin-top: -1px;
+            background: rgba(255, 100, 0, .5);
         }
     }
 }
