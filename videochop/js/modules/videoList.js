@@ -67,38 +67,17 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
                 self.deleteItem(id);
             });
 
-            this.$list.find("li").draggable("disable");
-
             this.$list.sortable({
-                placeholder: "ui-state-highlight",
+                placeholder: 'placeholder',
+                opacity: 0.3,
+                helper: "clone",
                 axis: "y",
-                start: function(e, ui) {
-
+                start: function(event, ui) {
+                    $(ui.helper.context).show().addClass("active");
                 },
-                out: function(e, ui) {
-                    if (ui.helper) {
-                        $(ui.item.context).addClass(".dragger");
-                    }
-                },
-                over: function(e, ui) {
-
-                },
-                stop: function(e, ui) {
-
-                },
-                beforeStop: function() {
-
-                },
-                deactivate: function(e, ui) {
-
+                beforeStop: function(event, ui) {
+                    $(ui.helper.context).removeClass("active");
                 }
-            }).find("li").draggable({
-                handle: "img",
-                appendTo: document.body,
-                revert: true,
-                scroll: false,
-                connectToSortable: ".timeline",
-                helper: "clone"
             });
 
             this.$list.disableSelection();

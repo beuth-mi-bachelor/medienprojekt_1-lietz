@@ -478,7 +478,7 @@ body {
 /* line 41, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .files {
   margin: 0;
-  padding: 0;
+  padding: 5px 0 0;
   width: 100%;
   display: block;
 }
@@ -494,8 +494,8 @@ body {
   font-weight: 300;
 }
 /* line 56, ../scss/_filelist.scss */
-.video-chop-application .application .file-list .file:first-child {
-  margin-top: 5px;
+.video-chop-application .application .file-list .file.active {
+  background: rgba(150, 150, 150, 0.75);
 }
 /* line 59, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file .file-delete {
@@ -513,45 +513,61 @@ body {
 }
 /* line 71, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file .small {
+  margin-top: 5px;
   font-family: "Roboto Condensed", sans-serif;
   font-weight: 700;
   font-size: .7em;
 }
-/* line 78, ../scss/_filelist.scss */
+/* line 79, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file .small span:first-child {
   float: left;
 }
-/* line 81, ../scss/_filelist.scss */
+/* line 82, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file .small span:last-child {
   float: right;
 }
-/* line 86, ../scss/_filelist.scss */
+/* line 87, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file-info {
-  width: 150px;
+  width: 50%;
   margin-left: 10px;
   display: inline-block;
   vertical-align: middle;
+  overflow: hidden;
 }
-/* line 91, ../scss/_filelist.scss */
+/* line 93, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file-info p {
   margin: 0;
   padding: 0;
 }
-/* line 96, ../scss/_filelist.scss */
+/* line 98, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file-thumb {
   width: 120px;
   vertical-align: middle;
 }
-/* line 100, ../scss/_filelist.scss */
+/* line 102, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file-name {
   font-weight: 400;
   font-size: 1.2em;
+  white-space: nowrap;
 }
-/* line 104, ../scss/_filelist.scss */
-.video-chop-application .application .file-list .ui-state-highlight {
-  width: 100%;
-  height: 75px;
-  background: #fff;
+/* line 107, ../scss/_filelist.scss */
+.video-chop-application .application .file-list .placeholder {
+  width: 0;
+  height: 0;
+  display: block;
+  border-style: solid;
+  border-width: 6px 0 6px 12px;
+  border-color: transparent transparent transparent #d57304;
+}
+/* line 114, ../scss/_filelist.scss */
+.video-chop-application .application .file-list .placeholder:after {
+  position: absolute;
+  left: 0;
+  content: "";
+  width: 350px;
+  height: 1px;
+  margin-top: -.5px;
+  background: rgba(213, 115, 4, 0.5);
 }
 /* line 2, ../scss/partials/_placeholder.scss */
 .video-chop-application .application .file-list .file .small:before, .video-chop-application .application .file-list .file .small:after {

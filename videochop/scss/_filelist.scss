@@ -40,7 +40,7 @@
     }
     .files {
         margin: 0;
-        padding: 0;
+        padding: 5px 0 0;
         width: 100%;
         display: block;
     }
@@ -53,8 +53,8 @@
         margin: 0 10px 5px;
         cursor: move;
         font-weight: 300;
-        &:first-child {
-            margin-top: 5px;
+        &.active {
+            background: rgba(150, 150, 150, .75);
         }
         .file-delete {
             display: inline-block;
@@ -70,6 +70,7 @@
         }
         .small {
             @extend %clearfix;
+            margin-top: $spacer/2;
             font: {
                 family: $condensed-font;
                 weight: 700;
@@ -84,10 +85,11 @@
         }
     }
     .file-info {
-        width: 150px;
+        width: 50%;
         margin-left: $spacer;
         display: inline-block;
         vertical-align: middle;
+        overflow: hidden;
         p {
             margin: 0;
             padding: 0;
@@ -100,10 +102,23 @@
     .file-name {
         font-weight: 400;
         font-size: 1.2em;
+        white-space: nowrap;
     }
-    .ui-state-highlight {
-        width: 100%;
-        height: 75px;
-        background: $color-lightest;
+    .placeholder {
+        width: 0;
+        height: 0;
+        display: block;
+        border-style: solid;
+        border-width: 6px 0 6px 12px;
+        border-color: transparent transparent transparent $color-highlight;
+        &:after {
+            position: absolute;
+            left: 0;
+            content: "";
+            width: $file-list-width;
+            height: 1px;
+            margin-top: -.5px;
+            background: rgba(213, 115, 4, .5);
+        }
     }
 }
