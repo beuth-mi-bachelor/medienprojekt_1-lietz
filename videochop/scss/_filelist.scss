@@ -4,9 +4,10 @@
 @import "partials/_placeholder";
 
 .file-list {
-    padding-top: 2*$spacer;
+    padding-top: 3*$spacer;
     overflow-x: hidden;
     overflow-y: auto;
+    background: url(../media/img/beige_paper.png) top left;
     .file-menu {
         position: fixed;
         top: $container-nav-height;
@@ -22,7 +23,7 @@
             height: 3*$spacer;
             padding: 2px 4px;
             float: right;
-            color: $color-medium;
+            color: $color-light;
             cursor: pointer;
             line-height: (3*$spacer) - ($spacer/2);
             &:before {
@@ -33,7 +34,7 @@
                 left: -(2*$spacer);
             }
             &:hover {
-                color: $color-highlight;
+                color: $color-lightest;
             }
         }
     }
@@ -45,30 +46,46 @@
     }
     .file {
         list-style-type: none;
-        background: $color-dark;
-        color: $color-medium;
-        padding: 5px 0;
+        background: $color-lightest;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0 ,.2);
+        color: $color-dark;
+        padding: 15px 5px;
+        margin: 0 10px 5px;
         cursor: move;
-        &:nth-child(odd) {
-            background: $color-medium;
-            color: $color-dark;
-        }
+        font-weight: 300;
         &:first-child {
-            margin-top: 10px;
+            margin-top: 5px;
         }
         .file-delete {
             display: inline-block;
             width: 16px;
             vertical-align: middle;
             cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 300;
+            margin-right: $spacer;
             &:hover {
-                color: $color-lightest;
+                color: $color-darkest;
+            }
+        }
+        .small {
+            @extend %clearfix;
+            font: {
+                family: $condensed-font;
+                weight: 700;
+                size: .7em;
+            }
+            span:first-child {
+                float: left;
+            }
+            span:last-child {
+                float: right;
             }
         }
     }
     .file-info {
         width: 150px;
-        margin-left: 3px;
+        margin-left: $spacer;
         display: inline-block;
         vertical-align: middle;
         p {
@@ -79,6 +96,10 @@
     .file-thumb {
         width: 120px;
         vertical-align: middle;
+    }
+    .file-name {
+        font-weight: 400;
+        font-size: 1.2em;
     }
     .ui-state-highlight {
         width: 100%;

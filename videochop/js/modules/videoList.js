@@ -67,12 +67,34 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
                 self.deleteItem(id);
             });
 
+            this.$list.find("li").draggable("disable");
+
             this.$list.sortable({
                 placeholder: "ui-state-highlight",
-                axis: "y"
-            });
+                axis: "y",
+                start: function(e, ui) {
 
-            this.$list.find("li").draggable({
+                },
+                out: function(e, ui) {
+                    if (ui.helper) {
+                        $(ui.item.context).addClass(".dragger");
+                    }
+                },
+                over: function(e, ui) {
+
+                },
+                stop: function(e, ui) {
+
+                },
+                beforeStop: function() {
+
+                },
+                deactivate: function(e, ui) {
+
+                }
+            }).find("li").draggable({
+                handle: "img",
+                appendTo: document.body,
                 revert: true,
                 scroll: false,
                 connectToSortable: ".timeline",

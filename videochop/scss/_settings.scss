@@ -6,6 +6,7 @@ $base-line-width: 1em;
 $base-font-color: #000;
 
 $base-font: 'Roboto', sans-serif;
+$condensed-font: 'Roboto Condensed', sans-serif;
 $icon-font: 'ElegantIcons';
 
 /* color definitions */
@@ -23,7 +24,7 @@ $color-highlight: #dcb432;
 $spacer: 10px;
 $container-nav-height: 40px;
 $timeline-height: 300px;
-$file-list-width: 300px;
+$file-list-width: 350px;
 $controls-height: 100px;
 $audio-slider-height: $controls-height - ($spacer*4);
 $mute-button: ($controls-height - $audio-slider-height) / 2;
