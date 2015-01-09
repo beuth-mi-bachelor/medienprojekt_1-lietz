@@ -51,44 +51,32 @@ define(["jquery"], (function ($) {
                 '<div class="file-delete icon_close"></div>' +
                 '<img class="file-thumb" src="'+this.settings.thumbnail+'" alt="'+this.settings.name+'" />' +
                 '<div class="file-info">' +
-                '<p>Name: <span class="file-name">'+this.settings.name+'</span></p>' +
-                '<p>Duration: <span class="file-duration">'+this.timeFormat()+'</span></p>' +
-                '<p>Size: <span class="file-size">'+this.settings.prettySize+'</span></p>' +
+                '<p><span class="file-name">'+this.settings.name+'</span></p>' +
+                '<p><span class="file-duration">'+this.timeFormat()+' min</span></p>' +
+                '<p class="small"><span class="file-resolution">'+this.settings.resolution.width + " x " + this.settings.resolution.height +' px</span><span class="file-size">'+this.settings.prettySize+'</span></p>' +
                 '</div></li>';
         },
 
         timeFormat: function () {
-            var sek = Math.abs(this.settings.length);
-            return this.fuehrendeNull((sek/60/60)%24) + ":" +
-                this.fuehrendeNull((sek/60)%60) + ":" + this.fuehrendeNull(sek%60);
+            var millis = Math.abs(this.settings.length);
+            var secs = this.fillZeros(millis%60);
+            var mins = this.fillZeros(secs%60);
+            return  mins + ":" + secs;
         },
 
-        fuehrendeNull: function(wert) {
-            if (wert<10) {
-                return "0" + parseInt(wert);
+        fillZeros: function(value) {
+            if (value<10) {
+                return "0" + parseInt(value, 10);
             }
             else {
-                return parseInt(wert);
+                return parseInt(value, 10);
             }
         },
-
-        sizeFormat: function () {
-            var kb = Math.abs(this.settings.size);
-            if (kb<1000) {
-                return "0" + "," + kb/100;
-            }
-            else {
-                return parseInt(kb/1000) + "," + parseInt(kb%1000/100);
-            }
-        },
-
         deleteItem: function () {
             $("#video-item-" + this.id).remove();
              this.settings = null;
-             delete this.settings; //TODO
+             delete this.settings;
         },
-
-
         /**
          * describes this Object to the user
          * @returns {String} representation of this Object

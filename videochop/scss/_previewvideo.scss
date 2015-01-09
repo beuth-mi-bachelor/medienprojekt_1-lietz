@@ -12,6 +12,7 @@
     .video-wrapper {
         top: 0;
         bottom: $controls-height;
+        background: $color-darker;
         .preview-video {
             position: absolute;
             top: 0;

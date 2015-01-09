@@ -6,6 +6,7 @@ $base-line-width: 1em;
 $base-font-color: #000;
 
 $base-font: 'Roboto', sans-serif;
+$condensed-font: 'Roboto Condensed', sans-serif;
 $icon-font: 'ElegantIcons';
 
 /* color definitions */
@@ -14,16 +15,17 @@ $color-darkest: #000;
 
 $color-light: #ebebeb;
 $color-medium: #888;
+$color-medium-dark: #686868;
 $color-dark: #353535;
 $color-darker: #1d1d1b;
 
-$color-highlight: #dcb432;
+$color-highlight: #FF6400;
 
 /* container definitions */
 $spacer: 10px;
 $container-nav-height: 40px;
 $timeline-height: 300px;
-$file-list-width: 300px;
+$file-list-width: 350px;
 $controls-height: 100px;
 $audio-slider-height: $controls-height - ($spacer*4);
 $mute-button: ($controls-height - $audio-slider-height) / 2;
@@ -32,6 +34,8 @@ $control-icon-size: 40px;
 /* breakpoint definitions */
 $breakpoint-smallest: 420px;
 $breakpoint-small: 768px;
+$breakpoint-menu: 820px;
+
 
 /* z-indices definitions */
 $z-index-high: 100;

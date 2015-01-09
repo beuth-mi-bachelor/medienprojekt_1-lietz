@@ -11,7 +11,6 @@ requirejs.config({
         "videoItemLoader": "modules/videoItemLoader",
         "videoItem": "modules/videoItem",
         "videoList": "modules/videoList",
-        "previewVideo": "modules/PreviewVideo",
         "popcorn": "lib/popcorn.min",
         "popcorn-capture": "lib/popcorn.capture"
     },
@@ -33,9 +32,6 @@ requirejs.config({
         },
         "videoList": {
             deps: ["jquery", "videoItem"]
-        },
-        "previewVideo": {
-            deps: ["jquery"]
         }
     },
     waitSeconds: 0
@@ -45,7 +41,7 @@ requirejs.config({
  * what is to load
  * @type {string[]}
  */
-var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "filereader", "videoItemLoader", "videoList", "previewVideo"];
+var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "filereader", "videoItemLoader", "videoList"];
 /**
  * counter for loading modules
  * @type {number}
@@ -98,7 +94,7 @@ var displayLoadProgress = function(p) {
     percentageContainer.style.height = p + "%";
 };
 
-define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJS, VideoItemLoader, VideoList, PreviewVideo) {
+define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJS, VideoItemLoader, VideoList) {
     "use strict";
 
     $(document).ready(function() {
@@ -113,9 +109,9 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
         // wrapper and instances of modules
         var moduleVideoList,
             moduleVideoItemLoader,
-            modulePreviewVideo,
             $wrapperVideoDrop,
-            $wrapperVideoAdd;
+            $wrapperVideoAdd,
+            $fileLoading;
 
         // User-Agent helper to identify user
         var ua = new UserAgent();
@@ -154,10 +150,10 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
             $closeImpress = $(".close-impress");
             $body = $("body");
 
-
             // placeholders for module wrappers
             $wrapperVideoDrop = $appWrapper.find(".file-list");
             $wrapperVideoAdd = $appWrapper.find(".file-add");
+            $fileLoading = $wrapperVideoDrop.find(".video-loading");
 
         }
 
@@ -176,8 +172,6 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
             $(".file-add-button").on("click", function() {
                 $(".file-add").trigger("click");
             });
-
-
         }
 
         function startModules() {
@@ -188,8 +182,6 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                 container: ".file-list"
             });
 
-
-
             /**
              * VideoItemLoader
              */
@@ -198,23 +190,17 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                 list: moduleVideoList
             });
 
-            /**
-             * PreviewVideo
-             */
-            modulePreviewVideo = new PreviewVideo({
-               videoItems: moduleVideoItemLoader,
-               vidContainer: ".preview-video"
-            });
-
             $(document).on('drop dragover', function (e) {
                 e.preventDefault();
             });
 
-
             var fileReaderOpts = {
                 readAsDefault: 'ArrayBuffer',
-                accept: "video/*",
+                accept: "video/webm",
                 on: {
+                    loadstart: function(e, file) {
+                        $fileLoading.show();
+                    },
                     loadend: function (e, file) {
                         moduleVideoItemLoader.add({
                             data: new Uint8Array(e.target.result),
@@ -224,15 +210,16 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                             size: file.size,
                             type: file.type
                         });
-                        console.log(moduleVideoItemLoader.video);
-                        modulePreviewVideo.showPreview(moduleVideoItemLoader);
+                        $fileLoading.fadeOut(200);
+                    },
+                    skip: function() {
+                        window.alert("only webm supported");
                     }
                 }
             };
 
             FileReaderJS.setupDrop($wrapperVideoDrop[0], fileReaderOpts);
             FileReaderJS.setupInput($wrapperVideoAdd[0], fileReaderOpts);
-
 
         }
 
