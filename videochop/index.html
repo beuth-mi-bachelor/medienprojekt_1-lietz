@@ -16,6 +16,7 @@
 
         <link href='css/main.css' rel='stylesheet' type='text/css'>
         <link href='fonts/elegant-icons/style.css' rel='stylesheet' type='text/css'>
+        <link href='fonts/league/style.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300,100' rel='stylesheet' type='text/css'>
 
     </head>
@@ -68,71 +69,7 @@
                                 <div class="file-add-button icon_plus">add file</div>
                                 <input type="file" class="file-add no-content" multiple />
                             </div>
-                            <div class='video-loading' />
-                            <!-- no need for dummy-content
-                            <ul class="files">
-                                <li class="file">
-                                    <div class="file-delete icon_close"></div>
-                                    <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
-                                    <div class="file-info">
-                                        <p>Name: <span class="file-name">Beispielname sehr lang und voll</span></p>
-                                        <p>Type: <span class="file-type">MP4</span></p>
-                                        <p>Duration: <span class="file-duration">03:21</span></p>
-                                        <p>Size: <span class="file-size">50.04MB</span></p>
-                                    </div>
-                                </li>
-                                <li class="file">
-                                    <div class="file-delete icon_close"></div>
-                                    <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
-                                    <div class="file-info">
-                                        <p>Name: <span class="file-name">Beispielname</span></p>
-                                        <p>Type: <span class="file-type">MP4</span></p>
-                                        <p>Duration: <span class="file-duration">03:21</span></p>
-                                        <p>Size: <span class="file-size">50.04MB</span></p>
-                                    </div>
-                                </li>
-                                <li class="file">
-                                    <div class="file-delete icon_close"></div>
-                                    <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
-                                    <div class="file-info">
-                                        <p>Name: <span class="file-name">Beispielname sehr lang und voll und sehr viellllll länger als der davor</span></p>
-                                        <p>Type: <span class="file-type">MP4</span></p>
-                                        <p>Duration: <span class="file-duration">03:21</span></p>
-                                        <p>Size: <span class="file-size">50.04MB</span></p>
-                                    </div>
-                                </li>
-                                <li class="file">
-                                    <div class="file-delete icon_close"></div>
-                                    <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
-                                    <div class="file-info">
-                                        <p>Name: <span class="file-name">Beispielname</span></p>
-                                        <p>Type: <span class="file-type">MP4</span></p>
-                                        <p>Duration: <span class="file-duration">03:21</span></p>
-                                        <p>Size: <span class="file-size">50.04MB</span></p>
-                                    </div>
-                                </li>
-                                <li class="file">
-                                    <div class="file-delete icon_close"></div>
-                                    <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
-                                    <div class="file-info">
-                                        <p>Name: <span class="file-name">Beispielname</span></p>
-                                        <p>Type: <span class="file-type">MP4</span></p>
-                                        <p>Duration: <span class="file-duration">03:21</span></p>
-                                        <p>Size: <span class="file-size">50.04MB</span></p>
-                                    </div>
-                                </li>
-                                <li class="file">
-                                    <div class="file-delete icon_close"></div>
-                                    <img class="file-thumb" src="media/dummies/thumb-example.jpg" alt="Dummy Alt-Text" />
-                                    <div class="file-info">
-                                        <p>Name: <span class="file-name">Beispielname</span></p>
-                                        <p>Type: <span class="file-type">MP4</span></p>
-                                        <p>Duration: <span class="file-duration">03:21</span></p>
-                                        <p>Size: <span class="file-size">50.04MB</span></p>
-                                    </div>
-                                </li>
-                            </ul>
-                            -->
+                            <div class='video-loading'></div>
                         </section>
                         <section class="preview">
                             <h3 class="no-content">video preview</h3>
@@ -144,25 +81,16 @@
                                 </video>
                             </div>
                             <div class="controls-wrapper">
-                                <div class="controls-left">
+                                <input class="range-slider" type="range" min="0" max="100" step="1" />
+                                <div class="controls">
+                                    <div class="control fa fa-play play"></div>
+                                    <div class="control fa fa-pause pause"></div>
                                     <div class="time-slider">
                                         <span class="indicator video-current">00:00</span>
-                                        <input class="control time" type="range" min="0" value="0" step="1" max="100" />
                                         <span class="indicator video-length">13:53</span>
                                     </div>
-                                    <div class="controls">
-                                        <div class="control play"></div>
-                                        <div class="control pause"></div>
-                                        <div class="control stop"></div>
-                                        <div class="control speed-up"></div>
-                                        <div class="control speed-down"></div>
-                                        <div class="control fullscreen"></div>
-                                        <div class="control loop"></div>
-                                    </div>
-                                </div>
-                                <div class="controls-right">
-                                    <input class="control loudness" orient="vertical" type="range" min="0" value="0" step="1" max="100" />
-                                    <div class="control mute icon_vol-mute_alt"></div>
+                                    <div class="control fa fa-stop stop"></div>
+                                    <div class="control fullscreen fa fa-expand"></div>
                                 </div>
                             </div>
                         </section>

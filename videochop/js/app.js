@@ -159,6 +159,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
 
         function bindEvents() {
 
+            $(".time-slider").disableSelection();
+
             $navItems.on("click", function() {
                 if ($(this).hasClass("impress")) {
                     $body.toggleClass("impress-open");
