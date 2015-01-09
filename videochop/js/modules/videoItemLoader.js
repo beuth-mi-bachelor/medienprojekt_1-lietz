@@ -27,15 +27,9 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
 
         // if settings where not set by initializing, fill with default settings
         $.extend(this.settings, settings || {});
-
-        this.initialize();
     }
 
     VideoItemLoader.prototype = {
-        initialize: function () {
-
-        },
-
         add: function (data) {
             this.video = {
                 data: null,

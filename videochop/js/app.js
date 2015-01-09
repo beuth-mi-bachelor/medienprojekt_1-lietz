@@ -110,7 +110,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
         var moduleVideoList,
             moduleVideoItemLoader,
             $wrapperVideoDrop,
-            $wrapperVideoAdd;
+            $wrapperVideoAdd,
+            $fileLoading;
 
         // User-Agent helper to identify user
         var ua = new UserAgent();
@@ -152,6 +153,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
             // placeholders for module wrappers
             $wrapperVideoDrop = $appWrapper.find(".file-list");
             $wrapperVideoAdd = $appWrapper.find(".file-add");
+            $fileLoading = $wrapperVideoDrop.find(".video-loading");
 
         }
 
@@ -196,6 +198,9 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                 readAsDefault: 'ArrayBuffer',
                 accept: "video/webm",
                 on: {
+                    loadstart: function(e, file) {
+                        $fileLoading.show();
+                    },
                     loadend: function (e, file) {
                         moduleVideoItemLoader.add({
                             data: new Uint8Array(e.target.result),
@@ -205,6 +210,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                             size: file.size,
                             type: file.type
                         });
+                        $fileLoading.fadeOut(200);
                     },
                     skip: function() {
                         window.alert("only webm supported");
