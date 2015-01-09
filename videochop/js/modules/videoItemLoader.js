@@ -22,7 +22,10 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
 
         this.settings = {
             type: "video/mp4",
-            tempWrapper: "#temp-video"
+            tempWrapper: "#temp-video",
+            callback: function() {
+
+            }
         };
 
         // if settings where not set by initializing, fill with default settings
@@ -103,6 +106,8 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
                 $("#popcorn-canvas-"+tempName).remove();
 
                 self.settings.list.addItem(item);
+
+                self.settings.callback();
 
                 Popcorn.destroy(this);
 

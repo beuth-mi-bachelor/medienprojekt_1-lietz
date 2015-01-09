@@ -187,9 +187,18 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
             /**
              * VideoItemLoader
              */
+
+            var files = 0;
+
             moduleVideoItemLoader = new VideoItemLoader({
                 tempWrapper: ".temporary-video",
-                list: moduleVideoList
+                list: moduleVideoList,
+                callback: function() {
+                    files--;
+                    if (files === 0) {
+                        $fileLoading.fadeOut(200);
+                    }
+                }
             });
 
             $(document).on('drop dragover', function (e) {
@@ -203,6 +212,9 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                     loadstart: function(e, file) {
                         $fileLoading.show();
                     },
+                    groupstart: function(e) {
+                        files = e.files.length;
+                    },
                     loadend: function (e, file) {
                         moduleVideoItemLoader.add({
                             data: new Uint8Array(e.target.result),
@@ -212,7 +224,6 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                             size: file.size,
                             type: file.type
                         });
-                        $fileLoading.fadeOut(200);
                     },
                     skip: function() {
                         window.alert("only webm supported");
