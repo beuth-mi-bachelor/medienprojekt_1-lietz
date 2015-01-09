@@ -26,6 +26,7 @@ define(["jquery"], (function ($) {
             start: 0,
             end: 100,
             size: 5500,
+            type: "",
             resolution: {
                 width: 3840,
                 height: 2160
