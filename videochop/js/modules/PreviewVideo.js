@@ -71,6 +71,7 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
         playVideo: function () {
 
            var $videos = this.$vidContainer.find("video");
+
            var video = $videos[0];
 
             console.log(video);

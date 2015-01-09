@@ -100,7 +100,9 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
 
                 var poster = this.currentTime(1).capture();
                 var blob = self.baseToBlob(poster.video.poster, "image/png");
-                item.settings.thumbnail =  URL.createObjectURL(blob);
+                var url = URL.createObjectURL(blob);
+                item.settings.thumbnail = url;
+                this.videoElement.poster = url;
 
                 $("#"+tempName).remove();
                 $("#popcorn-canvas-"+tempName).remove();

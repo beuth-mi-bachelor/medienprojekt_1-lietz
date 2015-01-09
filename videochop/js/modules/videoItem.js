@@ -32,7 +32,8 @@ define(["jquery"], (function ($) {
                 height: 2160
             },
             thumbnail: null,
-            prettySize: "0 MB"
+            prettySize: "0 MB",
+            videoElement: null
         };
 
         // if settings where not set by initializing, fill with default settings
@@ -45,6 +46,8 @@ define(["jquery"], (function ($) {
         initialize: function () {
             VideoItem.indices = (VideoItem.indices || 0) + 1;
             this.id = VideoItem.indices;
+            $(this.settings.videoElement).attr("id", "video-item-"+this.id);
+
         },
 
         getMarkUp: function () {
