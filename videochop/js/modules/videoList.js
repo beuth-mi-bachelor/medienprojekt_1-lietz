@@ -58,7 +58,7 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
         },
         bindEvents: function(){
             var self = this;
-
+            var copyHelper;
             this.$list.on("click", ".file-delete", function () {
                 var $this = $(this).parent();
                 var id = $this.attr("id");
@@ -68,14 +68,18 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
                 self.deleteItem(id);
             });
 
+            var id = "";
+
             this.$list.sortable({
                 placeholder: 'placeholder',
                 opacity: 0.3,
-                helper: "clone",
+                //helper: "clone",
                 axis: "y",
                 connectWith: ".connected",
                 start: function(event, ui) {
-                    $(ui.helper.context).show().addClass("active");
+                    id = $(ui.item.context).attr("id");
+                    $(ui.helper.context).show().addClass("active").attr("id", "video-dragged");
+                    $("#"+id).hide();
                 },
                 out: function(event, ui) {
                     $(ui.sender.context).sortable({axis:"x,y"});
@@ -86,12 +90,18 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
                     $currentList.sortable({axis:"y"});
                     console.log($(ui.helper.context));
                 },
-                remove: function(event, ui) {
-                    ui.item.clone().appendTo('.timeline');
-                    $(this).sortable('cancel');
+                helper: function(event, ui) {
+                    copyHelper = ui.clone().insertAfter(ui);
+                    return ui.clone();
+                },
+                cancel: function() {
+                    copyHelper.remove();
                 },
                 beforeStop: function(event, ui) {
+                    $("#"+id).show();
                     $(ui.helper.context).removeClass("active");
+                    $("#"+id).remove();
+                    $("#video-dragged").attr("id", id);
                 }
             });
 
