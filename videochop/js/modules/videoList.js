@@ -34,6 +34,7 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
         initialize: function () {
             this.$container.append("<ul class='" + this.settings.listname + "'/>");
             this.$list = $("." + this.settings.listname);
+            this.$list.addClass("connected");
             this.addItem(this.settings.items);
             this.bindEvents();
         },
@@ -72,8 +73,22 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
                 opacity: 0.3,
                 helper: "clone",
                 axis: "y",
+                connectWith: ".connected",
                 start: function(event, ui) {
                     $(ui.helper.context).show().addClass("active");
+                },
+                out: function(event, ui) {
+                    $(ui.sender.context).sortable({axis:"x,y"});
+                },
+                over: function(event, ui) {
+                    var $currentItem = $(ui.item.context);
+                    var $currentList = $currentItem.parent();
+                    $currentList.sortable({axis:"y"});
+                    console.log($(ui.helper.context));
+                },
+                remove: function(event, ui) {
+                    ui.item.clone().appendTo('.timeline');
+                    $(this).sortable('cancel');
                 },
                 beforeStop: function(event, ui) {
                     $(ui.helper.context).removeClass("active");
