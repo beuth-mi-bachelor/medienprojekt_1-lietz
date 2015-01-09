@@ -77,7 +77,10 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
                 revert: 10,
                 opacity: 0.3,
                 axis: "x",
-                connectWith: ".connected"
+                connectWith: ".connected",
+                receive: function (event, ui) {
+                    ui.sender.data('copied', true);
+                }
             });
 
             $(".timeline li").resizable({

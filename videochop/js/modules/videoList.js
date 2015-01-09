@@ -58,7 +58,7 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
         },
         bindEvents: function(){
             var self = this;
-            var copyHelper;
+
             this.$list.on("click", ".file-delete", function () {
                 var $this = $(this).parent();
                 var id = $this.attr("id");
@@ -69,11 +69,11 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
             });
 
             var id = "";
+            var copyHelper;
 
             this.$list.sortable({
                 placeholder: 'placeholder',
                 opacity: 0.3,
-                //helper: "clone",
                 axis: "y",
                 connectWith: ".connected",
                 start: function(event, ui) {
@@ -88,20 +88,24 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
                     var $currentItem = $(ui.item.context);
                     var $currentList = $currentItem.parent();
                     $currentList.sortable({axis:"y"});
-                    console.log($(ui.helper.context));
                 },
                 helper: function(event, ui) {
-                    copyHelper = ui.clone().insertAfter(ui);
+                    this.copyHelper = ui.clone().insertAfter(ui);
+                    $(this).data('copied',false);
                     return ui.clone();
-                },
-                cancel: function() {
-                    copyHelper.remove();
                 },
                 beforeStop: function(event, ui) {
                     $("#"+id).show();
                     $(ui.helper.context).removeClass("active");
-                    $("#"+id).remove();
                     $("#video-dragged").attr("id", id);
+                },
+                stop: function() {
+                    var copied = $(this).data('copied');
+
+                    if (!copied) {
+                        this.copyHelper.remove();
+                    }
+                    this.copyHelper = null;
                 }
             });
 

@@ -22,7 +22,10 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
 
         this.settings = {
             type: "video/mp4",
-            tempWrapper: "#temp-video"
+            tempWrapper: "#temp-video",
+            callback: function() {
+
+            }
         };
 
         // if settings where not set by initializing, fill with default settings
@@ -96,16 +99,41 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
                 });
 
                 var poster = this.currentTime(1).capture();
-                item.settings.thumbnail = poster.video.poster;
+                var blob = self.baseToBlob(poster.video.poster, "image/png");
+                item.settings.thumbnail =  URL.createObjectURL(blob);
 
                 $("#"+tempName).remove();
                 $("#popcorn-canvas-"+tempName).remove();
 
                 self.settings.list.addItem(item);
 
+                self.settings.callback();
+
                 Popcorn.destroy(this);
 
             });
+        },
+        baseToBlob: function(b64Data, contentType) {
+            // convert data to correct base64 type
+            b64Data = b64Data.replace(/^data:image\/(png|jpg);base64,/, "");
+            contentType = contentType || '';
+            var sliceSize = 1024;
+            var byteCharacters = atob(b64Data);
+            var bytesLength = byteCharacters.length;
+            var slicesCount = Math.ceil(bytesLength / sliceSize);
+            var byteArrays = new Array(slicesCount);
+
+            for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+                var begin = sliceIndex * sliceSize;
+                var end = Math.min(begin + sliceSize, bytesLength);
+
+                var bytes = new Array(end - begin);
+                for (var offset = begin, i = 0 ; offset < end; ++i, ++offset) {
+                    bytes[i] = byteCharacters[offset].charCodeAt(0);
+                }
+                byteArrays[sliceIndex] = new Uint8Array(bytes);
+            }
+            return new Blob(byteArrays, { type: contentType });
         },
 
         /**
