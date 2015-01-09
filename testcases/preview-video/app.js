@@ -103,7 +103,7 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
             });
 
             $("#play").on('click', function (e) {
-                modulePreviewVideo.prepareToPlay();
+                modulePreviewVideo.playVideo();
             });
 
         });
