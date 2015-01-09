@@ -21,7 +21,7 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
      */
     function PreviewVideo(settings) {
         this.settings = {
-            videoItems: [],
+            videoList: null,
             singleItem: null,
             vidContainer: ".default"
     };
@@ -33,7 +33,7 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
 
     PreviewVideo.prototype = {
         initialize: function () {
-
+            this.$vidContainer = $(this.settings.vidContainer);
         },
 
         showPreview: function (item) {
@@ -42,7 +42,7 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
 
                 this.singleItem = item;
 
-                var $video = $(this.settings.vidContainer).find("Video");
+                var $video = this.$vidContainer.find("Video");
 
                 $video.empty();
 
@@ -53,6 +53,35 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
                 $video.load();
             }
         },
+
+        prepareToPlay: function () {
+
+            var list = this.settings.videoList.videolist;
+
+            this.$vidContainer.empty();
+
+            for (var item in list) {
+                if (list.hasOwnProperty(item)) {
+                    var currentItem = list[item];
+                    this.$vidContainer.append(currentItem.settings.videoElement);
+                }
+            }
+        },
+
+        playVideo: function () {
+
+            e
+
+        },
+
+            
+/*
+            var $video = $(this.settings.vidContainer).find("Video");
+            var video = $video[0];
+
+            video.currentTime = this.singleItem.settings.video.start;
+
+            video.play();*/
 
         /**
          * describes this Object to the user

@@ -49,7 +49,7 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
             });
 
             var modulePreviewVideo = new PreviewVideo({
-                videoItems: videoList,
+                videoList: videoList,
                 vidContainer: ".preview-video"
             });
 
@@ -94,8 +94,16 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
                 var fileId = $(this).attr("id");
                 var split = fileId.split("-");
 
-
                 modulePreviewVideo.showPreview(videoList.videolist[split[2]]);
+
+            });
+
+            $("#prepare").on('click', function (e) {
+                modulePreviewVideo.prepareToPlay();
+            });
+
+            $("#play").on('click', function (e) {
+                modulePreviewVideo.prepareToPlay();
             });
 
         });

@@ -71,6 +71,7 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
             var $pop = Popcorn("#"+tempName);
 
             $pop.videoName = this.video.name;
+            $pop.videoElement = video;
             $pop.videoType = this.video.type;
             $pop.videoSize = this.video.size;
             $pop.videoPrettySize = this.video.prettySize;
@@ -86,6 +87,7 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
                     end: this.media.duration,
                     size: this.videoSize,
                     type: this.videoType,
+                    videoElement: this.videoElement,
                     resolution: {
                         width: this.media.videoWidth,
                         height: this.media.videoHeight
