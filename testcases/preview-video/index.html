@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="de">
+<head>
+    <title>VideoChop: Timeline</title>
+    <meta charset="utf-8">
+
+    <link href='main.css' rel='stylesheet' type='text/css'>
+    <link href='jquery-ui.theme.min.css' rel='stylesheet' type='text/css'>
+    <link href='jquery-ui.css' rel='stylesheet' type='text/css'>
+
+    <script data-main="app.js" src="../../videochop/js/lib/require.js"></script>
+
+</head>
+<body>
+<div>
+    <section class="file-list">
+        <div class="file-menu">
+            <input type="file" class="file-add" multiple />
+        </div>
+    </section>
+    <button id="button" type="button">Click Me!</button>
+</div>
+<div class="preview-video">
+<video controls>
+    <source src="../format-test/videos/big_buck_bunny.mp4" type="video/mp4">
+    <source src="../format-test/videos/big_buck_bunny.webm" type="video/webm">
+    <source src="../format-test/videos/big_buck_bunny.ogv" type="video/ogg">
+</video>
+</div>
+<div class="temporary-video"></div>
+</body>
+</html>

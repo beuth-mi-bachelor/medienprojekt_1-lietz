@@ -97,6 +97,13 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
 
             this.$list.disableSelection();
         },
+
+        getItem: function (id) {
+
+            return this.videolist[id];
+
+        },
+
         /**
          * describes this Object to the user
          * @returns {String} representation of this Object
