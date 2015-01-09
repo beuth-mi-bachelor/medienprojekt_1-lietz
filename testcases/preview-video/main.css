@@ -111,3 +111,6 @@ p {
     width: 120px;
     vertical-align: middle;
 }
+video {
+    position: absolute;
+}
