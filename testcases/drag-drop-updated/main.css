@@ -23,15 +23,91 @@ body {
 }
 .timeline li {
     height: 10vh;
+    width: 100px;
     list-style: none;
-    margin: 0;
+    margin: 0 6px;
     float: left;
-    background: yellow;
-    border: 1px solid #ccc;
+    background: #ebebeb;
+    cursor: move;
+}
+.timeline li:before {
+    position: absolute;
+    content: "";
+    width: 6px;
+    height: 100%;
+    background: #ebebeb url(handle.png) repeat-y;
+    left: -6px;
+    top: 0;
+    border: 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.timeline li:after {
+    position: absolute;
+    content: "";
+    width: 6px;
+    height: 100%;
+    background: #ebebeb url(handle.png) repeat-y;
+    right: -6px;
+    top: 0;
+    border: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 .ui-resizable-e {
     right: 0 !important;
 }
 .ui-resizable-w {
     left: 0 !important;
+}
+
+
+
+
+/* file list */
+.file-list {
+    width: 300px;
+}
+.files {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: block;
+}
+.file {
+    list-style-type: none;
+    background: #333;
+    color: #888;
+    padding: 5px 0;
+    cursor: move;
+}
+.file:nth-child(odd) {
+     background: #888;
+     color: #333;
+}
+.file:first-child {
+     margin-top: 10px;
+ }
+.file-delete {
+    display: inline-block;
+    width: 16px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.file-delete:hover {
+     color: #fff;
+}
+.file-info {
+    width: 150px;
+    margin-left: 3px;
+    display: inline-block;
+    vertical-align: middle;
+}
+p {
+    margin: 0;
+    padding: 0;
+}
+.file-thumb {
+    width: 120px;
+    vertical-align: middle;
 }
