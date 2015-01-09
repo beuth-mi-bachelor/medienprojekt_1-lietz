@@ -3,13 +3,15 @@
  *
  * @module: PreviewVideo
  * @requires: jQuery
- * @requires: videoItemLoader
+ * @requires: videoList
+ * @requires: videoItem
+ *
  * TODO: add more dependencies here
  *
  * this module shows a video and controls it
  */
 
-define(["jquery", "videoItemLoader"], (function ($, VideoItemLoader) {
+define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem) {
     "use strict";
 
     /**
@@ -20,12 +22,12 @@ define(["jquery", "videoItemLoader"], (function ($, VideoItemLoader) {
     function PreviewVideo(settings) {
         this.settings = {
             videoItems: [],
+            singleItem: null,
             vidContainer: ".default"
     };
 
         // if settings where not set by initializing, fill with default settings
         $.extend(this.settings, settings || {});
-        //this.$vidContainer = $(this.settings.vidContainer);
         this.initialize();
     }
 
@@ -34,18 +36,21 @@ define(["jquery", "videoItemLoader"], (function ($, VideoItemLoader) {
 
         },
 
-        showPreview: function (videoItemLoader) {
-            if(videoItemLoader instanceof VideoItemLoader){
-                var url = window.URL.createObjectURL(new Blob(
-                    [videoItemLoader.video.data], {
-                        type: videoItemLoader.video.type
-                    }
-                ));
+        showPreview: function (item) {
+
+            if(item instanceof VideoItem){
+
+                this.singleItem = item;
+
+                var $video = $(this.settings.vidContainer).find("Video");
+
+                $video.empty();
+
                 var src = document.createElement("source");
-                src.src = url;
-                src.type = videoItemLoader.video.type;
-                var $vidwrapper = $(this.settings.vidContainer);
-                $vidwrapper.html(src);
+                src.src = this.singleItem.settings.video;
+                src.type = this.singleItem.settings.type;
+                $video[0].appendChild(src);
+                $video.load();
             }
         },
 

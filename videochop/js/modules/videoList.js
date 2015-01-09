@@ -34,6 +34,7 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
         initialize: function () {
             this.$container.append("<ul class='" + this.settings.listname + "'/>");
             this.$list = $("." + this.settings.listname);
+            this.$list.addClass("connected");
             this.addItem(this.settings.items);
             this.bindEvents();
         },
@@ -57,7 +58,7 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
         },
         bindEvents: function(){
             var self = this;
-
+            var copyHelper;
             this.$list.on("click", ".file-delete", function () {
                 var $this = $(this).parent();
                 var id = $this.attr("id");
@@ -67,21 +68,52 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
                 self.deleteItem(id);
             });
 
+            var id = "";
+
             this.$list.sortable({
                 placeholder: 'placeholder',
                 opacity: 0.3,
-                helper: "clone",
+                //helper: "clone",
                 axis: "y",
+                connectWith: ".connected",
                 start: function(event, ui) {
-                    $(ui.helper.context).show().addClass("active");
+                    id = $(ui.item.context).attr("id");
+                    $(ui.helper.context).show().addClass("active").attr("id", "video-dragged");
+                    $("#"+id).hide();
+                },
+                out: function(event, ui) {
+                    $(ui.sender.context).sortable({axis:"x,y"});
+                },
+                over: function(event, ui) {
+                    var $currentItem = $(ui.item.context);
+                    var $currentList = $currentItem.parent();
+                    $currentList.sortable({axis:"y"});
+                    console.log($(ui.helper.context));
+                },
+                helper: function(event, ui) {
+                    copyHelper = ui.clone().insertAfter(ui);
+                    return ui.clone();
+                },
+                cancel: function() {
+                    copyHelper.remove();
                 },
                 beforeStop: function(event, ui) {
+                    $("#"+id).show();
                     $(ui.helper.context).removeClass("active");
+                    $("#"+id).remove();
+                    $("#video-dragged").attr("id", id);
                 }
             });
 
             this.$list.disableSelection();
         },
+
+        getItem: function (id) {
+
+            return this.videolist[id];
+
+        },
+
         /**
          * describes this Object to the user
          * @returns {String} representation of this Object

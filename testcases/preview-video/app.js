@@ -9,6 +9,7 @@ requirejs.config({
         "videoItemLoader": "modules/videoItemLoader",
         "videoItem": "modules/videoItem",
         "videoList": "modules/videoList",
+        "previewVideo": "modules/previewVideo",
         "popcorn": "lib/popcorn.min",
         "popcorn-capture": "lib/popcorn.capture"
     },
@@ -30,11 +31,14 @@ requirejs.config({
         },
         "videoList": {
             deps: ["jquery", "videoItem"]
+        },
+        "previewVideo": {
+            deps: ["jquery", "videoList"]
         }
     },
     waitSeconds: 0
 });
-define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "filereader"], (function ($, ui, VideoItem, VideoList, VideoItemLoader, FileReaderJS) {
+define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "filereader", "previewVideo"], (function ($, ui, VideoItem, VideoList, VideoItemLoader, FileReaderJS, PreviewVideo) {
     "use strict";
 
         $(document).ready(function() {
@@ -42,6 +46,11 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
             /*video list for debug reasons*/
             var videoList = new VideoList({
                 container: ".file-list"
+            });
+
+            var modulePreviewVideo = new PreviewVideo({
+                videoItems: videoList,
+                vidContainer: ".preview-video"
             });
 
             /*video item loader for debug reasons*/
@@ -66,7 +75,6 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
                             size: file.size,
                             type: file.type
                         });
-                        $(".timeline").sortable("refresh");
                     }
                 }
             };
@@ -76,20 +84,19 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
             $(".timeline").sortable({
                 revert: 10,
                 opacity: 0.3,
-                axis: "x",
-                connectWith: ".connected"
-            });
-
-            $(".timeline li").resizable({
-                minWidth: 100,
-                maxWidth: 300,
-                handles: "e, w",
-                stop: function(event) {
-                    event.target.style.left = 0;
-                }
+                axis: "x"
             });
 
             $( "ul, li" ).disableSelection();
+
+            $(".file-list").on('click', ".file", function (e) {
+
+                var fileId = $(this).attr("id");
+                var split = fileId.split("-");
+
+
+                modulePreviewVideo.showPreview(videoList.videolist[split[2]]);
+            });
 
         });
 
