@@ -66,6 +66,7 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
                             size: file.size,
                             type: file.type
                         });
+                        $(".timeline").sortable("refresh");
                     }
                 }
             };
@@ -75,7 +76,8 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
             $(".timeline").sortable({
                 revert: 10,
                 opacity: 0.3,
-                axis: "x"
+                axis: "x",
+                connectWith: ".connected"
             });
 
             $(".timeline li").resizable({
