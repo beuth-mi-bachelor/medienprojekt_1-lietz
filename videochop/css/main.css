@@ -2785,9 +2785,12 @@ body {
 }
 /* line 24, ../scss/_preloader.scss */
 .video-chop-application .preloader .inner-logo {
+  -webkit-transform-origin: 50% 50%;
+      -ms-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
   padding: 5vh;
 }
-/* line 28, ../scss/_preloader.scss */
+/* line 29, ../scss/_preloader.scss */
 .video-chop-application .preloader .inner-logo-wrapper {
   position: static;
   border-radius: 100%;
@@ -2796,7 +2799,7 @@ body {
   height: 15vh;
   overflow: hidden;
 }
-/* line 36, ../scss/_preloader.scss */
+/* line 37, ../scss/_preloader.scss */
 .video-chop-application .preloader .inner-logo-content {
   position: static;
   width: 100%;
@@ -2806,14 +2809,14 @@ body {
   background-attachment: fixed;
   background-size: 15vh 15vh;
 }
-/* line 45, ../scss/_preloader.scss */
+/* line 46, ../scss/_preloader.scss */
 .video-chop-application .preloader .outer-logo {
   -webkit-animation: spin 3s ease 0s infinite;
           animation: spin 3s ease 0s infinite;
   -webkit-animation-fill-mode: forward;
           animation-fill-mode: forward;
 }
-/* line 49, ../scss/_preloader.scss */
+/* line 50, ../scss/_preloader.scss */
 .video-chop-application .preloader .percentage {
   position: absolute;
   left: 0;
@@ -2829,11 +2832,11 @@ body {
   margin: auto;
   color: #1d1d1b;
 }
-/* line 63, ../scss/_preloader.scss */
+/* line 64, ../scss/_preloader.scss */
 .video-chop-application .preloader .percentage:after {
   content: "%";
 }
-/* line 67, ../scss/_preloader.scss */
+/* line 68, ../scss/_preloader.scss */
 .video-chop-application .preloader .currently-loading {
   position: absolute;
   top: 35vh;
