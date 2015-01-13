@@ -7,13 +7,13 @@ body {
 * {
     box-sizing: border-box;
 }
-
 .timeline {
     position: relative;
     width: 70vw;
     margin-left: 30vw;
     height: 10vh;
-    background: red;
+    background: #ebebeb;
+    box-shadow: inset 0 8px 8px -8px rgba(0, 0, 0, .6), inset 0 -8px 8px -8px rgba(0, 0, 0, .6);
 }
 .timeline:before,
 .timeline:after {
@@ -24,53 +24,87 @@ body {
     clear: both;
 }
 .timeline li {
-    height: 10vh;
+    height: 4em;
+    margin: 0.4em 6px;
     width: 100px;
     list-style: none;
-    margin: 0 6px;
     float: left;
-    background: #ebebeb;
+    background: #fff;
     cursor: move;
-}
-.timeline li:before {
-    position: absolute;
-    content: "";
-    width: 6px;
-    height: 100%;
-    background: #ebebeb url(handle.png) repeat-y;
-    left: -6px;
-    top: 0;
-    border: 0;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 .timeline li:after {
-    position: absolute;
-    content: "";
-    width: 6px;
-    height: 100%;
-    background: #ebebeb url(handle.png) repeat-y;
-    right: -6px;
-    top: 0;
-    border: 0;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+
+}
+.timeline li:before {
+
+}
+.timeline .file .file-thumb,
+.timeline .file .file-info > p:not(:first-child) {
+    display: none;
+}
+.timeline .file .file-info > p:first-child {
+    overflow: hidden;
+    height: 3em;
+    width: 100%;
+    margin: 0.5em 0;
+    padding: 0 1em;
+    display: table;
+}
+.timeline .file .file-info > p:first-child span {
+    display: table-cell;
+    vertical-align: middle;
 }
 .ui-resizable-e {
+    display: table !important;
     right: 0 !important;
+    width: 12px !important;
 }
-.ui-resizable-w {
-    left: 0 !important;
+.ui-resizable-e:after {
+    content: "\f105";
+    display: table-cell;
+    vertical-align:middle;
+    width: 20px;
+    height: 100%;
+    text-align: center;
+    font-family: "FontAwesome", sans-serif;
+    font-size: 30px;
+    background: #fff;
+    right: 0;
+    top: 0;
 }
 .helper.ui-sortable-helper {
     padding: 10px;
     background: #fff url(../../videochop/media/img/logo-small.png) center center no-repeat;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, .8);
+    box-shadow: 0 0 2px rgba(0, 0, 0, .6);
     background-size: 50px 50px;
 }
 .temporary-video {
     visibility: hidden;
 }
+.timeline li.placeholder {
+    width: 0;
+    height: 0;
+    margin-top: 0;
+    border-style: solid;
+    border-width: 12px 6px 0 6px;
+    border-color: #FF6400 transparent transparent transparent;
+    background: transparent;
+    box-shadow: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

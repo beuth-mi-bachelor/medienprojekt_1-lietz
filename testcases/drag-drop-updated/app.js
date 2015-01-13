@@ -50,7 +50,9 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
              */
             var moduleVideoItemLoader = new VideoItemLoader({
                 tempWrapper: ".temporary-video",
-                list: videoList
+                callback: function(item) {
+                    videoList.addItem(item);
+                }
             });
 
             var fileReaderOpts = {
@@ -77,22 +79,39 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
                 revert: 10,
                 opacity: 0.3,
                 axis: "x",
+                tolerance: "pointer",
+                placeholder: "placeholder",
                 receive: function (e, ui) {
                     ui.sender.data('copied', true);
+                    var $item = $(ui.item);
+                    initResizable(videoList, $item);
                 }
             });
 
-            $(".timeline li").resizable({
-                minWidth: 100,
-                maxWidth: 300,
-                handles: "e, w",
-                stop: function(event) {
-                    event.target.style.left = 0;
-                }
-            });
-
-            $( "ul, li" ).disableSelection();
+            $("ul,li").disableSelection();
 
         });
 
+    function initResizable(videoList, $item) {
+
+        var id = $item.attr("id").split("-");
+        var itemNumber = id[id.length-1];
+
+        var currentVideoItem = videoList.getItem(itemNumber);
+
+        var minWidth = 150;
+        var maxWidth = minWidth + parseInt(currentVideoItem.settings.end * 5, 10);
+
+        $item.resizable({
+            minWidth: minWidth,
+            maxWidth: maxWidth,
+            handles: "e",
+            create: function(event, ui) {
+                event.target.style.width = minWidth + "px";
+            },
+            stop: function(event) {
+                event.target.style.left = 0;
+            }
+        });
+    }
 }));
