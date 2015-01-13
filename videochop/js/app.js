@@ -192,8 +192,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
 
             moduleVideoItemLoader = new VideoItemLoader({
                 tempWrapper: ".temporary-video",
-                list: moduleVideoList,
-                callback: function() {
+                callback: function(item) {
+                    moduleVideoList.addItem(item);
                     files--;
                     if (files === 0) {
                         $fileLoading.fadeOut(200);
@@ -227,6 +227,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                     },
                     skip: function() {
                         window.alert("only webm supported");
+                        files--;
                     }
                 }
             };

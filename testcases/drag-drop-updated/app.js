@@ -77,8 +77,7 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
                 revert: 10,
                 opacity: 0.3,
                 axis: "x",
-                connectWith: ".connected",
-                receive: function (event, ui) {
+                receive: function (e, ui) {
                     ui.sender.data('copied', true);
                 }
             });

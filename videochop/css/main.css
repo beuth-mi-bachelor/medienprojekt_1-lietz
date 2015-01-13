@@ -2722,7 +2722,16 @@ body {
   box-sizing: border-box;
 }
 
-/* line 21, ../scss/main.scss */
+/* general classes */
+/* line 22, ../scss/main.scss */
+.helper.ui-sortable-helper {
+  padding: 10px;
+  background: #fff url(../../videochop/media/img/logo-small.png) center center no-repeat;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  background-size: 50px 50px;
+}
+
+/* line 28, ../scss/main.scss */
 .video-chop-application {
   font-family: "Roboto", sans-serif;
   /* color definitions */
@@ -2851,7 +2860,7 @@ body {
   font-size: 1.5vh;
   color: #1d1d1b;
 }
-/* line 27, ../scss/main.scss */
+/* line 34, ../scss/main.scss */
 .video-chop-application .application-wrapper {
   position: absolute;
   top: 0;
@@ -2862,11 +2871,11 @@ body {
   -webkit-transition: opacity .3s ease;
           transition: opacity .3s ease;
 }
-/* line 36, ../scss/main.scss */
+/* line 43, ../scss/main.scss */
 .video-chop-application .application-wrapper.loading-complete {
   opacity: 1;
 }
-/* line 40, ../scss/main.scss */
+/* line 47, ../scss/main.scss */
 .impress-open .video-chop-application .application-wrapper:after {
   position: absolute;
   top: 0;

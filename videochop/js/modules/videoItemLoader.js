@@ -46,9 +46,7 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
 
             this.loaded = false;
 
-            if (this.settings.list === null) {
-                console.error("no list to append found");
-            } else if (this.video.data === null) {
+            if (this.video.data === null) {
                 console.error("no data found");
             }
             else {
@@ -107,9 +105,7 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
                 $("#"+tempName).remove();
                 $("#popcorn-canvas-"+tempName).remove();
 
-                self.settings.list.addItem(item);
-
-                self.settings.callback();
+                self.settings.callback(item);
 
                 Popcorn.destroy(this);
 

@@ -18,6 +18,13 @@ body {
 * {
     box-sizing: border-box;
 }
+/* general classes */
+.helper.ui-sortable-helper {
+    padding: 10px;
+    background: #fff url(../../videochop/media/img/logo-small.png) center center no-repeat;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, .8);
+    background-size: 50px 50px;
+}
 .video-chop-application {
     font-family: $base-font;
     .no-content {
