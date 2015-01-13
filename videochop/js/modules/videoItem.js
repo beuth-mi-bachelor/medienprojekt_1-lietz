@@ -62,18 +62,22 @@ define(["jquery"], (function ($) {
         },
 
         timeFormat: function () {
-            var millis = Math.abs(this.settings.length);
-            var secs = this.fillZeros(millis%60);
-            var mins = this.fillZeros(secs%60);
-            return  mins + ":" + secs;
+            var millis = this.settings.length * 1000;
+            var date = new Date(millis);
+            var mins = date.getMinutes();
+            var secs = date.getSeconds();
+            var mills = date.getMilliseconds();
+            return  this.fillZeros(mins, 1, "pre") + ":" + this.fillZeros(secs, 1, "pre") + ":" + this.fillZeros(mills, 2, "post");
         },
 
-        fillZeros: function(value) {
-            if (value<10) {
-                return "0" + parseInt(value, 10);
-            }
-            else {
-                return parseInt(value, 10);
+        fillZeros: function(value, zeros, preORpost) {
+            var fillWith = ((Math.pow(10, zeros)) + "0");
+            var val = value + "";
+            var placeholder = fillWith.slice(1+val.length,fillWith.length);
+            if (preORpost === "pre") {
+                return placeholder + val;
+            } else if (preORpost === "post") {
+                return val + placeholder;
             }
         },
         deleteItem: function () {
