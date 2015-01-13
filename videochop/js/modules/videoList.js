@@ -68,40 +68,28 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
                 self.deleteItem(id);
             });
 
-            var id = "";
-            var copyHelper;
-
             this.$list.sortable({
+                appendTo: document.body,
                 placeholder: 'placeholder',
-                opacity: 0.3,
-                axis: "y",
+                opacity: 0.5,
+                cursorAt: {
+                    top: 0,
+                    left: 0
+                },
+                cursor: "move",
                 connectWith: ".connected",
-                start: function(event, ui) {
-                    id = $(ui.item.context).attr("id");
-                    $(ui.helper.context).show().addClass("active").attr("id", "video-dragged");
-                    $("#"+id).hide();
+                helper: function(event, li) {
+                    this.copyHelper = li.clone().insertAfter(li);
+                    this.copyHelper.addClass("active");
+                    $(this).data('copied', false);
+                    return $("<div class='helper' />").css({
+                        "width": "50px",
+                        "height": "50px"
+                    });
                 },
-                out: function(event, ui) {
-                    $(ui.sender.context).sortable({axis:"x,y"});
-                },
-                over: function(event, ui) {
-                    var $currentItem = $(ui.item.context);
-                    var $currentList = $currentItem.parent();
-                    $currentList.sortable({axis:"y"});
-                },
-                helper: function(event, ui) {
-                    this.copyHelper = ui.clone().insertAfter(ui);
-                    $(this).data('copied',false);
-                    return ui.clone();
-                },
-                beforeStop: function(event, ui) {
-                    $("#"+id).show();
-                    $(ui.helper.context).removeClass("active");
-                    $("#video-dragged").attr("id", id);
-                },
-                stop: function() {
+                stop: function () {
                     var copied = $(this).data('copied');
-
+                    this.copyHelper.removeClass("active");
                     if (!copied) {
                         this.copyHelper.remove();
                     }
