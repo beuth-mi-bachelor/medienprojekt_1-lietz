@@ -10,7 +10,8 @@ requirejs.config({
         "videoItem": "modules/videoItem",
         "videoList": "modules/videoList",
         "popcorn": "lib/popcorn.min",
-        "popcorn-capture": "lib/popcorn.capture"
+        "popcorn-capture": "lib/popcorn.capture",
+        "utilities": "modules/utilities"
     },
     shim: {
         "videoItemLoader": {
@@ -28,13 +29,16 @@ requirejs.config({
         "modernizr": {
             deps: ["jquery"]
         },
+        "utilities": {
+            deps: ["jquery"]
+        },
         "videoList": {
             deps: ["jquery", "videoItem"]
         }
     },
     waitSeconds: 0
 });
-define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "filereader"], (function ($, ui, VideoItem, VideoList, VideoItemLoader, FileReaderJS) {
+define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "filereader", "utilities"], (function ($, ui, VideoItem, VideoList, VideoItemLoader, FileReaderJS, Utils) {
     "use strict";
 
         $(document).ready(function() {
@@ -79,7 +83,7 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
                 revert: 10,
                 opacity: 0.3,
                 axis: "x",
-                tolerance: "pointer",
+                tolerance: "intersect",
                 placeholder: "placeholder",
                 receive: function (e, ui) {
                     ui.sender.data('copied', true);
@@ -99,18 +103,56 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
 
         var currentVideoItem = videoList.getItem(itemNumber);
 
-        var minWidth = 150;
+        var minWidth = 200;
         var maxWidth = minWidth + parseInt(currentVideoItem.settings.end * 5, 10);
+
+        $item.attr("data-start", Utils.timeFormat(currentVideoItem.settings.start));
+        $item.attr("data-end", Utils.timeFormat(currentVideoItem.settings.end));
 
         $item.resizable({
             minWidth: minWidth,
             maxWidth: maxWidth,
-            handles: "e",
-            create: function(event, ui) {
-                event.target.style.width = minWidth + "px";
-            },
-            stop: function(event) {
+            handles: "e, w",
+            resize: function(event, ui) {
                 event.target.style.left = 0;
+                var target = event.toElement.className;
+                var difference = (ui.size.width - ui.originalSize.width) / 5;
+                var $elem = $(ui.element);
+                var data = "";
+                if (target.indexOf("resizable-e") > -1) {
+                    $elem.attr("data-end", Utils.timeFormat(currentVideoItem.settings.end + difference));
+                    data = "end";
+                } else if (target.indexOf("resizable-w") > -1) {
+                    $elem.attr("data-start", Utils.timeFormat(currentVideoItem.settings.start + difference));
+                    data = "start";
+                }
+                $(this).data(data, difference);
+            },
+            create: function(event, ui) {
+                var $elem = $(event.target);
+                var $parent = $elem.parent();
+
+                var imgPath = $elem.find("img").attr("src");
+
+                $elem.css({
+                    "width": maxWidth + "px",
+                    "background-image" :("url(" + imgPath + ")")
+                });
+
+                var widthBefore = $parent.width();
+                $parent.width(widthBefore + maxWidth);
+
+                var splitted = $elem.attr("id").split("-");
+                var id = parseInt(splitted[splitted.length-1], 10);
+                var currentVideoItem = videoList.getItem(id);
+                $(this).data('item', currentVideoItem);
+
+            },
+            stop: function(event, ui) {
+                event.target.style.left = 0;
+                var currentVideoItem = $(this).data('item');
+                var start = $(this).data('start');
+                var end = $(this).data('end');
             }
         });
     }

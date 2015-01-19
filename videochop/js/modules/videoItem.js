@@ -60,7 +60,6 @@ define(["jquery"], (function ($) {
                 '<p class="small"><span class="file-resolution">'+this.settings.resolution.width + " x " + this.settings.resolution.height +' px</span><span class="file-size">'+this.settings.prettySize+'</span></p>' +
                 '</div></li>';
         },
-
         timeFormat: function () {
             var millis = this.settings.length * 1000;
             var date = new Date(millis);
@@ -69,7 +68,6 @@ define(["jquery"], (function ($) {
             var mills = date.getMilliseconds();
             return  this.fillZeros(mins, 1, "pre") + ":" + this.fillZeros(secs, 1, "pre") + ":" + this.fillZeros(mills, 2, "post");
         },
-
         fillZeros: function(value, zeros, preORpost) {
             var fillWith = ((Math.pow(10, zeros)) + "0");
             var val = value + "";
