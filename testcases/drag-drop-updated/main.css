@@ -71,43 +71,38 @@ body {
 .timeline .file .file-info > p {
     display: none;
 }
-.ui-resizable-e {
+.ui-resizable-handle {
+    color: #888;
     display: table !important;
-    right: 0 !important;
     width: 12px !important;
+}
+.ui-resizable-handle:hover {
+    color: #ff6400;
+}
+.ui-resizable-e {
+    right: 0 !important;
+}
+.ui-resizable-w {
+    left: 0 !important;
+}
+.ui-resizable-handle:after {
+    display: table-cell;
+    vertical-align:middle;
+    width: 20px;
+    padding: 5px;
+    height: 100%;
+    text-align: center;
+    font-size: 20px;
+    font-family: "FontAwesome", sans-serif;
+    background: #fff;
+    right: 0;
+    top: 0;
 }
 .ui-resizable-e:after {
     content: "\f048";
-    display: table-cell;
-    vertical-align:middle;
-    width: 20px;
-    padding: 5px;
-    height: 100%;
-    text-align: center;
-    font-family: "FontAwesome", sans-serif;
-    font-size: 30px;
-    background: #fff;
-    right: 0;
-    top: 0;
-}
-.ui-resizable-w {
-    display: table !important;
-    left: 0 !important;
-    width: 12px !important;
 }
 .ui-resizable-w:after {
     content: "\f051";
-    display: table-cell;
-    vertical-align:middle;
-    width: 20px;
-    padding: 5px;
-    height: 100%;
-    text-align: center;
-    font-family: "FontAwesome", sans-serif;
-    font-size: 30px;
-    background: #fff;
-    right: 0;
-    top: 0;
 }
 .helper.ui-sortable-helper {
     padding: 10px;
@@ -124,7 +119,7 @@ body {
     margin-top: 0;
     border-style: solid;
     border-width: 12px 6px 0 6px;
-    border-color: #FF6400 transparent transparent transparent;
+    border-color: #ff6400 transparent transparent transparent;
     background: transparent;
     box-shadow: none;
 }

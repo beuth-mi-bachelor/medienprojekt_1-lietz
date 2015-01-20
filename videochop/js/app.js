@@ -12,7 +12,8 @@ requirejs.config({
         "videoItem": "modules/videoItem",
         "videoList": "modules/videoList",
         "popcorn": "lib/popcorn.min",
-        "popcorn-capture": "lib/popcorn.capture"
+        "popcorn-capture": "lib/popcorn.capture",
+        "utilities": "modules/utilities"
     },
     shim: {
         "videoItemLoader": {
@@ -25,9 +26,12 @@ requirejs.config({
             deps: ["jquery"]
         },
         "videoItem": {
-            deps: ["jquery"]
+            deps: ["jquery", "utilities"]
         },
         "modernizr": {
+            deps: ["jquery"]
+        },
+        "utilities": {
             deps: ["jquery"]
         },
         "videoList": {
@@ -47,7 +51,7 @@ var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "fi
  * @type {number}
  */
 var modulesLoaded = 0,
-    modulesToLoad = modulesToLoadInDefine.length;
+    modulesToLoad = modulesToLoadInDefine.length + 1;
 
 for (var i = 0; i < modulesToLoadInDefine.length; i++) {
     var currentModule = modulesToLoadInDefine[i];

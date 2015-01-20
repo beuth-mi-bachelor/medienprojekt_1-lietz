@@ -24,7 +24,7 @@ requirejs.config({
             deps: ["jquery"]
         },
         "videoItem": {
-            deps: ["jquery"]
+            deps: ["jquery", "utilities"]
         },
         "modernizr": {
             deps: ["jquery"]
@@ -96,6 +96,8 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
 
         });
 
+    var direction = 0;
+
     function initResizable(videoList, $item) {
 
         var id = $item.attr("id").split("-");
@@ -113,21 +115,6 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
             minWidth: minWidth,
             maxWidth: maxWidth,
             handles: "e, w",
-            resize: function(event, ui) {
-                event.target.style.left = 0;
-                var target = event.toElement.className;
-                var difference = (ui.size.width - ui.originalSize.width) / 5;
-                var $elem = $(ui.element);
-                var data = "";
-                if (target.indexOf("resizable-e") > -1) {
-                    $elem.attr("data-end", Utils.timeFormat(currentVideoItem.settings.end + difference));
-                    data = "end";
-                } else if (target.indexOf("resizable-w") > -1) {
-                    $elem.attr("data-start", Utils.timeFormat(currentVideoItem.settings.start + difference));
-                    data = "start";
-                }
-                $(this).data(data, difference);
-            },
             create: function(event, ui) {
                 var $elem = $(event.target);
                 var $parent = $elem.parent();
@@ -148,11 +135,43 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
                 $(this).data('item', currentVideoItem);
 
             },
+            start: function(event, ui) {
+                var target = event.toElement.className;
+                // right 1 and left -1
+                if (target.indexOf("resizable-e") > -1) {
+                    direction = 1;
+                } else if (target.indexOf("resizable-w") > -1) {
+                    direction = -1;
+                }
+                $(this).data("before", ui.originalSize.width);
+            },
+            resize: function(event, ui) {
+                event.target.style.left = 0;
+
+                var difference = (ui.size.width - ui.originalSize.width) / 5;
+                var $elem = $(ui.element);
+
+                if (direction > 0) {
+                    $elem.attr("data-end", Utils.timeFormat(currentVideoItem.settings.end + difference));
+                } else if (direction < 0) {
+                    $elem.attr("data-start", Utils.timeFormat(currentVideoItem.settings.start - difference));
+                }
+            },
             stop: function(event, ui) {
                 event.target.style.left = 0;
-                var currentVideoItem = $(this).data('item');
-                var start = $(this).data('start');
-                var end = $(this).data('end');
+                var currentVideoItem = $(this).data('item'),
+                    start = $(this).data('before'),
+                    end = ui.size.width,
+                    difference = (end - start) / 5;
+                console.log(start, end, difference);
+                if (direction > 0) {
+                    currentVideoItem.settings.end += difference;
+                } else if (direction < 0) {
+                    currentVideoItem.settings.start -= difference;
+                }
+                direction = 0;
+
+                console.log(currentVideoItem);
             }
         });
     }
