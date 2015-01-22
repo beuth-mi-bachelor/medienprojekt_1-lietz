@@ -16,7 +16,7 @@ define(["jquery"], (function ($) {
             var mins = date.getMinutes();
             var secs = date.getSeconds();
             var mills = date.getMilliseconds();
-            return  this.fillZeros(mins, 1, "pre") + ":" + this.fillZeros(secs, 1, "pre") + ":" + this.fillZeros(mills, 2, "post");
+            return  this.fillZeros(mins, 1, "pre") + ":" + this.fillZeros(secs, 1, "pre") + "." + this.fillZeros(mills, 2, "post");
         },
         fillZeros: function(value, zeros, preORpost) {
             var fillWith = ((Math.pow(10, zeros)) + "0");
