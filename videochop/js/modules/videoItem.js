@@ -33,7 +33,8 @@ define(["jquery", "utilities"], (function ($, Utils) {
             },
             thumbnail: null,
             prettySize: "0 MB",
-            videoElement: null
+            videoElement: null,
+            data: null
         };
 
         // if settings where not set by initializing, fill with default settings

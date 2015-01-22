@@ -55,11 +55,11 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
                         type: this.video.type
                     }
                 ));
-                this.loadMetaData(url, this.video.type);
+                this.loadMetaData(url, this.video.type, this.video.data);
             }
         },
 
-        loadMetaData: function (url, type) {
+        loadMetaData: function (url, type, data) {
             var video = document.createElement("video");
             var tempName = "tempVideo" + new Date().getTime();
             video.setAttribute("id", tempName);
@@ -85,6 +85,7 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
                     name: this.videoName,
                     length: this.media.duration,
                     start: 0,
+                    data: data,
                     end: this.media.duration,
                     size: this.videoSize,
                     type: this.videoType,
