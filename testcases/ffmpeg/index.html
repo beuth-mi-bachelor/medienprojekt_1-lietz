@@ -1,204 +1,37 @@
 <!DOCTYPE HTML>
 <html lang="de">
-<head>
-    <title>VideoChop: FFMPEG</title>
-    <meta charset="utf-8">
-    <script src="../../videochop/js/lib/jquery-2.1.1.min.js"></script>
-    <script src="filereader.js"></script>
+    <head>
+        <title>VideoChop: FFMPEG</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link href='../../videochop/fonts/elegant-icons/style.css' rel='stylesheet' type='text/css'>
 
-    <style>
-        body {
-            margin: 0;
-            width: 100%;
-            height: 100%;
-        }
-        p {
-            white-space: pre-wrap;
-        }
-        span {
-            width: 150px;
-            height: 150px;
-            background: red;
-            display: block;
-            white-space: normal;
-        }
-        pre {
-            width: 100%;
-            background: #ccc;
-            border: 2px dashed #808080;
-        }
-        #array-content:before {
-            content: "VideoExample Content:";
-            font-weight: bold;
-            font-size: 1.2em;
-            display: block;
-        }
-        #array-content {
-            background: black;
-            color: #fff;
-            width: 100%;
-            padding: 10px;
-            margin: 0;
-        }
-        #output:before {
-            font-weight: bold;
-            font-size: 1.2em;
-            content: "Worker Debugging:";
-            display: block;
-        }
-        #output {
-            background: #ebebeb;
-            border: 3px dotted #ccc;
-            width: 100%;
-        }
+    </head>
+    <body>
+        <pre>
+            <span id="dropzone"> Drop multiple Videos here and converts start automatically</span>
+        </pre>
+        <p id="array-content">
 
-    </style>
-</head>
-<body>
+        </p>
+        <p id="output">
 
-<pre>
-    <span id="dropzone"> Drop a Video here and hit convert</span>
-    <button id="convert">Convert Video</button>
-    <button id="combine">Combine 2 Videos</button>
-    <button id="showhelp">Show Help</button>
-</pre>
-<p id="array-content">
-
-</p>
-<p id="output"></p>
-
-
-<script>
-
-    window.onload = function() {
-
-        var outputElement = document.getElementById("output");
-        var arrayContent = document.getElementById("array-content");
-        var convertFile = document.getElementById("convert");
-        var combineFile = document.getElementById("combine");
-
-
-        var showHelp = document.getElementById("showhelp");
-        var $videoBsp = $("#video");
-
-
-        var exampleVideos = [];
-
-        FileReaderJS.setupDrop(document.getElementById('dropzone'), {
-            readAsDefault: 'ArrayBuffer',
-            on:{
-                loadstart: function(e, file) {
-                    console.log("Loading:", file);
-                    outputElement.textContent += "file dropped is loading...\n";
-                },
-                loadend: function(e, file) {
-                    exampleVideos.push([new Uint8Array(e.target.result), file.name]);
-                    outputElement.textContent += file.name + " was loaded...\n";
-                    console.log("exampleVideos Content: ", exampleVideos);
-                    var names = []
-                    for (var i = 0; i < exampleVideos.length; i++) {
-                        names.push(exampleVideos[i][1]);
-                    }
-                    arrayContent.textContent = (JSON.stringify(names, null, 4));
-                }
-            }
-        });
-
-        var worker = new Worker("webworker.js");
-
-        worker.onmessage = function (event) {
-            var message = event.data;
-            if (message.type == "ready") {
-                outputElement.textContent += "Loaded\n";
-            } else if (message.type == "stdout") {
-                console.log(message);
-                outputElement.textContent += message.data + "\n";
-            } else if (message.type == "start") {
-                outputElement.textContent += "Worker has received command\n";
-            } else if (message.type == "done") {
-                outputElement.textContent += "Done\n";
-                console.log(message);
-                createURL(message.data[0]);
-            }
-        };
-
-        function createURL(item) {
-            var fileArray = new Uint8Array(item.data);
-            var blob = new Blob([fileArray], {type: "video/mp4"});
-            var url = window.URL.createObjectURL(blob);
-            var link = $("<a href='"+url+"'>Download "+item.name+"</a>");
-            $("body").append(link);
-        }
-
-        convertFile.addEventListener("click", function(){
-
-            worker.postMessage({
-                type: 'command',
-                arguments: [
-                    "-i",
-                    exampleVideos[0][1],
-                    "-v",
-                    "debug",
-                    "output.mpg"
-                ],
-                files: [{
-                        data: exampleVideos[0][0],
-                        name: exampleVideos[0][1]
-                    }
-                ],
-                TOTAL_MEMORY: "ALLOW_MEMORY_GROWTH"
-            });
-
-        }, false);
-
-        function parseArguments(text) {
-            text = text.replace(/\s+/g, ' ');
-            var args = [];
-            // Allow double quotes to not split args.
-            text.split('"').forEach(function(t, i) {
-                t = t.trim();
-                if ((i % 2) === 1) {
-                    args.push(t);
-                } else {
-                    args = args.concat(t.split(" "));
-                }
-            });
-            return args;
-        }
-
-        combineFile.addEventListener("click", function(){
-
-            var args = parseArguments('-i '+exampleVideos[0][1]+' -i '+exampleVideos[1][1]+' -v debug -strict -2 -filter_complex "[0:v] [0:a:0] [1:v] [1:a:0] concat=n=2:v=1:a=1 [v] [a]" -map "[v]" -map "[a]" output.mp4');
-            console.log(args);
-
-            worker.postMessage({
-                type: 'command',
-                arguments: args,
-                files: [{
-                    data: exampleVideos[0][0],
-                    name: exampleVideos[0][1]
-                },
-                {
-                    data: exampleVideos[1][0],
-                    name: exampleVideos[1][1]
-                }
-                ],
-                TOTAL_MEMORY: "ALLOW_MEMORY_GROWTH"
-            });
-
-        }, false);
-
-        showHelp.addEventListener("click", function(){
-
-            worker.postMessage({
-                type: 'command',
-                arguments: ['-h']
-            });
-
-        }, false);
-
-    };
-
-</script>
-</body>
+        </p>
+        <div class="export-overlay">
+            <div class="progress-bar-wrapper">
+                <div class="close icon_close"></div>
+                <progress id="progressbar" value="0.00" max="100"></progress>
+                <span class="progress-value">0.00%</span>
+                <p class="export-info">
+                    <span class="export-text">
+                        <span class="export-status"></span>
+                        <span class="export-progress"></span>
+                        <span class="export-link"></span>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="temporary-video"></div>
+        <script data-main="app.js" src="../../videochop/js/lib/require.js"></script>
+    </body>
 </html>
