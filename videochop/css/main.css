@@ -3631,12 +3631,14 @@ body {
 }
 /* line 56, ../scss/_impress.scss */
 .video-chop-application .impress-wrapper p,
-.video-chop-application .impress-wrapper h3 {
+.video-chop-application .impress-wrapper h3,
+.video-chop-application .impress-wrapper h4 {
   width: 80%;
   margin: 0 auto;
 }
 /* line 61, ../scss/_impress.scss */
-.video-chop-application .impress-wrapper h3 {
+.video-chop-application .impress-wrapper h3,
+.video-chop-application .impress-wrapper h4 {
   padding: 20px 0 5px 0;
 }
 /* line 64, ../scss/_impress.scss */
