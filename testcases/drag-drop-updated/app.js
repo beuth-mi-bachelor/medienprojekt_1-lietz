@@ -83,7 +83,6 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
                 revert: 10,
                 opacity: 0.3,
                 axis: "x",
-                tolerance: "intersect",
                 placeholder: "placeholder",
                 receive: function (e, ui) {
                     ui.sender.data('copied', true);
@@ -115,6 +114,7 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
             minWidth: minWidth,
             maxWidth: maxWidth,
             handles: "e, w",
+            addClasses: false,
             create: function(event, ui) {
                 var $elem = $(event.target);
                 var $parent = $elem.parent();
@@ -133,6 +133,8 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
                 var id = parseInt(splitted[splitted.length-1], 10);
                 var currentVideoItem = videoList.getItem(id);
                 $(this).data('item', currentVideoItem);
+                $(this).data('max', maxWidth);
+                $(this).data('min', minWidth);
 
             },
             start: function(event, ui) {
@@ -146,32 +148,50 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
                 $(this).data("before", ui.originalSize.width);
             },
             resize: function(event, ui) {
+
                 event.target.style.left = 0;
 
                 var difference = (ui.size.width - ui.originalSize.width) / 5;
                 var $elem = $(ui.element);
 
                 if (direction > 0) {
-                    $elem.attr("data-end", Utils.timeFormat(currentVideoItem.settings.end + difference));
+
+                    var newEnd = currentVideoItem.settings.end + difference;
+
+                    if (newEnd > currentVideoItem.settings.length) {
+                        newEnd = currentVideoItem.settings.length;
+                        $(this).resizable("option", "maxWidth", ((newEnd-currentVideoItem.settings.start) * 5) + minWidth);
+                    }
+
+                    $elem.attr("data-end", Utils.timeFormat(newEnd));
                 } else if (direction < 0) {
-                    $elem.attr("data-start", Utils.timeFormat(currentVideoItem.settings.start - difference));
+
+                    var newStart = currentVideoItem.settings.start - difference;
+
+                    if (newStart < 0) {
+                        newStart = 0;
+                        $(this).resizable("option", "maxWidth", ((newStart+currentVideoItem.settings.end) * 5) + minWidth);
+
+                    }
+
+                    $elem.attr("data-start", Utils.timeFormat(newStart));
                 }
             },
             stop: function(event, ui) {
                 event.target.style.left = 0;
+
+                $(this).resizable("option", "maxWidth", $(this).data('max'));
+
                 var currentVideoItem = $(this).data('item'),
                     start = $(this).data('before'),
                     end = ui.size.width,
                     difference = (end - start) / 5;
-                console.log(start, end, difference);
                 if (direction > 0) {
                     currentVideoItem.settings.end += difference;
                 } else if (direction < 0) {
                     currentVideoItem.settings.start -= difference;
                 }
                 direction = 0;
-
-                console.log(currentVideoItem);
             }
         });
     }
