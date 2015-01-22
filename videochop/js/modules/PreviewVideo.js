@@ -70,12 +70,17 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
 
         playVideo: function () {
 
-           var $videos = this.$vidContainer.find("video");
+           var videos = document.getElementById('video-item-1');
+            var list = this.settings.videoList.videolist;
 
-           var video = $videos[0];
+           // console.log(videos);
+            for (var item in list) {
+                if (list.hasOwnProperty(item)) {
+                    var currentItem = list[item];
+                }
+            }
 
-            console.log(video);
-            video.addEventListener("timeupdate", function() {
+            videos.addEventListener("timeupdate", function() {
 
                 if (this.currentTime === this.duration) {
                     var $this = $(this);

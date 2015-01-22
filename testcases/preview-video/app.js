@@ -11,7 +11,9 @@ requirejs.config({
         "videoList": "modules/videoList",
         "previewVideo": "modules/previewVideo",
         "popcorn": "lib/popcorn.min",
-        "popcorn-capture": "lib/popcorn.capture"
+        "popcorn-capture": "lib/popcorn.capture",
+        "utilities": "modules/utilities"
+
     },
     shim: {
         "videoItemLoader": {
