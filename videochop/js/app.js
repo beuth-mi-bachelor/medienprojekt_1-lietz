@@ -68,6 +68,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
             $impress,
             $navItems,
             $closeImpress,
+            $closeHelp,
             $body;
 
         // wrapper and instances of modules
@@ -112,6 +113,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
             $impress = $(".impress-wrapper");
             $navItems = $(".nav-item");
             $closeImpress = $(".close-impress");
+            $closeHelp = $(".close-help");
             $body = $("body");
 
             // placeholders for module wrappers
@@ -129,10 +131,17 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                 if ($(this).hasClass("impress")) {
                     $body.toggleClass("impress-open");
                 }
+                if ($(this).hasClass("help")) {
+                    $body.toggleClass("help-open");
+                }
             });
 
             $closeImpress.on("click", function() {
                 $body.toggleClass("impress-open");
+            });
+
+            $closeHelp.on("click", function() {
+                $body.toggleClass("help-open");
             });
 
             $(".file-add-button").on("click", function() {
