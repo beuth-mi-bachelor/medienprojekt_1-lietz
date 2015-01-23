@@ -5,13 +5,13 @@ requirejs.config({
  * what is to load
  * @type {string[]}
  */
-var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "filereader", "videoItemLoader", "videoList"];
+var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "filereader", "videoItemLoader", "videoList", "videoTimeline"];
 /**
  * counter for loading modules
  * @type {number}
  */
 var modulesLoaded = 0,
-    modulesToLoad = modulesToLoadInDefine.length + 1;
+    modulesToLoad = modulesToLoadInDefine.length - 1;
 
 for (var i = 0; i < modulesToLoadInDefine.length; i++) {
     var currentModule = modulesToLoadInDefine[i];
@@ -58,7 +58,7 @@ var displayLoadProgress = function(p) {
     percentageContainer.style.height = p + "%";
 };
 
-define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJS, VideoItemLoader, VideoList) {
+define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJS, VideoItemLoader, VideoList, VideoTimeline) {
     "use strict";
 
     $(document).ready(function() {
@@ -74,6 +74,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
         // wrapper and instances of modules
         var moduleVideoList,
             moduleVideoItemLoader,
+            modulevideoTimeline,
             $wrapperVideoDrop,
             $wrapperVideoAdd,
             $fileLoading;
@@ -155,6 +156,18 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
              */
             moduleVideoList = new VideoList({
                 container: ".file-list"
+            });
+
+
+            /**
+             * VideoTimeline
+             */
+
+            modulevideoTimeline = new VideoTimeline({
+                minWidth: 100,
+                scaleFactor: 10,
+                container: ".timeline",
+                videoList: moduleVideoList
             });
 
             /**

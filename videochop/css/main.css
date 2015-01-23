@@ -3191,7 +3191,7 @@ body {
   background: #888;
 }
 /* line 38, ../scss/_article.scss */
-.video-chop-application .application .timeline {
+.video-chop-application .application .timeline-wrapper {
   position: absolute;
   bottom: 0;
   left: 0;
