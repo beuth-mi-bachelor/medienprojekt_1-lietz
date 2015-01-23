@@ -158,18 +158,6 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
                 container: ".file-list"
             });
 
-
-            /**
-             * VideoTimeline
-             */
-
-            modulevideoTimeline = new VideoTimeline({
-                minWidth: 100,
-                scaleFactor: 10,
-                container: ".timeline",
-                videoList: moduleVideoList
-            });
-
             /**
              * VideoItemLoader
              */
@@ -220,6 +208,16 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJ
 
             FileReaderJS.setupDrop($wrapperVideoDrop[0], fileReaderOpts);
             FileReaderJS.setupInput($wrapperVideoAdd[0], fileReaderOpts);
+
+            /**
+             * VideoTimeline
+             */
+            modulevideoTimeline = new VideoTimeline({
+                minWidth: 200,
+                scaleFactor: 5,
+                container: ".timeline",
+                videoList: moduleVideoList
+            });
 
         }
 

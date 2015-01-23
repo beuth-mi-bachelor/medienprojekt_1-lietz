@@ -44,6 +44,8 @@
         background: $color-darkest;
     }
 
+    @import "_timeline";
+
     @import "_filelist";
 
     @import "_previewvideo";
