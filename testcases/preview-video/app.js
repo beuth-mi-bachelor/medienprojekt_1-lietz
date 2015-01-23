@@ -1,46 +1,7 @@
 requirejs.config({
-    baseUrl:"../../videochop/js/",
-    paths: {
-        "jquery": "lib/jquery-2.1.1.min",
-        "jqueryui": "lib/jquery-ui.min",
-        "modernizr": "lib/modernizr",
-        "useragent": "lib/ua-parser.min",
-        "filereader": 'lib/filereader',
-        "videoItemLoader": "modules/videoItemLoader",
-        "videoItem": "modules/videoItem",
-        "videoList": "modules/videoList",
-        "previewVideo": "modules/previewVideo",
-        "popcorn": "lib/popcorn.min",
-        "popcorn-capture": "lib/popcorn.capture",
-        "utilities": "modules/utilities"
-
-    },
-    shim: {
-        "videoItemLoader": {
-            deps: ["jquery", "videoItem", "popcorn", "popcorn-capture"]
-        },
-        "popcorn-capture": {
-            deps: ["popcorn"]
-        },
-        "popcorn": {
-            deps: ["jquery"]
-        },
-        "videoItem": {
-            deps: ["jquery"]
-        },
-        "modernizr": {
-            deps: ["jquery"]
-        },
-        "videoList": {
-            deps: ["jquery", "videoItem"]
-        },
-        "previewVideo": {
-            deps: ["jquery", "videoList"]
-        }
-    },
-    waitSeconds: 0
+    baseUrl:"../../videochop/js/"
 });
-define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "filereader", "previewVideo"], (function ($, ui, VideoItem, VideoList, VideoItemLoader, FileReaderJS, PreviewVideo) {
+define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "filereader", "videoPreview"], (function ($, ui, VideoItem, VideoList, VideoItemLoader, FileReaderJS, VideoPreview) {
     "use strict";
 
         $(document).ready(function() {
@@ -50,7 +11,7 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
                 container: ".file-list"
             });
 
-            var modulePreviewVideo = new PreviewVideo({
+            var modulePreviewVideo = new VideoPreview({
                 videoList: videoList,
                 vidContainer: ".preview-video"
             });

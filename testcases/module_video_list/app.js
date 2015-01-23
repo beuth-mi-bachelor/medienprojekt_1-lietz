@@ -1,10 +1,7 @@
 requirejs.config({
-    baseUrl:"../../videochop/js/",
-    paths: {
-        "jquery": 'lib/jquery-2.1.1.min'
-    }
+    baseUrl:"../../videochop/js/"
 });
-define(["jquery", "modules/videoList", "modules/videoItem"], (function ($, VideoList, VideoItem) {
+define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem) {
     "use strict";
 
         $(document).ready(function() {

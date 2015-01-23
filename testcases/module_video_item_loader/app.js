@@ -1,20 +1,6 @@
 /*global FileReaderJS*/
 requirejs.config({
-    baseUrl: "../../videochop/js/",
-    paths: {
-        "jquery": 'lib/jquery-2.1.1.min',
-        "filereader": 'lib/filereader',
-        "videoItemLoader": "modules/videoItemLoader",
-        "videoItem": "modules/videoItem",
-        "videoList": "modules/videoList",
-        "popcorn": "lib/popcorn.min",
-        "popcorn-capture": "lib/popcorn.capture"
-    },
-    shim: {
-        "popcorn-capture": {
-            deps: ["popcorn"]
-        }
-    }
+    baseUrl: "../../videochop/js/"
 });
 define(["jquery", "videoItemLoader", "filereader", "videoList"], (function ($, VideoItemLoader, FileReaderJS, VideoList) {
     "use strict";
