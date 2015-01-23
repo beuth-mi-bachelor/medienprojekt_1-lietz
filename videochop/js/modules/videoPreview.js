@@ -58,6 +58,7 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
 
             var list = this.settings.videoList.videolist;
 
+            console.log(list);
             this.$vidContainer.empty();
 
             for (var item in list) {
