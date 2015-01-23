@@ -22,7 +22,10 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
              */
             var moduleVideoItemLoader = new VideoItemLoader({
                 tempWrapper: ".temporary-video",
-                list: videoList
+                callback: function(item) {
+                    videoList.addItem(item);
+                }
+
             });
 
             var fileReaderOpts = {
