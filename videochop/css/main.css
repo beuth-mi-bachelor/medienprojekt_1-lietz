@@ -3726,10 +3726,15 @@ body {
   margin: 5px 20px 10px;
 }
 /* line 52, ../scss/_help.scss */
+.video-chop-application .help-wrapper dl dd span {
+  display: block;
+  margin: 5px 0;
+}
+/* line 56, ../scss/_help.scss */
 .video-chop-application .help-wrapper dl dd .answer:before {
   content: "Answer: ";
 }
-/* line 55, ../scss/_help.scss */
+/* line 59, ../scss/_help.scss */
 .video-chop-application .help-wrapper dl dd .solution:before {
   content: "Solution: ";
 }

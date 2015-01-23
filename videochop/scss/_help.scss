@@ -49,6 +49,10 @@
         }
         dd {
             margin: 5px 20px 10px;
+            span {
+                display: block;
+                margin: 5px 0;
+            }
             .answer:before {
                 content: "Answer: ";
             }
