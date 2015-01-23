@@ -2750,6 +2750,10 @@ body {
   /* container definitions */
   /* breakpoint definitions */
   /* z-indices definitions */
+  /* color definitions */
+  /* container definitions */
+  /* breakpoint definitions */
+  /* z-indices definitions */
 }
 /* line 2, ../scss/partials/_placeholder.scss */
 .video-chop-application .application .file-list .file .small:before, .video-chop-application .application .file-list .file .small:after {
@@ -2875,8 +2879,8 @@ body {
 .video-chop-application .application-wrapper.loading-complete {
   opacity: 1;
 }
-/* line 47, ../scss/main.scss */
-.impress-open .video-chop-application .application-wrapper:after {
+/* line 48, ../scss/main.scss */
+.impress-open .video-chop-application .application-wrapper:after, .help-open .video-chop-application .application-wrapper:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -3631,20 +3635,103 @@ body {
 }
 /* line 56, ../scss/_impress.scss */
 .video-chop-application .impress-wrapper p,
-.video-chop-application .impress-wrapper h3,
-.video-chop-application .impress-wrapper h4 {
+.video-chop-application .impress-wrapper h3 {
   width: 80%;
   margin: 0 auto;
 }
 /* line 61, ../scss/_impress.scss */
-.video-chop-application .impress-wrapper h3,
-.video-chop-application .impress-wrapper h4 {
+.video-chop-application .impress-wrapper h3 {
   padding: 20px 0 5px 0;
 }
 /* line 64, ../scss/_impress.scss */
 .video-chop-application .impress-wrapper dl {
   width: 80%;
   margin: 0 auto;
+}
+/* line 2, ../scss/partials/_placeholder.scss */
+.video-chop-application .application .file-list .file .small:before, .video-chop-application .application .file-list .file .small:after {
+  content: "";
+  display: table;
+}
+/* line 7, ../scss/partials/_placeholder.scss */
+.video-chop-application .application .file-list .file .small:after {
+  clear: both;
+}
+/* line 11, ../scss/partials/_placeholder.scss */
+.video-chop-application .no-content {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+/* line 6, ../scss/_help.scss */
+.video-chop-application .help-wrapper {
+  position: fixed;
+  width: 75vw;
+  height: 75vh;
+  top: 120vh;
+  left: 12.5vw;
+  padding: 30px;
+  background: #fff;
+  box-shadow: 0 0 20px #353535;
+  z-index: 1000000;
+  -webkit-transition: top .3s ease-out;
+          transition: top .3s ease-out;
+  font-size: .9em;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+/* line 20, ../scss/_help.scss */
+.video-chop-application .help-wrapper .close-help {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  content: '\e051';
+  width: 30px;
+  height: 30px;
+  color: #888;
+  cursor: pointer;
+  font-family: "ElegantIcons";
+  font-size: 30px;
+}
+/* line 33, ../scss/_help.scss */
+.video-chop-application .help-wrapper .close-help:hover {
+  color: #ebebeb;
+}
+/* line 37, ../scss/_help.scss */
+.help-open .video-chop-application .help-wrapper {
+  top: 12.5vh;
+  -webkit-transition: top .3s ease-in;
+          transition: top .3s ease-in;
+}
+/* line 41, ../scss/_help.scss */
+.video-chop-application .help-wrapper dl {
+  width: 80%;
+}
+/* line 43, ../scss/_help.scss */
+.video-chop-application .help-wrapper dl dt {
+  margin: 10px 0 5px;
+  font-weight: 700;
+}
+/* line 46, ../scss/_help.scss */
+.video-chop-application .help-wrapper dl dt:before {
+  content: "Question: ";
+}
+/* line 50, ../scss/_help.scss */
+.video-chop-application .help-wrapper dl dd {
+  margin: 5px 20px 10px;
+}
+/* line 52, ../scss/_help.scss */
+.video-chop-application .help-wrapper dl dd .answer:before {
+  content: "Answer: ";
+}
+/* line 55, ../scss/_help.scss */
+.video-chop-application .help-wrapper dl dd .solution:before {
+  content: "Solution: ";
 }
 
 @-webkit-keyframes spin {

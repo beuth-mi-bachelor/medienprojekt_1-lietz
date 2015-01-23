@@ -43,7 +43,8 @@ body {
         &.loading-complete {
             opacity: 1;
         }
-        .impress-open & {
+        .impress-open &,
+        .help-open &{
             &:after {
                 position: absolute;
                 top: 0;
@@ -61,6 +62,9 @@ body {
     @import "_article";
 
     @import "_impress";
+
+    @import "_help";
+
 
 }
 

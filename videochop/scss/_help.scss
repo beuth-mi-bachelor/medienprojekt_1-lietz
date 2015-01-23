@@ -1,0 +1,60 @@
+@import "settings";
+
+@import "partials/_functions.scss";
+@import "partials/_placeholder";
+
+.help-wrapper {
+    position: fixed;
+    width: 75vw;
+    height: 75vh;
+    top: 120vh;
+    left: 12.5vw;
+    padding: $spacer * 3;
+    background: $color-lightest;
+    box-shadow: 0 0 ($spacer*2) $color-dark;
+    z-index: 1000000;
+    transition: top .3s ease-out;
+    font-size: .9em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .close-help {
+        position: absolute;
+        top: ($spacer*1.5);
+        right: ($spacer*1.5);
+        content: '\e051';
+        width: ($spacer*3);
+        height: ($spacer*3);
+        color: $color-medium;
+        cursor: pointer;
+        font: {
+            family: $icon-font;
+            size: ($spacer*3);
+        }
+        &:hover {
+            color: $color-light;
+        }
+    }
+    .help-open & {
+        top: 12.5vh;
+        transition: top .3s ease-in;
+    }
+    dl {
+        width: 80%;
+        dt {
+            margin: 10px 0 5px;
+            font-weight: 700;
+            &:before {
+                content: "Question: ";
+            }
+        }
+        dd {
+            margin: 5px 20px 10px;
+            .answer:before {
+                content: "Answer: ";
+            }
+            .solution:before {
+                content: "Solution: ";
+            }
+        }
+    }
+}

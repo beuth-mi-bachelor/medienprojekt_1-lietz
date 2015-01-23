@@ -1,0 +1,43 @@
+﻿FAQ
+
+
+Question : Saving my video is slow !
+Answer : Videos with different formats may cause longer saving time.
+Solution : Using videos with the same format will result in faster saving.
+ 
+Question : Saving Projects and edit them later ?
+Answer : It is not possible to save projects yet.  Project data will get lost when you close your browser.
+Solution : This feature may be implemented later.
+ 
+Question : Supported video size ?
+Answer : This depends on your browser.
+Solution : Videos up to 150 MB are supported.
+ 
+Question : What is VideoChop ?
+Answer : VideoChop is a web application based on JavaScript which provides a simple and intuitive video editing tool. VideoChop allows to drag videos directly from the desktop into the browser. It is up to the user whether he wants to cut or combine one or more videos. The videos are organized and trimmed in a timeline. If the user wants to cut a video, remove the beginning or ending  or change the lengths he doesn´t need memory -eating and complicated -to-use video editing software. The user can view his work as a preview before saving it from the browser.
+ 
+Question : What differs VideoChop from similar Projects ?
+Answer : All your videos and data will be stored locally on your computer. You don´t have to upload your videos onto our servers. This mainly differs our project from the tools provided by Google or Apple. Private Data will stay private when you use our website.
+ 
+Question : Registration possible ?
+Answer : Registration is not necessary/possible at all.
+ 
+Question : The Team behind VideoChop ?
+Answer : We are 3 students from Berlin Germany studying media and informatics. This Project is part of a module.
+ 
+Question : Future features planned for VideoChop ?
+Answer :         
+* group videos in files
+* show frames per second
+* mute button for single videos
+* use own audio track
+* put text on a video
+* import different formats
+* export in different formats                                  
+
+
+Question : Supported Browsers ?
+Answer : Apple Safari, Google Chrome and Mozilla Firefox.
+ 
+Question : How to report a Bug ?
+Answer : You can send an email to info@videochop.de
