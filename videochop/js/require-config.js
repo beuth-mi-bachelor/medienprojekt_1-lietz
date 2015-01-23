@@ -12,6 +12,7 @@ requirejs.config({
         "videoItem": "modules/videoItem",
         "videoPreview": "modules/videoPreview",
         "videoList": "modules/videoList",
+        "videoTimeline" :"modules/videoTimeline",
         "popcorn": "lib/popcorn.min",
         "popcorn-capture": "lib/popcorn.capture",
         "utilities": "modules/utilities"
@@ -40,6 +41,9 @@ requirejs.config({
         },
         "videoPreview": {
             deps: ["jquery", "videoList", "videoItem"]
+        },
+        "videoTimeline": {
+            deps: ["jquery","jqueryui", "videoItem", "utilities"]
         }
     },
     waitSeconds: 0
