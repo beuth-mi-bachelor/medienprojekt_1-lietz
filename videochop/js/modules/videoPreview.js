@@ -63,10 +63,22 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
 
             for (var item in list) {
                 if (list.hasOwnProperty(item)) {
-                    var currentItem = list[item];
-                    this.$vidContainer.append(currentItem.settings.videoElement);
+                        var currentItem = list[item];
+                        var video = currentItem.settings.videoElement;
+                        this.$vidContainer.append(video);
                 }
             }
+            var self = this;
+
+            $.each(self.$vidContainer.find("video"), function (k,v) {
+                console.log(v);
+
+                $(v).on('canplaythrough', self.videoCallback());
+            });
+        },
+
+        videoCallback: function () {
+            console.log("Hallooo");
         },
 
         playVideo: function () {
