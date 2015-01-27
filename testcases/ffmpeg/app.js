@@ -1,7 +1,7 @@
 requirejs.config({
     baseUrl:"../../videochop/js/"
 });
-define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader"], (function ($, FileReaderJS, VideoList, VideoItem, VideoItemLoader) {
+define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "utilities"], (function ($, FileReaderJS, VideoList, VideoItem, VideoItemLoader, Utils) {
     "use strict";
 
     $(document).ready(function() {
@@ -34,7 +34,9 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader"], (f
                 }
                 var vid = {
                     data: item.settings.data,
-                    name: item.settings.name + "." + item.settings.type.split("video/")[1]
+                    name: item.settings.name + "." + item.settings.type.split("video/")[1],
+                    videoStart: item.settings.start,
+                    videoEnd: item.settings.end
                 };
                 files.push(vid);
                 itemsToLoad--;
@@ -126,7 +128,7 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader"], (f
 
                 showProgress(time);
             } else {
-                console.log(message);
+                //console.log(message);
             }
         }
 
@@ -180,7 +182,8 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader"], (f
         function buildArguments(items) {
             var string = "";
             for (var i = 0; i < items.length; i++) {
-                string += '-i ' + items[i].name + ' ';
+
+                string += '-i ' + items[i].name + ' -ss 00:' + Utils.timeFormat(items[i].videoStart) + ' -t 00:' + Utils.timeFormat(items[i].videoEnd) + ' ';
             }
             return string;
         }
@@ -192,6 +195,8 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader"], (f
             if (debug) {
                 console.log(files, inputs);
             }
+
+            console.log(inputs, files);
 
             var args = parseArguments(inputs + '-v debug -strict -2 -filter_complex "[0:v] [0:a:0] [1:v] [1:a:0] concat=n=2:v=1:a=1 [v] [a]" -map "[v]" -map "[a]" output.mp4');
 
