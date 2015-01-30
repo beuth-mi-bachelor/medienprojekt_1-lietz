@@ -183,7 +183,7 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "ut
             var string = "";
             for (var i = 0; i < items.length; i++) {
 
-                string += '-i ' + items[i].name + ' -ss 00:' + Utils.timeFormat(items[i].videoStart) + ' -t 00:' + Utils.timeFormat(items[i].videoEnd) + ' ';
+                string += '-i ' + items[i].name + ' ';
             }
             return string;
         }
