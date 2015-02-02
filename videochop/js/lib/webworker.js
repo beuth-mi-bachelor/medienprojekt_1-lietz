@@ -1,4 +1,4 @@
-importScripts('../../videochop/js/lib/ffmpeg.js');
+importScripts('ffmpeg.js');
 
 function print(text) {
     postMessage({

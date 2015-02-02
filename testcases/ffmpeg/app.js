@@ -73,7 +73,7 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "ut
         FileReaderJS.setupDrop($("#dropzone")[0], fileReaderOpts);
 
 
-        var worker = new Worker("webworker.js");
+        var worker = new Worker("../../videochop/js/lib/webworker.js");
 
         var $progressbar = $('#progressbar');
         var $progressValue = $('.progress-value');
@@ -100,7 +100,6 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "ut
                 fadeInLoadingOverlay();
                 $exportStatus.text("starting export");
             } else if (message.type === "stdout") {
-                $exportStatus.text("exporting\n");
                 if (debug) {
                     outputElement.textContent += message.data + "\n";
                 }
@@ -115,7 +114,9 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "ut
         };
 
         function handleMessages(message) {
+
             var conversionInfo = /size=(\s)*(\d)*(\w*) time=(\d|\:|\.)*/g;
+            var streamInfo = /Stream #(\d)*:(\d)*/g;
 
             if (conversionInfo.test(message)) {
                 var info = message.match(conversionInfo)[0];
@@ -124,9 +125,12 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "ut
                 var time = info.match(/(\d)*:(\d)*:(\d)*\.(\d)*/g);
                 time = time[0];
 
+
                 $exportProgress.text("handled " + size + " and encoded " + time + " hours");
 
                 showProgress(time);
+            } else if (message === "Press [q] to stop, [?] for help") {
+                $exportStatus.text("encoding\n");
             } else {
                 //console.log(message);
             }
@@ -141,6 +145,8 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "ut
             var percentage = parseFloat((seconds / lengthOfVideos) * 100).toFixed(2);
             $progressbar.val(percentage);
             $progressValue.text(percentage + "%");
+
+            console.log(lengthOfVideos);
 
             if (debug) {
                 console.log(seconds, lengthOfVideos, percentage);
@@ -196,9 +202,9 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "ut
                 console.log(files, inputs);
             }
 
-            console.log(inputs, files);
+            //console.log(inputs, files);
 
-            var args = parseArguments(inputs + '-v debug -strict -2 -filter_complex "[0:v] [0:a:0] [1:v] [1:a:0] concat=n=2:v=1:a=1 [v] [a]" -map "[v]" -map "[a]" output.mp4');
+            var args = parseArguments(inputs + '-v debug -strict -2 -r 24 -filter_complex "[0:v] [0:a:0] [1:v] [1:a:0] concat=n=2:v=1:a=1 [v] [a]" -map "[v]" -map "[a]" output.mp4');
 
             if (debug) {
                 console.log(args);
