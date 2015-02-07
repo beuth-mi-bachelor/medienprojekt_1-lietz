@@ -13,7 +13,8 @@ define(["jquery", "jqueryui", "videoItem", "videoList", "videoItemLoader", "file
 
             var modulePreviewVideo = new VideoPreview({
                 videoList: videoList,
-                vidContainer: ".preview-video"
+                vidContainer: ".preview-video",
+                lengthContainer: ".indicator video-length"
             });
 
             /*video item loader for debug reasons*/
