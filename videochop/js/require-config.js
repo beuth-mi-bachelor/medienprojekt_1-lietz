@@ -15,11 +15,15 @@ requirejs.config({
         "videoTimeline" :"modules/videoTimeline",
         "popcorn": "lib/popcorn.min",
         "popcorn-capture": "lib/popcorn.capture",
-        "utilities": "modules/utilities"
+        "utilities": "modules/utilities",
+        "videoInformationRetriever": "modules/videoInformationRetriever"
     },
     shim: {
         "videoItemLoader": {
-            deps: ["jquery", "videoItem", "popcorn", "popcorn-capture"]
+            deps: ["jquery", "videoItem", "utilities", "popcorn", "popcorn-capture"]
+        },
+        "videoInformationRetriever": {
+            deps: ["jquery", "utilities"]
         },
         "popcorn-capture": {
             deps: ["popcorn"]

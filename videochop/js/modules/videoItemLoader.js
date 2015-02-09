@@ -10,7 +10,7 @@
  * this module handles the communication between video and videoItem
  */
 
-define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, VideoItem, Popcorn) {
+define(["jquery", "videoItem", "utilities", "popcorn", "popcorn-capture"], (function ($, VideoItem, Utils, Popcorn) {
     "use strict";
 
     /**
@@ -109,6 +109,49 @@ define(["jquery", "videoItem", "popcorn", "popcorn-capture"], (function ($, Vide
                 self.settings.callback(item);
 
                 Popcorn.destroy(this);
+
+                var worker = new Worker("../../videochop/js/lib/webworker.js");
+                var fps = 0;
+
+                worker.onmessage = function (event) {
+                    var message = event.data;
+                    if (message.type === "start") {
+                        console.log("starting");
+                    } else if (message.type === "stdout") {
+                        var reg = /[0-9]{1,2}(\.)?[0-9]*(\s)fps/;
+                        var m = reg.exec(message.data);
+                        if (m) {
+                            fps = parseFloat(m[0].split(" fps")[0]);
+                        }
+                    } else if (message.type === "done") {
+                        item.settings.fps = fps;
+                        worker.terminate();
+                        worker = undefined;
+                    }
+                };
+
+                var vid = {
+                    data: item.settings.data,
+                    name: item.settings.name + "." + item.settings.type.split("video/")[1]
+                };
+
+                var buildArguments = function(items) {
+                    var string = "";
+                    for (var i = 0; i < items.length; i++) {
+
+                        string += '-i ' + items[i].name;
+                    }
+                    return string;
+                };
+
+                var files = [vid];
+
+                worker.postMessage({
+                    type: 'command',
+                    arguments: Utils.parseArguments(buildArguments(files)),
+                    files: files,
+                    TOTAL_MEMORY: "ALLOW_MEMORY_GROWTH"
+                });
 
             });
         },

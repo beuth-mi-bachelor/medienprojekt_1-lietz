@@ -5,7 +5,7 @@ requirejs.config({
  * what is to load
  * @type {string[]}
  */
-var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "filereader", "videoItemLoader", "videoList", "videoTimeline"];
+var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "utilities", "filereader", "videoItemLoader", "videoList", "videoTimeline"];
 /**
  * counter for loading modules
  * @type {number}
@@ -58,7 +58,7 @@ var displayLoadProgress = function(p) {
     percentageContainer.style.height = p + "%";
 };
 
-define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, FileReaderJS, VideoItemLoader, VideoList, VideoTimeline) {
+define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, FileReaderJS, VideoItemLoader, VideoList, VideoTimeline) {
     "use strict";
 
     $(document).ready(function() {

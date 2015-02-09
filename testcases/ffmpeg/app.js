@@ -110,6 +110,8 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "ut
                 }
                 $exportStatus.text("export done\n");
                 $exportLink.html(createURL(message.data[0]));
+                $progressbar.val(100);
+                $progressValue.text("100 %");
             }
         };
 
@@ -124,15 +126,10 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "ut
                 size = size[size.length-1];
                 var time = info.match(/(\d)*:(\d)*:(\d)*\.(\d)*/g);
                 time = time[0];
-
-
                 $exportProgress.text("handled " + size + " and encoded " + time + " hours");
-
                 showProgress(time);
             } else if (message === "Press [q] to stop, [?] for help") {
                 $exportStatus.text("encoding\n");
-            } else {
-                //console.log(message);
             }
         }
 
@@ -143,10 +140,13 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "ut
             var hours = splitted[splitted.length-3];
             var seconds = parseFloat(secsAndMillis) + (parseInt(mins, 10) * 60) + (parseInt(hours, 10) * 3600);
             var percentage = parseFloat((seconds / lengthOfVideos) * 100).toFixed(2);
+
+            if (percentage > 100.0) {
+                percentage = 100.00;
+            }
+
             $progressbar.val(percentage);
             $progressValue.text(percentage + "%");
-
-            console.log(lengthOfVideos);
 
             if (debug) {
                 console.log(seconds, lengthOfVideos, percentage);
@@ -181,8 +181,7 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "ut
         });
 
         function cancelExporting() {
-
-            // TODO
+            worker.terminate();
         }
 
         function buildArguments(items) {
