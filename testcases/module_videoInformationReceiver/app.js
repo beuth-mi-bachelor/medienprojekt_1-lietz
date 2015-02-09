@@ -2,48 +2,50 @@
 requirejs.config({
     baseUrl: "../../videochop/js/"
 });
-define(["../../web-placeholder/js/lib/jquery-2.1.1.min", "videoItemLoader", "filereader", "videoList"], (function ($, VideoItemLoader, FileReaderJS, VideoList) {
+define(["jquery", "filereader", "videoItem", "videoInformationRetriever"], (function ($, FileReaderJS, VideoItem, VideoInformationRetriever) {
     "use strict";
 
     $(document).ready(function () {
 
-        var $fileLoading = $(".video-loading");
-
-        var list = new VideoList({
-            container: ".file-list"
-        });
-
         var files = 0;
 
-        var loader = new VideoItemLoader({
-            tempWrapper: ".vid",
+        var moduleVIR = new VideoInformationRetriever({
             callback: function(item) {
-                list.addItem(item);
-                files--;
-                if (files === 0) {
-                    $fileLoading.fadeOut(500);
-                }
+                $(".debug").append(item.toString());
             }
         });
+
 
         FileReaderJS.setupDrop(document.getElementById('dropzone'), {
             readAsDefault: 'ArrayBuffer',
             on: {
-                loadstart: function(e, file) {
-                    $fileLoading.show();
-                },
                 groupstart: function(e) {
                     files = e.files.length;
                 },
                 loadend: function (e, file) {
-                    var item = loader.add({
-                        data: new Uint8Array(e.target.result),
-                        extension: file.extra.extension,
+
+                    files--;
+
+                    var item = new VideoItem({
+                        video: null,
                         name: file.extra.nameNoExtension,
-                        prettySize: file.extra.prettySize,
+                        length: 0,
+                        start: 0,
+                        end: 0,
                         size: file.size,
-                        type: file.type
+                        type: file.type,
+                        resolution: {
+                            width: 640,
+                            height: 480
+                        },
+                        thumbnail: null,
+                        prettySize: file.extra.prettySize,
+                        videoElement: null,
+                        data: new Uint8Array(e.target.result)
                     });
+
+                    moduleVIR.addVideoItemToQueue(item);
+
                 }
             }
         });

@@ -34,7 +34,8 @@ define(["jquery", "utilities"], (function ($, Utils) {
             thumbnail: null,
             prettySize: "0 MB",
             videoElement: null,
-            data: null
+            data: null,
+            fps: null
         };
 
         // if settings where not set by initializing, fill with default settings
@@ -70,7 +71,15 @@ define(["jquery", "utilities"], (function ($, Utils) {
          * @returns {String} representation of this Object
          */
         toString: function () {
-            return "VideoItem=[" + this.settings.name + "," + this.settings.length + ","+ this.settings.size + "]";
+            var replacer = function(key, value) {
+                console.log(key);
+                if (key === "data" || key === "thumbnail" || key === "video" || key === "videoElement") {
+                    return undefined;
+                }
+                return value;
+            };
+            return JSON.stringify(this, replacer, "\t");
+
         }
     };
 
