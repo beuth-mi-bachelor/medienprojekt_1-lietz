@@ -23,7 +23,9 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
         this.settings = {
             videoList: null,
             singleItem: null,
-            vidContainer: ".default"
+            vidContainer: ".default",
+            lengthContainer: ".default",
+            duration: 0
     };
 
         // if settings where not set by initializing, fill with default settings
@@ -63,8 +65,8 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
 
             for (var item in list) {
                 if (list.hasOwnProperty(item)) {
-                        var currentItem = list[item];
-                        var video = currentItem.settings.videoElement;
+                        this.settings.singleItem = list[item];
+                        var video = this.settings.singleItem.settings.videoElement;
                         this.$vidContainer.append(video);
                 }
             }
@@ -72,13 +74,27 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
 
             $.each(self.$vidContainer.find("video"), function (k,v) {
                 console.log(v);
+                var _this = self;
 
                 $(v).on('canplaythrough', self.videoCallback());
+
+                _this.settings.duration += _this.settings.singleItem.settings.videoElement.duration;
+
             });
+            document.getElementById("length").innerHTML = self.settings.duration + "";
+
         },
 
         videoCallback: function () {
             console.log("Hallooo");
+            this.currentTime = this.settings.singleItem.settings.start;
+            $(this).on('timeupdate', function() {
+                var self = this;
+                if (self.currentTime >= self.settings.singleItem.settings.end) {
+                    //playNextVideo();
+                }
+
+            });
         },
 
         playVideo: function () {

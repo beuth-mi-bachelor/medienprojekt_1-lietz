@@ -2,7 +2,7 @@
 requirejs.config({
     baseUrl: "../../videochop/js/"
 });
-define(["jquery", "videoItemLoader", "filereader", "videoList"], (function ($, VideoItemLoader, FileReaderJS, VideoList) {
+define(["../../web-placeholder/js/lib/jquery-2.1.1.min", "videoItemLoader", "filereader", "videoList"], (function ($, VideoItemLoader, FileReaderJS, VideoList) {
     "use strict";
 
     $(document).ready(function () {
