@@ -8,7 +8,7 @@
  * TODO: add description here
  */
 
-define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, VideoItem, Utils) {
+define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (function ($, ui, VideoItem, Utils, EventHandler) {
     "use strict";
 
     /**
@@ -30,11 +30,15 @@ define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, Video
         this.$container = $(this.settings.container);
         this.direction = 0;
         this.id = 0;
+        this.order = [];
         this.initialize();
     }
 
     VideoTimeline.prototype = {
         initialize: function () {
+
+            this.eventHandler = new EventHandler();
+
             var self = this;
             this.$container.sortable({
                 revert: 10,
@@ -49,6 +53,10 @@ define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, Video
                     $item.attr("id", "timeline-item-" + self.id);
                     $item.data("id", id);
                     self.initResizable(self.settings.videoList, $item);
+                },
+                update: function() {
+                    self.order = $(this).sortable('toArray');
+                    self.eventHandler.publish("preview-update", [self.order]);
                 }
             });
 
@@ -93,6 +101,8 @@ define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, Video
                 $(this).data('item', currentVideoItem);
                 $(this).data('max', maxWidth);
                 $(this).data('min', self.settings.minWidth);
+
+                self.eventHandler.publish("preview-update", [self.order, $item]);
 
             },
             start: function (event, ui) {
