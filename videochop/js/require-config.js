@@ -16,7 +16,8 @@ requirejs.config({
         "popcorn": "lib/popcorn.min",
         "popcorn-capture": "lib/popcorn.capture",
         "utilities": "modules/utilities",
-        "videoInformationRetriever": "modules/videoInformationRetriever"
+        "videoInformationRetriever": "modules/videoInformationRetriever",
+        "eventHandler": "modules/EventHandler"
     },
     shim: {
         "videoItemLoader": {

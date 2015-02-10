@@ -11,7 +11,7 @@
  * this module shows a video and controls it
  */
 
-define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem) {
+define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, VideoList, VideoItem, EventHandler) {
     "use strict";
 
     /**
@@ -21,10 +21,7 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
      */
     function PreviewVideo(settings) {
         this.settings = {
-            videoList: null,
-            currentVideo: null,
-            vidContainer: ".default",
-            duration: 0.0
+            vidContainer: ".default"
     };
 
         // if settings where not set by initializing, fill with default settings
@@ -35,11 +32,35 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
     PreviewVideo.prototype = {
         initialize: function () {
             this.$vidContainer = $(this.settings.vidContainer);
+            this.videoObjects = {};
+            this.indices = [];
+            this.eventHandler = new EventHandler();
+            this.bindEvents();
         },
 
-        addVideo: function (item) {
+        bindEvents: function() {
+            var self = this;
+            this.eventHandler.subscribe("preview-update", function(args){
+                if (args[1]) {
+                    self.addVideo(args[1]);
+                    self.updateIndices(args[0]);
+                }
+            });
+        },
 
+        updateIndices: function (indices) {
+            this.indices = indices;
+        },
 
+        addVideo: function ($element) {
+
+            var id = $element.data("id");
+            var item = $element.data("item");
+            this.videoObjects[id] = {
+                videoitem: item,
+                video: item.settings.videoElement
+            };
+            this.$vidContainer.append(item.settings.videoElement);
         },
 
         removeVideo: function () {

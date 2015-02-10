@@ -55,5 +55,6 @@ define(["jquery", "videoList", "videoItemLoader", "filereader", "videoTimeline",
                 container: ".timeline",
                 videoList: videoList
             });
+
         });
 }));
