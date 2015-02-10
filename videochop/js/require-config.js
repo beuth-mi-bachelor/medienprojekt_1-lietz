@@ -16,7 +16,8 @@ requirejs.config({
         "popcorn": "lib/popcorn.min",
         "popcorn-capture": "lib/popcorn.capture",
         "utilities": "modules/utilities",
-        "videoInformationRetriever": "modules/videoInformationRetriever"
+        "videoInformationRetriever": "modules/videoInformationRetriever",
+        "eventHandler": "modules/EventHandler"
     },
     shim: {
         "videoItemLoader": {
@@ -26,7 +27,7 @@ requirejs.config({
             deps: ["jquery", "utilities"]
         },
         "popcorn-capture": {
-            deps: ["popcorn"]
+            deps: ["jquery", "popcorn"]
         },
         "popcorn": {
             deps: ["jquery"]
@@ -37,17 +38,20 @@ requirejs.config({
         "modernizr": {
             deps: ["jquery"]
         },
+        "eventHandler": {
+            deps: ["jquery"]
+        },
         "utilities": {
             deps: ["jquery"]
         },
         "videoList": {
-            deps: ["jquery", "videoItem"]
+            deps: ["jquery", "videoItem", "jqueryui"]
         },
         "videoPreview": {
-            deps: ["jquery", "videoList", "videoItem"]
+            deps: ["jquery", "videoList", "videoItem", "eventHandler"]
         },
         "videoTimeline": {
-            deps: ["jquery","jqueryui", "videoItem", "utilities"]
+            deps: ["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"]
         }
     },
     waitSeconds: 0

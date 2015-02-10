@@ -16,6 +16,7 @@
         float: left;
         height: $container-nav-height;
         overflow: hidden;
+        margin-left: 2px;
         &:hover {
             height: auto;
             .nav-item:first-child {

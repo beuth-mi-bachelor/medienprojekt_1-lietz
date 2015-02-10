@@ -15,10 +15,12 @@ define(["jquery"], (function ($) {
      * @constructor
      */
     function EventHandler() {
-        if (EventHandler.prototype.singletonInstance) {
-            return EventHandler.prototype.singletonInstance;
+        if (EventHandler.prototype.instance !== undefined) {
+            return EventHandler.prototype.instance;
         }
-        EventHandler.prototype.singletonInstance = this;
+
+        EventHandler.prototype.instance = this;
+
         this.topics = {};
     }
 

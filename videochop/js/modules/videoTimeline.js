@@ -8,7 +8,7 @@
  * TODO: add description here
  */
 
-define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, VideoItem, Utils) {
+define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (function ($, ui, VideoItem, Utils, EventHandler) {
     "use strict";
 
     /**
@@ -29,11 +29,16 @@ define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, Video
         
         this.$container = $(this.settings.container);
         this.direction = 0;
+        this.id = 0;
+        this.order = [];
         this.initialize();
     }
 
     VideoTimeline.prototype = {
         initialize: function () {
+
+            this.eventHandler = new EventHandler();
+
             var self = this;
             this.$container.sortable({
                 revert: 10,
@@ -43,7 +48,19 @@ define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, Video
                 receive: function (e, ui) {
                     ui.sender.data('copied', true);
                     var $item = $(ui.item);
+                    var id = Utils.splitId($item);
+                    self.id++;
+                    $item.attr("id", "timeline-item-" + self.id);
+                    $item.data("id", id);
                     self.initResizable(self.settings.videoList, $item);
+                    self.order = $(this).sortable('toArray');
+
+                    self.eventHandler.publish("preview-item", [$item]);
+                    self.eventHandler.publish("preview-order", [self.order]);
+                },
+                update: function() {
+                    self.order = $(this).sortable('toArray');
+                    self.eventHandler.publish("preview-order", [self.order]);
                 }
             });
 
@@ -55,10 +72,9 @@ define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, Video
     initResizable: function(videoList, $item) {
         var self = this;
 
-        var id = $item.attr("id").split("-");
-        var itemNumber = id[id.length - 1];
+        var id = parseInt($item.data("id"), 10);
 
-        var currentVideoItem = videoList.getItem(itemNumber);
+        var currentVideoItem = videoList.getItem(id);
 
         var maxWidth = self.settings.minWidth + parseInt(currentVideoItem.settings.end * self.settings.scaleFactor, 10);
 
@@ -84,13 +100,11 @@ define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, Video
                 var widthBefore = $parent.width();
                 $parent.width(widthBefore + maxWidth);
 
-                var splitted = $elem.attr("id").split("-");
-                var id = parseInt(splitted[splitted.length - 1], 10);
+                var id = parseInt($elem.data("id"), 10);
                 var currentVideoItem = videoList.getItem(id);
                 $(this).data('item', currentVideoItem);
                 $(this).data('max', maxWidth);
                 $(this).data('min', self.settings.minWidth);
-
             },
             start: function (event, ui) {
                 var target = event.toElement.className;
@@ -147,6 +161,10 @@ define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, Video
                     currentVideoItem.settings.start -= difference;
                 }
                 self.direction = 0;
+
+                self.eventHandler.publish("preview-size-update", [$(this).data("id"), currentVideoItem.settings.start, currentVideoItem.settings.end]);
+
+
             }
         });
     },
