@@ -29,6 +29,7 @@ define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, Video
         
         this.$container = $(this.settings.container);
         this.direction = 0;
+        this.id = 0;
         this.initialize();
     }
 
@@ -43,6 +44,10 @@ define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, Video
                 receive: function (e, ui) {
                     ui.sender.data('copied', true);
                     var $item = $(ui.item);
+                    var id = Utils.splitId($item);
+                    self.id++;
+                    $item.attr("id", "timeline-item-" + self.id);
+                    $item.data("id", id);
                     self.initResizable(self.settings.videoList, $item);
                 }
             });
@@ -55,10 +60,9 @@ define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, Video
     initResizable: function(videoList, $item) {
         var self = this;
 
-        var id = $item.attr("id").split("-");
-        var itemNumber = id[id.length - 1];
+        var id = parseInt($item.data("id"), 10);
 
-        var currentVideoItem = videoList.getItem(itemNumber);
+        var currentVideoItem = videoList.getItem(id);
 
         var maxWidth = self.settings.minWidth + parseInt(currentVideoItem.settings.end * self.settings.scaleFactor, 10);
 
@@ -84,8 +88,7 @@ define(["jquery", "jqueryui", "videoItem", "utilities"], (function ($, ui, Video
                 var widthBefore = $parent.width();
                 $parent.width(widthBefore + maxWidth);
 
-                var splitted = $elem.attr("id").split("-");
-                var id = parseInt(splitted[splitted.length - 1], 10);
+                var id = parseInt($elem.data("id"), 10);
                 var currentVideoItem = videoList.getItem(id);
                 $(this).data('item', currentVideoItem);
                 $(this).data('max', maxWidth);

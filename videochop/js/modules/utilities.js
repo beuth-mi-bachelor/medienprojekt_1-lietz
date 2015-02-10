@@ -41,6 +41,10 @@ define(["jquery"], (function ($) {
                 }
             });
             return args;
+        },
+        splitId: function($elem) {
+            var splitted = $elem.attr("id").split("-");
+            return parseInt(splitted[splitted.length - 1], 10);
         }
     };
 
