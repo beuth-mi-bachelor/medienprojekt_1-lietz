@@ -1,7 +1,7 @@
 requirejs.config({
     baseUrl:"../../videochop/js/"
 });
-define(["jquery", "videoList", "videoItemLoader", "filereader", "videoTimeline"], (function ($, VideoList, VideoItemLoader, FileReaderJS, VideoTimeline) {
+define(["jquery", "videoList", "videoItemLoader", "filereader", "videoTimeline", "videoPreview"], (function ($, VideoList, VideoItemLoader, FileReaderJS, VideoTimeline, VideoPreview) {
     "use strict";
 
     $(document).ready(function() {
@@ -20,6 +20,13 @@ define(["jquery", "videoList", "videoItemLoader", "filereader", "videoTimeline"]
             callback: function(item) {
                 videoList.addItem(item);
             }
+        });
+
+        /**
+         * PreviewVideo
+         */
+        var modulePreviewVideo = new VideoPreview({
+            vidContainer: ".preview-video"
         });
 
         var fileReaderOpts = {

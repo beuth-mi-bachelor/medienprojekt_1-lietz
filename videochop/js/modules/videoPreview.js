@@ -41,6 +41,7 @@ define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, Video
         bindEvents: function() {
             var self = this;
             this.eventHandler.subscribe("preview-update", function(args){
+               console.log(args);
                 if (args[1]) {
                     self.addVideo(args[1]);
                     self.updateIndices(args[0]);
@@ -60,7 +61,9 @@ define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, Video
                 videoitem: item,
                 video: item.settings.videoElement
             };
-            this.$vidContainer.append(item.settings.videoElement);
+            var currentVideo = item.settings.videoElement;
+            this.$vidContainer.append(currentVideo);
+
         },
 
         removeVideo: function () {
