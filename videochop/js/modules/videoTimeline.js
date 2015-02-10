@@ -53,10 +53,17 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                     $item.attr("id", "timeline-item-" + self.id);
                     $item.data("id", id);
                     self.initResizable(self.settings.videoList, $item);
+                    console.warn($item);
+                    self.order = $(this).sortable('toArray');
+                    console.warn(self.order);
+
+                    self.eventHandler.publish("preview-item", [$item]);
+                    self.eventHandler.publish("preview-order", [self.order]);
                 },
                 update: function() {
                     self.order = $(this).sortable('toArray');
-                    self.eventHandler.publish("preview-update", [self.order]);
+                    console.log(self.order);
+                    self.eventHandler.publish("preview-order", [self.order]);
                 }
             });
 
@@ -101,8 +108,6 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                 $(this).data('item', currentVideoItem);
                 $(this).data('max', maxWidth);
                 $(this).data('min', self.settings.minWidth);
-
-                self.eventHandler.publish("preview-update", [self.order, $item]);
 
             },
             start: function (event, ui) {

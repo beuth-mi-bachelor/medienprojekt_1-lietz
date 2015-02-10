@@ -40,12 +40,13 @@ define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, Video
 
         bindEvents: function() {
             var self = this;
-            this.eventHandler.subscribe("preview-update", function(args){
-               console.log(args);
-                if (args[1]) {
-                    self.addVideo(args[1]);
-                    self.updateIndices(args[0]);
-                }
+            this.eventHandler.subscribe("preview-order", function(order) {
+                console.error("there", order);
+                self.updateIndices(order);
+            });
+            this.eventHandler.subscribe("preview-item", function($item) {
+                console.error("here", $item);
+                self.addVideo($item);
             });
         },
 
