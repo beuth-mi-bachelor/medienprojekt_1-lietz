@@ -3821,7 +3821,7 @@ body {
   position: absolute;
   width: 1px;
 }
-/* line 6, ../scss/_help.scss */
+/* line 7, ../scss/_help.scss */
 .video-chop-application .help-wrapper {
   position: fixed;
   width: 75vw;
@@ -3838,7 +3838,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
 }
-/* line 20, ../scss/_help.scss */
+/* line 21, ../scss/_help.scss */
 .video-chop-application .help-wrapper .close-help {
   position: absolute;
   top: 15px;
@@ -3851,43 +3851,43 @@ body {
   font-family: "ElegantIcons";
   font-size: 30px;
 }
-/* line 33, ../scss/_help.scss */
+/* line 34, ../scss/_help.scss */
 .video-chop-application .help-wrapper .close-help:hover {
   color: #ebebeb;
 }
-/* line 37, ../scss/_help.scss */
+/* line 38, ../scss/_help.scss */
 .help-open .video-chop-application .help-wrapper {
   top: 12.5vh;
   -webkit-transition: top .3s ease-in;
           transition: top .3s ease-in;
 }
-/* line 41, ../scss/_help.scss */
+/* line 42, ../scss/_help.scss */
 .video-chop-application .help-wrapper dl {
   width: 80%;
 }
-/* line 43, ../scss/_help.scss */
+/* line 44, ../scss/_help.scss */
 .video-chop-application .help-wrapper dl dt {
   margin: 10px 0 5px;
   font-weight: 700;
 }
-/* line 46, ../scss/_help.scss */
+/* line 47, ../scss/_help.scss */
 .video-chop-application .help-wrapper dl dt:before {
   content: "Question: ";
 }
-/* line 50, ../scss/_help.scss */
+/* line 51, ../scss/_help.scss */
 .video-chop-application .help-wrapper dl dd {
   margin: 5px 20px 10px;
 }
-/* line 52, ../scss/_help.scss */
+/* line 53, ../scss/_help.scss */
 .video-chop-application .help-wrapper dl dd span {
   display: block;
   margin: 5px 0;
 }
-/* line 56, ../scss/_help.scss */
+/* line 57, ../scss/_help.scss */
 .video-chop-application .help-wrapper dl dd .answer:before {
   content: "Answer: ";
 }
-/* line 59, ../scss/_help.scss */
+/* line 60, ../scss/_help.scss */
 .video-chop-application .help-wrapper dl dd .solution:before {
   content: "Solution: ";
 }

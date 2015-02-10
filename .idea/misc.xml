@@ -4,6 +4,9 @@
     <exe-path />
     <config-path />
   </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/videochop/js/lib/ffmpeg.js" />
+  </component>
   <component name="ProjectRootManager" version="2" />
   <component name="masterDetails">
     <states>
@@ -21,4 +24,3 @@
     </states>
   </component>
 </project>
-
