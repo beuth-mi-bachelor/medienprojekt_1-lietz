@@ -37,12 +37,12 @@ define(["jquery", "videoList", "videoItem"], (function ($, VideoList, VideoItem)
             this.$vidContainer = $(this.settings.vidContainer);
         },
 
-        showPreview: function (item) {
+        addVideo: function (item) {
 
-           
+
         },
 
-        prepareToPlay: function () {
+        removeVideo: function () {
 
 
         },
