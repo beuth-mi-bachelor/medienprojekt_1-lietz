@@ -26,7 +26,9 @@ define(["jquery", "videoList", "videoItemLoader", "filereader", "videoTimeline",
          * PreviewVideo
          */
         var modulePreviewVideo = new VideoPreview({
-            vidContainer: ".preview-video"
+            vidContainer: ".video-wrapper",
+            playButton: ".play",
+            pauseButton: ".pause"
         });
 
         var fileReaderOpts = {

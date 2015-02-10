@@ -34,6 +34,7 @@ define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, Video
             this.$vidContainer = $(this.settings.vidContainer);
             this.videoObjects = {};
             this.indices = [];
+            this.positionVideo = 0;
             this.eventHandler = new EventHandler();
             this.bindEvents();
         },
@@ -46,6 +47,12 @@ define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, Video
             this.eventHandler.subscribe("preview-item", function($item) {
                 self.addVideo($item);
             });
+            $(this.settings.playButton).on("click", function() {
+                self.play();
+            });
+            $(this.settings.pauseButton).on("click", function() {
+                self.pause();
+            });
         },
 
         updateIndices: function (indices) {
@@ -54,7 +61,8 @@ define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, Video
 
         addVideo: function ($element) {
 
-            var id = $element.data("id");
+            var self = this;
+            var id = "timeline-item-" + $element.data("id");
             var item = $element.data("item");
             this.videoObjects[id] = {
                 videoitem: item,
@@ -62,12 +70,27 @@ define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, Video
             };
             var currentVideo = item.settings.videoElement;
             this.$vidContainer.append(currentVideo);
+            currentVideo.addEventListener("canplayall", function() {
+                currentVideo.currentTime = item.settings.start;
+            }, false);
+            currentVideo.addEventListener("timeupdate", function() {
+                console.log(currentVideo.currentTime);
+                if (currentVideo.currentTime === item.settings.end) {
+                    currentVideo.pause();
+                    self.positionVideo += 1;
+                    self.play();
+                }
+            }, false);
 
         },
 
-        removeVideo: function () {
+        play: function () {
+            this.currentVideo = this.videoObjects[this.indices[this.positionVideo]].video;
+            this.currentVideo.play();
+        },
 
-
+        pause: function () {
+            this.currentVideo.pause();
         },
 
 
