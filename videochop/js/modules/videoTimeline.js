@@ -105,7 +105,6 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                 $(this).data('item', currentVideoItem);
                 $(this).data('max', maxWidth);
                 $(this).data('min', self.settings.minWidth);
-
             },
             start: function (event, ui) {
                 var target = event.toElement.className;
@@ -162,6 +161,10 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                     currentVideoItem.settings.start -= difference;
                 }
                 self.direction = 0;
+
+                self.eventHandler.publish("preview-size-update", [$(this).data("id"), currentVideoItem.settings.start, currentVideoItem.settings.end]);
+
+
             }
         });
     },
