@@ -41,11 +41,9 @@ define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, Video
         bindEvents: function() {
             var self = this;
             this.eventHandler.subscribe("preview-order", function(order) {
-                console.error("there", order);
                 self.updateIndices(order);
             });
             this.eventHandler.subscribe("preview-item", function($item) {
-                console.error("here", $item);
                 self.addVideo($item);
             });
         },
