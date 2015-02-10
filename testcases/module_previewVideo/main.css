@@ -114,3 +114,9 @@ p {
 video {
     position: absolute;
 }
+
+.temporary-video {
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
