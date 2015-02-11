@@ -8,6 +8,7 @@ requirejs.config({
         "modernizr": "lib/modernizr",
         "useragent": "lib/ua-parser.min",
         "filereader": 'lib/filereader',
+        "filesaver": 'lib/filesaver.min',
         "videoItemLoader": "modules/videoItemLoader",
         "videoItem": "modules/videoItem",
         "videoPreview": "modules/videoPreview",
@@ -28,7 +29,7 @@ requirejs.config({
             deps: ["jquery", "utilities"]
         },
         "videoExporter": {
-            deps: ["jquery", "utilities"]
+            deps: ["jquery", "utilities", "filesaver"]
         },
         "popcorn-capture": {
             deps: ["jquery", "popcorn"]

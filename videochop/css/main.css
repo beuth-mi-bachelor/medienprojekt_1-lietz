@@ -2974,11 +2974,19 @@ body {
   background: #fff;
 }
 /* line 58, ../scss/_navigation.scss */
+.video-chop-application .nav .nav-item.export {
+  opacity: 1;
+}
+/* line 60, ../scss/_navigation.scss */
+.video-chop-application .nav .nav-item.export.disabled {
+  opacity: .3;
+}
+/* line 64, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-item.social, .video-chop-application .nav .nav-item:first-child {
   padding: 0 10px;
 }
 @media (min-width: 820px) {
-  /* line 58, ../scss/_navigation.scss */
+  /* line 64, ../scss/_navigation.scss */
   .video-chop-application .nav .nav-item.social, .video-chop-application .nav .nav-item:first-child {
     padding: 0;
   }
@@ -2992,50 +3000,50 @@ body {
     padding: 0 10px;
     border-bottom: 3px solid #686868;
   }
-  /* line 71, ../scss/_navigation.scss */
+  /* line 77, ../scss/_navigation.scss */
   .video-chop-application .nav .nav-item:first-child {
     display: none;
   }
 }
-/* line 75, ../scss/_navigation.scss */
+/* line 81, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-item:hover, .impress-open .video-chop-application .nav .nav-item.impress {
   box-sizing: border-box;
   background: #ebebeb;
   border: 0;
   border-left: 6px solid #ff6400;
 }
-/* line 81, ../scss/_navigation.scss */
+/* line 87, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-item:hover:first-child, .impress-open .video-chop-application .nav .nav-item.impress:first-child {
   border: 0;
   border-bottom: 6px solid #ff6400;
 }
-/* line 85, ../scss/_navigation.scss */
+/* line 91, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-item:hover > *:before, .impress-open .video-chop-application .nav .nav-item.impress > *:before {
   color: #ff6400;
 }
-/* line 89, ../scss/_navigation.scss */
+/* line 95, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-item:first-child:hover {
   border-bottom: 0;
 }
 @media (min-width: 820px) {
-  /* line 93, ../scss/_navigation.scss */
+  /* line 99, ../scss/_navigation.scss */
   .video-chop-application .nav .nav-item:hover, .impress-open .video-chop-application .nav .nav-item.impress {
     box-sizing: border-box;
     background: #ebebeb;
     border: 0;
     border-bottom: 6px solid #ff6400;
   }
-  /* line 99, ../scss/_navigation.scss */
+  /* line 105, ../scss/_navigation.scss */
   .video-chop-application .nav .nav-item:hover > *:before, .impress-open .video-chop-application .nav .nav-item.impress > *:before {
     color: #ff6400;
   }
 }
-/* line 105, ../scss/_navigation.scss */
+/* line 111, ../scss/_navigation.scss */
 .video-chop-application .nav .icons {
   margin-right: 4px;
   text-align: right;
 }
-/* line 109, ../scss/_navigation.scss */
+/* line 115, ../scss/_navigation.scss */
 .video-chop-application .nav .logo {
   height: 50px;
   background: #fff;
@@ -3044,31 +3052,31 @@ body {
   float: left;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
-/* line 116, ../scss/_navigation.scss */
+/* line 122, ../scss/_navigation.scss */
 .video-chop-application .nav .logo img {
   height: 100%;
   margin: 0 auto;
   display: block;
 }
-/* line 120, ../scss/_navigation.scss */
+/* line 126, ../scss/_navigation.scss */
 .video-chop-application .nav .logo img.logo-small {
   display: block;
 }
-/* line 123, ../scss/_navigation.scss */
+/* line 129, ../scss/_navigation.scss */
 .video-chop-application .nav .logo img.logo-full {
   display: none;
 }
 @media (min-width: 420px) {
-  /* line 127, ../scss/_navigation.scss */
+  /* line 133, ../scss/_navigation.scss */
   .video-chop-application .nav .logo img.logo-small {
     display: none;
   }
-  /* line 130, ../scss/_navigation.scss */
+  /* line 136, ../scss/_navigation.scss */
   .video-chop-application .nav .logo img.logo-full {
     display: block;
   }
 }
-/* line 136, ../scss/_navigation.scss */
+/* line 142, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-social {
   float: right;
   margin: 0;
@@ -3078,22 +3086,22 @@ body {
   height: 40px;
   overflow: hidden;
 }
-/* line 144, ../scss/_navigation.scss */
+/* line 150, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-social:hover {
   height: auto;
 }
-/* line 146, ../scss/_navigation.scss */
+/* line 152, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-social:hover .nav-item:first-child {
   background: #ebebeb;
   border-bottom: 6px solid #ff6400;
   -webkit-transition: border .1s ease;
           transition: border .1s ease;
 }
-/* line 150, ../scss/_navigation.scss */
+/* line 156, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-social:hover .nav-item:first-child > *:before {
   color: #ff6400;
 }
-/* line 155, ../scss/_navigation.scss */
+/* line 161, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-social .nav-item {
   float: none;
   display: block;
@@ -3102,27 +3110,27 @@ body {
   height: 40px;
   background: #fff;
 }
-/* line 162, ../scss/_navigation.scss */
+/* line 168, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-social .nav-item:first-child {
   margin: 0;
 }
-/* line 165, ../scss/_navigation.scss */
+/* line 171, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-social .nav-item:not(.social) {
   border: 0;
   border-left: 3px solid #686868;
   -webkit-transition: border .1s ease;
           transition: border .1s ease;
 }
-/* line 169, ../scss/_navigation.scss */
+/* line 175, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-social .nav-item:not(.social):hover {
   background: #ebebeb;
   border-left: 6px solid #ff6400;
 }
-/* line 172, ../scss/_navigation.scss */
+/* line 178, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-social .nav-item:not(.social):hover > a span:before {
   color: #ff6400;
 }
-/* line 177, ../scss/_navigation.scss */
+/* line 183, ../scss/_navigation.scss */
 .video-chop-application .nav .nav-social .nav-item a {
   text-decoration: none;
   color: inherit;
@@ -3155,6 +3163,10 @@ body {
   width: 100%;
   height: 100%;
   padding-top: 40px;
+  /* color definitions */
+  /* container definitions */
+  /* breakpoint definitions */
+  /* z-indices definitions */
   /* color definitions */
   /* container definitions */
   /* breakpoint definitions */
@@ -3418,14 +3430,16 @@ body {
   position: relative;
   margin-right: 10px;
   font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 1.2em;
   height: 30px;
   padding: 2px 4px;
   float: right;
-  color: #ebebeb;
+  color: #fff;
   cursor: pointer;
   line-height: 25px;
 }
-/* line 46, ../scss/_filelist.scss */
+/* line 48, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file-menu .file-add-button:before {
   font-size: 25px;
   font-family: "ElegantIcons";
@@ -3433,18 +3447,18 @@ body {
   position: absolute;
   left: -20px;
 }
-/* line 53, ../scss/_filelist.scss */
+/* line 55, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file-menu .file-add-button:hover {
-  color: #fff;
+  color: #ff6400;
 }
-/* line 58, ../scss/_filelist.scss */
+/* line 60, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .files {
   margin: 0;
   padding: 5px 0 0;
   width: 100%;
   display: block;
 }
-/* line 64, ../scss/_filelist.scss */
+/* line 66, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file {
   list-style-type: none;
   background: #fff;
@@ -3455,11 +3469,11 @@ body {
   cursor: move;
   font-weight: 300;
 }
-/* line 73, ../scss/_filelist.scss */
+/* line 75, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file.active {
   background: rgba(150, 150, 150, 0.75);
 }
-/* line 76, ../scss/_filelist.scss */
+/* line 78, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file .file-delete {
   display: inline-block;
   width: 16px;
@@ -3469,26 +3483,26 @@ body {
   font-weight: 300;
   margin-right: 10px;
 }
-/* line 84, ../scss/_filelist.scss */
+/* line 86, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file .file-delete:hover {
   color: #000;
 }
-/* line 88, ../scss/_filelist.scss */
+/* line 90, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file .small {
   margin-top: 5px;
   font-family: "Roboto Condensed", sans-serif;
   font-weight: 700;
   font-size: .7em;
 }
-/* line 96, ../scss/_filelist.scss */
+/* line 98, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file .small span:first-child {
   float: left;
 }
-/* line 99, ../scss/_filelist.scss */
+/* line 101, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file .small span:last-child {
   float: right;
 }
-/* line 104, ../scss/_filelist.scss */
+/* line 106, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file-info {
   width: 50%;
   margin-left: 10px;
@@ -3496,23 +3510,23 @@ body {
   vertical-align: middle;
   overflow: hidden;
 }
-/* line 110, ../scss/_filelist.scss */
+/* line 112, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file-info p {
   margin: 0;
   padding: 0;
 }
-/* line 115, ../scss/_filelist.scss */
+/* line 117, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file-thumb {
   width: 120px;
   vertical-align: middle;
 }
-/* line 119, ../scss/_filelist.scss */
+/* line 121, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .file-name {
   font-weight: 400;
   font-size: 1.2em;
   white-space: nowrap;
 }
-/* line 124, ../scss/_filelist.scss */
+/* line 126, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .placeholder {
   width: 0;
   height: 0;
@@ -3521,7 +3535,7 @@ body {
   border-width: 6px 0 6px 12px;
   border-color: transparent transparent transparent #ff6400;
 }
-/* line 131, ../scss/_filelist.scss */
+/* line 133, ../scss/_filelist.scss */
 .video-chop-application .application .file-list .placeholder:after {
   position: absolute;
   left: 0;
@@ -3710,6 +3724,139 @@ body {
   content: "-";
   left: -1px;
   top: 0;
+}
+/* line 2, ../scss/partials/_placeholder.scss */
+.video-chop-application .application .file-list .file .small:before, .video-chop-application .application .file-list .file .small:after {
+  content: "";
+  display: table;
+}
+/* line 7, ../scss/partials/_placeholder.scss */
+.video-chop-application .application .file-list .file .small:after {
+  clear: both;
+}
+/* line 11, ../scss/partials/_placeholder.scss */
+.video-chop-application .application .no-content {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+/* line 6, ../scss/_export.scss */
+.video-chop-application .application .export-overlay {
+  position: absolute;
+  display: none;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.75);
+}
+/* line 15, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 66%;
+  height: 200px;
+  padding: 15px 15px;
+  border-radius: 3px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  margin: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+/* line 30, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper .close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  text-align: center;
+  vertical-align: middle;
+  display: block;
+  color: #888;
+  cursor: pointer;
+  z-index: 100;
+}
+/* line 44, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper .close:hover {
+  color: #000;
+}
+/* line 47, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper .export-info {
+  position: absolute;
+  padding: 55px 30px 30px;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  right: 0;
+  left: 0;
+  height: 100%;
+  margin: auto;
+  overflow: hidden;
+  display: table;
+  vertical-align: middle;
+}
+/* line 61, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper .export-text {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  white-space: pre-line;
+  height: 100%;
+  margin: 30px auto 20px auto;
+}
+/* line 69, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper progress {
+  background-color: #f3f3f3;
+  height: 18px;
+  border-radius: 9px;
+  border: 1px solid #ccc;
+  -webkit-box-flex: 9;
+  -webkit-flex: 9 auto;
+      -ms-flex: 9 auto;
+          flex: 9 auto;
+  margin-top: 20px;
+}
+/* line 77, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper progress::-webkit-progress-bar {
+  background-color: #f3f3f3;
+  border-radius: 9px;
+}
+/* line 81, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper progress::-webkit-progress-value {
+  background: #ff6400;
+  border-radius: 9px;
+}
+/* line 85, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper progress::-moz-progress-bar {
+  background: #ff6400;
+  border-radius: 9px;
+}
+/* line 89, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper .progress-value {
+  margin-top: 20px;
+  line-height: 20px;
+  font-size: .8em;
+  color: #555;
+  height: 18px;
+  text-align: center;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 auto;
+      -ms-flex: 1 auto;
+          flex: 1 auto;
 }
 /* line 2, ../scss/partials/_placeholder.scss */
 .video-chop-application .application .file-list .file .small:before, .video-chop-application .application .file-list .file .small:after {

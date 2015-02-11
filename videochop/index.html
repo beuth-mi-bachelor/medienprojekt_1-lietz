@@ -46,8 +46,7 @@
                     </a>
                     <ul class="nav-list">
                         <li class="nav-item"><span class="icons icon_menu"></span>Menu</li>
-                        <li class="nav-item"><span class="icons icon_document_alt"></span>New Project</li>
-                        <li class="nav-item"><span class="icons icon_cloud-upload_alt"></span>Export</li>
+                        <li class="nav-item export"><span class="icons icon_cloud-upload_alt"></span>Export</li>
                         <li class="nav-item help"><span class="icons icon_question"></span>Help</li>
                         <li class="nav-item impress"><span class="icons icon_quotations"></span>Impress</li>
                     </ul>
@@ -113,6 +112,20 @@
                         <ul class="timeline connected">
 
                         </ul>
+                    </section>
+                    <section class="export-overlay">
+                        <div class="progress-bar-wrapper">
+                            <div class="close icon_close"></div>
+                            <progress id="progressbar" value="0.00" max="100"></progress>
+                            <span class="progress-value">0.00%</span>
+                            <p class="export-info">
+                                <span class="export-text">
+                                    <span class="export-status"></span>
+                                    <span class="export-progress"></span>
+                                    <span class="export-link"></span>
+                                </span>
+                            </p>
+                        </div>
                     </section>
                     <section class="help-wrapper">
                         <h2 class="no-content">help</h2>
@@ -233,7 +246,6 @@
                                 </span>
                             </dd>
                         </dl>
-
                     </section>
 
                     <section class="impress-wrapper">

@@ -5,7 +5,7 @@ requirejs.config({
  * what is to load
  * @type {string[]}
  */
-var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "utilities", "filereader", "videoItemLoader", "videoList", "videoTimeline"];
+var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "utilities", "filereader", "videoItemLoader", "videoList", "videoTimeline", "videoExporter"];
 /**
  * counter for loading modules
  * @type {number}
@@ -58,7 +58,7 @@ var displayLoadProgress = function(p) {
     percentageContainer.style.height = p + "%";
 };
 
-define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, FileReaderJS, VideoItemLoader, VideoList, VideoTimeline) {
+define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, FileReaderJS, VideoItemLoader, VideoList, VideoTimeline, VideoExporter) {
     "use strict";
 
     $(document).ready(function() {
@@ -74,7 +74,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
         // wrapper and instances of modules
         var moduleVideoList,
             moduleVideoItemLoader,
-            modulevideoTimeline,
+            moduleVideoExporter,
+            moduleVideoTimeline,
             $wrapperVideoDrop,
             $wrapperVideoAdd,
             $fileLoading;
@@ -181,7 +182,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
 
             var fileReaderOpts = {
                 readAsDefault: 'ArrayBuffer',
-                accept: "video/webm",
+                accept: "video/*",
                 on: {
                     loadstart: function(e, file) {
                         $fileLoading.show();
@@ -200,7 +201,6 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
                         });
                     },
                     skip: function() {
-                        window.alert("only webm supported");
                         files--;
                     }
                 }
@@ -212,11 +212,25 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             /**
              * VideoTimeline
              */
-            modulevideoTimeline = new VideoTimeline({
+            moduleVideoTimeline = new VideoTimeline({
                 minWidth: 200,
                 scaleFactor: 5,
                 container: ".timeline",
                 videoList: moduleVideoList
+            });
+
+            moduleVideoExporter = new VideoExporter({
+                exportBindings: {
+                    bar: '#progressbar',
+                    value: '.progress-value',
+                    text: ".export-text",
+                    status: ".export-status",
+                    progress: ".export-progress",
+                    link: ".export-link",
+                    button: ".export",
+                    overlay: ".export-overlay"
+                },
+                timeLineInstance: moduleVideoTimeline
             });
 
         }

@@ -201,9 +201,12 @@ define(["jquery", "filereader", "videoList", "videoItem", "videoItemLoader", "ut
                 console.log(files, inputs);
             }
 
+            console.log(files);
+
+
             //console.log(inputs, files);
 
-            var args = parseArguments(inputs + '-v debug -strict -2 -r 24 -filter_complex "[0:v] [0:a:0] [1:v] [1:a:0] concat=n=2:v=1:a=1 [v] [a]" -map "[v]" -map "[a]" output.mp4');
+            var args = parseArguments(inputs + '-v debug -strict -2 -r 24 -filter_complex "[0:v] [0:a] [1:v] [1:a] [2:v] [2:a] concat=n=3:v=1:a=1 [v] [a]" -map "[v]" -map "[a]" output.mp4');
 
             if (debug) {
                 console.log(args);
