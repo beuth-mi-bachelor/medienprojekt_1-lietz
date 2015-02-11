@@ -2782,8 +2782,8 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: -webkit-linear-gradient(top, #fff 0%, #888 100%);
-  background: linear-gradient(to bottom, #fff 0%, #888 100%);
+  background: -webkit-linear-gradient(top, #fff 0%, #ff6400 50%);
+  background: linear-gradient(to bottom, #fff 0%, #ff6400 50%);
 }
 /* line 14, ../scss/_preloader.scss */
 .video-chop-application .preloader .logo-animated, .video-chop-application .preloader .inner-logo {
