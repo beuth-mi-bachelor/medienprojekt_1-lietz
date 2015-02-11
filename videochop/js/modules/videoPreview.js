@@ -34,7 +34,6 @@ define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, Video
             this.$vidContainer = $(this.settings.vidContainer);
             this.videoObjects = {};
             this.indices = [];
-            this.positionVideo = 0;
             this.eventHandler = new EventHandler();
             this.bindEvents();
         },
@@ -53,6 +52,9 @@ define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, Video
             $(this.settings.pauseButton).on("click", function() {
                 self.pause();
             });
+            $(this.settings.stopButton).on("click", function() {
+                self.stop();
+            });
         },
 
         updateIndices: function (indices) {
@@ -68,15 +70,18 @@ define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, Video
                 videoitem: item,
                 video: item.settings.videoElement
             };
-            var currentVideo = item.settings.videoElement;
-            this.$vidContainer.append(currentVideo);
-            currentVideo.addEventListener("canplayall", function() {
-                currentVideo.currentTime = item.settings.start;
+            this.currentVideo = item.settings.videoElement;
+            this.duration = item.settings.videoElement.duration;
+            console.log(this.duration);
+            $(this.settings.durationField).innerHTML = this.duration;
+            this.$vidContainer.append(this.currentVideo);
+            this.currentVideo.addEventListener("canplayall", function() {
+                self.currentVideo.currentTime = item.settings.start;
             }, false);
-            currentVideo.addEventListener("timeupdate", function() {
-                console.log(currentVideo.currentTime);
-                if (currentVideo.currentTime === item.settings.end) {
-                    currentVideo.pause();
+            this.currentVideo.addEventListener("timeupdate", function() {
+                console.log(self.currentVideo.currentTime);
+                if (self.currentVideo.currentTime === item.settings.end) {
+                    self.currentVideo.pause();
                     self.positionVideo += 1;
                     self.play();
                 }
@@ -84,15 +89,29 @@ define(["jquery", "videoList", "videoItem", "eventHandler"], (function ($, Video
 
         },
 
-        play: function () {
-            this.currentVideo = this.videoObjects[this.indices[this.positionVideo]].video;
-            this.currentVideo.play();
-        },
-
-        pause: function () {
+        pause: function() {
             this.currentVideo.pause();
         },
 
+        play: function () {
+            this.currentVideo = this.videoObjects[this.indices[0]].video;
+            if (this.currentVideo.paused) {
+                this.currentVideo.play();
+            }
+            else {
+                this.currentVideo.pause();
+            }
+        },
+
+        stop: function () {
+            if (this.currentVideo.paused) {
+                this.currentVideo.currentTime = 0;
+            }
+            else {
+                this.currentVideo.pause();
+                this.currentVideo.currentTime = 0;
+            }
+        },
 
         /**
          * describes this Object to the user
