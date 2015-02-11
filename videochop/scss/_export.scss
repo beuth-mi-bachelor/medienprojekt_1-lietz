@@ -1,0 +1,98 @@
+@import "settings";
+
+@import "partials/_functions.scss";
+@import "partials/_placeholder";
+
+.export-overlay {
+    position: absolute;
+    display: none;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: rgba(0, 0, 0, .75);
+    .progress-bar-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 66%;
+        height: 200px;
+        padding: 15px 15px;
+        border-radius: 3px;
+        background-color: #fff;
+        box-shadow:  0 1px 2px 0 rgba(0, 0, 0, .2);
+        margin: auto;
+        display: flex;
+    }
+    .progress-bar-wrapper .close {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        text-align: center;
+        vertical-align: middle;
+        display: block;
+        color: #888;
+        cursor: pointer;
+        z-index: 100;
+    }
+    .progress-bar-wrapper .close:hover {
+        color: #000;
+    }
+    .progress-bar-wrapper .export-info {
+        position: absolute;
+        padding: 55px 30px 30px;
+        bottom: 0;
+        top: 0;
+        width: 100%;
+        right: 0;
+        left: 0;
+        height: 100%;
+        margin: auto;
+        overflow: hidden;
+        display: table;
+        vertical-align: middle;
+    }
+    .progress-bar-wrapper .export-text {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        white-space: pre-line;
+        height: 100%;
+        margin: 30px auto 20px auto;
+    }
+    .progress-bar-wrapper progress {
+        background-color: #f3f3f3;
+        height: 18px;
+        border-radius: 9px;
+        border: 1px solid #ccc;
+        flex: 9 auto;
+        margin-top: 20px;
+    }
+    .progress-bar-wrapper progress::-webkit-progress-bar {
+        background-color: #f3f3f3;
+        border-radius: 9px;
+    }
+    .progress-bar-wrapper progress::-webkit-progress-value {
+        background: #ff6400;
+        border-radius: 9px;
+    }
+    .progress-bar-wrapper progress::-moz-progress-bar {
+        background: #ff6400;
+        border-radius: 9px;
+    }
+    .progress-bar-wrapper .progress-value {
+        margin-top: 20px;
+        line-height: 20px;
+        font-size: .8em;
+        color: #555;
+        height: 18px;
+        text-align: center;
+        flex: 1 auto;
+    }
+}

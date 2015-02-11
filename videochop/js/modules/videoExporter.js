@@ -66,7 +66,7 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
             this.bindEvents();
         },
         setUpWorker: function() {
-            this.worker = new Worker("../../videochop/js/lib/webworker.js");
+            this.worker = new Worker("./js/lib/webworker.js");
         },
         bindEvents: function() {
             var self = this;
@@ -96,6 +96,7 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
                     self.isBusy = true;
                     self.$export.overlay.fadeIn();
                     self.$export.status.text("starting export");
+                    self.$export.link.html("");
                     self.$export.progress.text("");
 
                 } else if (message.type === "stdout") {

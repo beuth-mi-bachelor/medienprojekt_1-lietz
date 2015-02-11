@@ -37,10 +37,12 @@
             position: relative;
             margin-right: $spacer;
             font-family: $base-font;
+            font-weight: 700;
+            font-size: 1.2em;
             height: 3*$spacer;
             padding: 2px 4px;
             float: right;
-            color: $color-light;
+            color: $color-lightest;
             cursor: pointer;
             line-height: (3*$spacer) - ($spacer/2);
             &:before {
@@ -51,7 +53,7 @@
                 left: -(2*$spacer);
             }
             &:hover {
-                color: $color-lightest;
+                color: $color-highlight;
             }
         }
     }
