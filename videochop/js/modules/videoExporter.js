@@ -7,7 +7,7 @@
  * module is for receiving detailed information about a videoItem
  */
 
-define(["jquery", "utilities"], (function ($, Utils) {
+define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
     "use strict";
 
     /**
@@ -25,10 +25,17 @@ define(["jquery", "utilities"], (function ($, Utils) {
 
         this.settings = {
             timeLineInstance: null,
-            exportButton: ".export",
-            callback: function(item) {
-                console.log(item);
-            }
+            exportBindings: {
+                bar: '#progressbar',
+                value: '.progress-value',
+                text: ".export-text",
+                status: ".export-status",
+                progress: ".export-progress",
+                link: ".export-link",
+                button: ".export",
+                overlay: ".export-overlay"
+            },
+            close: ".close"
         };
 
         // if settings where not set by initializing, fill with default settings
@@ -42,17 +49,41 @@ define(["jquery", "utilities"], (function ($, Utils) {
 
     VideoExporter.prototype = {
         initialize: function () {
-            this.$exportButton = $(this.settings.exportButton);
-
-            this.worker = new Worker("../../videochop/js/lib/webworker.js");
+            var self = this;
+            this.$export =  {
+                bar: $(self.settings.exportBindings.bar),
+                value: $(self.settings.exportBindings.value),
+                text: $(self.settings.exportBindings.text),
+                status: $(self.settings.exportBindings.status),
+                progress: $(self.settings.exportBindings.progress),
+                link: $(self.settings.exportBindings.link),
+                button: $(self.settings.exportBindings.button),
+                overlay: $(self.settings.exportBindings.overlay)
+            };
+            this.$close =  $(self.settings.close);
+            this.setUpWorker();
             this.initMessageHandler();
             this.bindEvents();
         },
+        setUpWorker: function() {
+            this.worker = new Worker("../../videochop/js/lib/webworker.js");
+        },
         bindEvents: function() {
             var self = this;
-            this.$exportButton.on("click", function() {
+            this.$export.link.on("click", function(e) {
+                e.preventDefault();
+                self.saveFile();
+                return false;
+            });
+            this.$export.button.on("click", function() {
                 self.prepareToExport();
             });
+            this.$close.on("click", function() {
+                self.cancelExporting();
+            });
+        },
+        saveFile: function() {
+            saveAs(this.blobData, "output");
         },
         initMessageHandler: function() {
             var self = this;
@@ -60,21 +91,69 @@ define(["jquery", "utilities"], (function ($, Utils) {
                 var message = event.data;
                 if (message.type === "ready") {
                     self.isReady = true;
-                    self.worker.postMessage({
-                        type: 'command',
-                        arguments: Utils.parseArguments("-help"),
-                        files: [],
-                        TOTAL_MEMORY: "ALLOW_MEMORY_GROWTH"
-                    });
                 }
                 if (message.type === "start") {
                     self.isBusy = true;
-                } else if (message.type === "stdout") {
+                    self.$export.overlay.fadeIn();
+                    self.$export.status.text("starting export");
+                    self.$export.progress.text("");
 
+                } else if (message.type === "stdout") {
+                    self.handleMessages(message.data);
                 } else if (message.type === "done") {
                     self.isBusy = false;
+                    self.$export.status.text("export done\n");
+                    self.$export.link.html(self.createURL(message.data[0]));
+                    self.$export.bar.val(100);
+                    self.$export.value.text("100 %");
                 }
             };
+        },
+        cancelExporting: function() {
+            this.isBusy = false;
+            this.ready = false;
+            this.worker.terminate();
+            this.worker = undefined;
+            this.$export.overlay.fadeOut();
+            this.setUpWorker();
+            this.initMessageHandler();
+        },
+        createURL: function(item) {
+            var fileArray = new Uint8Array(item.data);
+            var blob = new Blob([fileArray], {type: "video/mp4"});
+            this.blobData = blob;
+            var url = window.URL.createObjectURL(blob);
+            return $("<a href='"+url+"'>Download "+item.name+"</a>");
+        },
+        handleMessages: function(message) {
+            var conversionInfo = /size=(\s)*(\d)*(\w*) time=(\d|\:|\.)*/g;
+
+            if (conversionInfo.test(message)) {
+                var info = message.match(conversionInfo)[0];
+                var size = info.match(/(\d)*(\w)* /g);
+                size = size[size.length-1];
+                var time = info.match(/(\d)*:(\d)*:(\d)*\.(\d)*/g);
+                time = time[0];
+                this.$export.progress.text("handled " + size + " and encoded " + time + " hours");
+                this.showProgress(time);
+            } else if (message === "Press [q] to stop, [?] for help") {
+                this.$export.status.text("encoding\n");
+            }
+        },
+        showProgress: function(time) {
+            var splitted = time.split(":");
+
+            var secsAndMillis = splitted[splitted.length-1];
+            var mins = splitted[splitted.length-2];
+            var hours = splitted[splitted.length-3];
+            var seconds = parseFloat(secsAndMillis) + (parseInt(mins, 10) * 60) + (parseInt(hours, 10) * 3600);
+            var percentage = parseFloat((seconds / this.lengthOfVideos) * 100).toFixed(2);
+
+            if (percentage > 100.0) {
+                percentage = 100.00;
+            }
+            this.$export.bar.val(percentage);
+            this.$export.value.text(percentage + "%");
         },
         prepareToExport: function() {
             this.getFilesToExport();
@@ -92,6 +171,7 @@ define(["jquery", "utilities"], (function ($, Utils) {
             var self = this;
             this.files = [];
             this.timings = [];
+            this.lengthOfVideos = 0;
             this.listToExport.forEach(function(videoItem) {
                 self.files.push({
                     data: videoItem.settings.data,
@@ -101,23 +181,43 @@ define(["jquery", "utilities"], (function ($, Utils) {
                     start: Math.floor(videoItem.settings.start * (videoItem.settings.fps)),
                     end: Math.floor(videoItem.settings.end * (videoItem.settings.fps))
                 });
+                self.lengthOfVideos += (videoItem.settings.end - videoItem.settings.start);
             });
-            this.generateArguments();
+            this.args = this.generateArguments();
+
+            console.log(this.args);
+            this.startExporting();
         },
         generateArguments: function() {
             var fileString = "";
             this.files.forEach(function(item) {
                 fileString += "-i " + item.name + " ";
             });
-            
-            return "";
+
+            fileString += "-v debug -strict -2 -r 24 ";
+            fileString += this.buildComplexFilter();
+            fileString += "output.mp4";
+
+            return fileString;
+        },
+        buildComplexFilter: function() {
+            var self = this;
+            var filter = '-filter_complex "';
+            for (var i = 0; i < this.timings.length; i++) {
+                filter += "[" + i + ":v]trim="+self.timings[i].start+":"+self.timings[i].end+",setpts=PTS-STARTPTS[v"+i+"];" +  "[" + i + ":a]atrim="+self.timings[i].start+":"+self.timings[i].end+",asetpts=PTS-STARTPTS[a"+i+"]; ";
+            }
+            for (var j = 0; j < this.timings.length; j++) {
+                filter += "[v" + j + "]" + "[a" + j + "]";
+            }
+            filter += ' concat=n='+this.timings.length+':v=1:a=1 [out]" -map "[out]" ';
+            return filter;
         },
         startExporting: function() {
             var self = this;
             this.worker.postMessage({
                 type: 'command',
-                arguments: Utils.parseArguments(self.arguments),
-                files: [self.files],
+                arguments: Utils.parseArguments(self.args),
+                files: self.files,
                 TOTAL_MEMORY: "ALLOW_MEMORY_GROWTH"
             });
         },

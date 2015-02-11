@@ -50,8 +50,15 @@ define(["jquery", "videoList", "videoItemLoader", "filereader", "videoTimeline",
             });
 
             var moduleVE = new VideoExporter({
-                callback: function(item) {
-                    $(".debug").append(item.toString());
+                exportBindings: {
+                    bar: '#progressbar',
+                    value: '.progress-value',
+                    text: ".export-text",
+                    status: ".export-status",
+                    progress: ".export-progress",
+                    link: ".export-link",
+                    button: ".export",
+                    overlay: ".export-overlay"
                 },
                 timeLineInstance: videoTimeline
             });

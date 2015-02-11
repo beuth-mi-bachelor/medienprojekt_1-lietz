@@ -8,6 +8,7 @@
     <link href='jquery-ui.theme.min.css' rel='stylesheet' type='text/css'>
     <link href='jquery-ui.css' rel='stylesheet' type='text/css'>
     <link href='../../videochop/css/font-awesome.css' rel='stylesheet' type='text/css'>
+    <link href='../../videochop/fonts/elegant-icons/style.css' rel='stylesheet' type='text/css'>
 
     <script data-main="app.js" src="../../videochop/js/lib/require.js"></script>
     <script src="../../videochop/js/require-config.js"></script>
@@ -27,6 +28,20 @@
     <ul class="timeline connected">
     </ul>
 </div>
+<section class="export-overlay">
+    <div class="progress-bar-wrapper">
+        <div class="close icon_close"></div>
+        <progress id="progressbar" value="0.00" max="100"></progress>
+        <span class="progress-value">0.00%</span>
+        <p class="export-info">
+                    <span class="export-text">
+                        <span class="export-status"></span>
+                        <span class="export-progress"></span>
+                        <span class="export-link"></span>
+                    </span>
+        </p>
+    </div>
+</section>
 <div class="temporary-video"></div>
 </body>
 </html>
