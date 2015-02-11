@@ -35,7 +35,7 @@ define(["jquery", "utilities"], (function ($, Utils) {
             prettySize: "0 MB",
             videoElement: null,
             data: null,
-            fps: null
+            fps: 24
         };
 
         // if settings where not set by initializing, fill with default settings

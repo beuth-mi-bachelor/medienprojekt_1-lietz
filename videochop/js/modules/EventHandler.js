@@ -26,9 +26,12 @@ define(["jquery"], (function ($) {
 
     EventHandler.prototype = {
         publish: function (topic, args) {
-            for (var i = 0, len = this.topics[topic].length; i < len; i++) {
-                if (typeof this.topics[topic][i] !== "undefined") {
-                    this.topics[topic][i].apply(this, args || []);
+            console.log(topic, args, this.topics);
+            if (this.topics[topic]) {
+                for (var i = 0, len = this.topics[topic].length; i < len; i++) {
+                    if (typeof this.topics[topic][i] !== "undefined") {
+                        this.topics[topic][i].apply(this, args || []);
+                    }
                 }
             }
         },

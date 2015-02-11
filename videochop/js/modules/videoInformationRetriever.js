@@ -25,6 +25,7 @@ define(["jquery", "utilities"], (function ($, Utils) {
 
         this.settings = {
             defaultFPS: 24,
+            exportButton: ".export",
             callback: function(item) {
                 console.log(item);
             }

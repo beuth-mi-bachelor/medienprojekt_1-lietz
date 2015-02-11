@@ -17,13 +17,17 @@ requirejs.config({
         "popcorn-capture": "lib/popcorn.capture",
         "utilities": "modules/utilities",
         "videoInformationRetriever": "modules/videoInformationRetriever",
-        "eventHandler": "modules/EventHandler"
+        "eventHandler": "modules/eventHandler",
+        "videoExporter": "modules/videoExporter"
     },
     shim: {
         "videoItemLoader": {
             deps: ["jquery", "videoItem", "utilities", "popcorn", "popcorn-capture"]
         },
         "videoInformationRetriever": {
+            deps: ["jquery", "utilities"]
+        },
+        "videoExporter": {
             deps: ["jquery", "utilities"]
         },
         "popcorn-capture": {

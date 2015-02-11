@@ -71,7 +71,7 @@ define(["jquery", "videoItem", "utilities", "popcorn", "popcorn-capture"], (func
             $vidwrapper.append(video);
             var $pop = Popcorn("#"+tempName);
 
-            $pop.videoName = this.video.name;
+            $pop.videoName = this.video.name.split(' ').join('-');
             $pop.videoElement = video;
             $pop.videoType = this.video.type;
             $pop.videoSize = this.video.size;
