@@ -59,9 +59,7 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                     $item.data("id", id);
                     self.initResizable(self.settings.videoList, $item);
                     self.order = $(this).sortable('toArray');
-
-                    self.eventHandler.publish("preview-item", [$item]);
-                    self.eventHandler.publish("preview-order", [self.order]);
+                    self.eventHandler.publish("preview-item", [$item, self.order]);
                 },
                 update: function () {
                     self.order = $(this).sortable('toArray');
