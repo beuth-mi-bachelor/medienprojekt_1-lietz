@@ -40,6 +40,8 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
     VideoTimeline.prototype = {
         initialize: function () {
 
+            this.bindEvents();
+
             this.eventHandler = new EventHandler();
 
             var self = this;
@@ -71,7 +73,17 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
             this.$container.find("li").disableSelection();
 
         },
-
+        bindEvents: function() {
+            var self = this;
+            self.$container.on("mousedown", ".ui-resizable-handle", function() {
+                var $this = $(this);
+                if ($this.hasClass("ui-resizable-e")) {
+                    self.direction = 1;
+                } else if ($this.hasClass("ui-resizable-w")) {
+                    self.direction = -1;
+                }
+            });
+        },
         initResizable: function (videoList, $item) {
             var self = this;
 
@@ -110,13 +122,6 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                     $(this).data('min', self.settings.minWidth);
                 },
                 start: function (event, ui) {
-                    var target = event.toElement.className;
-                    // right 1 and left -1
-                    if (target.indexOf("resizable-e") > -1) {
-                        self.direction = 1;
-                    } else if (target.indexOf("resizable-w") > -1) {
-                        self.direction = -1;
-                    }
                     $(this).data("before", ui.originalSize.width);
                 },
                 resize: function (event, ui) {
@@ -134,7 +139,6 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                             newEnd = currentVideoItem.settings.length;
                             $(this).resizable("option", "maxWidth", ((newEnd - currentVideoItem.settings.start) * self.settings.scaleFactor) + self.settings.minWidth);
                         }
-
                         $elem.attr("data-end", Utils.timeFormat(newEnd));
                     } else if (self.direction < 0) {
 
@@ -143,7 +147,6 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                         if (newStart < 0) {
                             newStart = 0;
                             $(this).resizable("option", "maxWidth", ((newStart + currentVideoItem.settings.end) * self.settings.scaleFactor) + self.settings.minWidth);
-
                         }
 
                         $elem.attr("data-start", Utils.timeFormat(newStart));
