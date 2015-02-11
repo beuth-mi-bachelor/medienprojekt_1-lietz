@@ -55,6 +55,12 @@
         color: $color-medium-dark;
         transition: border .1s ease;
         background: $color-lightest;
+        &.export {
+            opacity: 1;
+            &.disabled {
+                opacity: .3;
+            }
+        }
         &.social,
         &:first-child {
             padding: 0 $spacer;

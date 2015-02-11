@@ -61,6 +61,7 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
                 overlay: $(self.settings.exportBindings.overlay)
             };
             this.$close =  $(self.settings.close);
+            self.$export.button.addClass("disabled");
             this.setUpWorker();
             this.initMessageHandler();
             this.bindEvents();
@@ -76,6 +77,10 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
                 return false;
             });
             this.$export.button.on("click", function() {
+                if (self.$export.button.hasClass("disabled")) {
+                    window.alert("Please wait while loading ffmpeg");
+                    return false;
+                }
                 self.prepareToExport();
             });
             this.$close.on("click", function() {
@@ -91,6 +96,7 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
                 var message = event.data;
                 if (message.type === "ready") {
                     self.isReady = true;
+                    self.$export.button.removeClass("disabled");
                 }
                 if (message.type === "start") {
                     self.isBusy = true;
@@ -113,6 +119,7 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
         cancelExporting: function() {
             this.isBusy = false;
             this.ready = false;
+            this.$export.button.addClass("disabled");
             this.worker.terminate();
             this.worker = undefined;
             this.$export.overlay.fadeOut();
@@ -166,6 +173,10 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
             list.forEach( function(currentItem) {
                 self.listToExport.push(self.settings.timeLineInstance.getDataForItemId(currentItem));
             });
+            if (this.listToExport.length < 2) {
+                window.alert("You need items in your timeline to start export");
+                return false;
+            }
             this.generateExportList();
         },
         generateExportList: function() {
