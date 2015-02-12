@@ -44,9 +44,9 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             this.eventHandler.subscribe("preview-order", function(order) {
                 self.updateIndices(order);
             });
-            this.eventHandler.subscribe("preview-item", function($item, order) {
-                self.addVideo($item);
+            this.eventHandler.subscribe("preview-item", function($item, order, id) {
                 self.updateIndices(order);
+                self.addVideo($item, id);
             });
             this.eventHandler.subscribe("preview-size-update", function(itemId, start, end) {
                 var current = self.videoObjects[self.settings.prefix + itemId];
@@ -66,47 +66,50 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
         },
         updateIndices: function (indices) {
             this.indices = indices;
-            if (this.currentVideo) {
-                this.stop();
-            }
         },
-        addVideo: function ($element) {
+        addVideo: function ($element, vidItemId) {
 
             var self = this;
 
-            var id = self.settings.prefix + $element.data("id");
+            var id = self.settings.prefix + vidItemId;
+
             var item = $element.data("item");
-            var $videoElem = $(item.settings.videoElement).attr("id", "");
-            $videoElem.data("id", id);
+            var $videoElem = $(item.settings.videoElement).clone().attr("id", "").data("vidItemId", vidItemId).data("id", id);
+
             this.videoObjects[id] = {
                 videoitem: item,
-                video: $videoElem[0]
+                video: $videoElem[0],
+                vidItemId: vidItemId,
+                id: id
             };
-            if (this.indices.length === 0) {
+
+            if (this.indices.length === 1) {
                 this.currentVideo = $videoElem[0];
                 $(this.currentVideo).addClass("current");
             }
-            this.$vidContainer.append($videoElem[0]);
+
+            this.$vidContainer.append($videoElem);
+
             $videoElem[0].addEventListener("canplayall", function() {
                 self.currentVideo.currentTime = item.settings.start;
             }, false);
+
             $videoElem[0].addEventListener("timeupdate", function() {
 
-                var id = $(self.currentVideo).data("id");
+                var id = $(this).data("id");
+
                 var vidObj = self.videoObjects[id].videoitem;
+                var vidVideo = self.videoObjects[id].video;
 
-                console.error(this.currentTime);
-
-                if (self.currentVideo.currentTime >= vidObj.settings.end) {
-                    $(self.currentVideo).removeClass("current");
-                    self.currentVideo.pause();
+                if (vidVideo.currentTime >= vidObj.settings.end) {
+                    $(vidVideo).removeClass("current");
+                    vidVideo.pause();
                     self.positionVideo += 1;
-                    window.setTimeout(function() {
-                        self.currentVideo.currentTime = vidObj.settings.start;
-                    }, 200);
+                    vidVideo.currentTime = vidObj.settings.start;
                     self.play(self.loopThrough());
                 }
             }, false);
+
         },
         loopThrough: function() {
             return this.positionVideo % this.indices.length;
@@ -131,12 +134,8 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             this.positionVideo = 0;
             this.$vidContainer.find("video").removeClass("current");
             $(this.videoObjects[this.indices[this.positionVideo]].video).addClass("current");
-            if (this.currentVideo.paused) {
-                this.currentVideo.currentTime = 0;
-            }
-            else {
+            if (!this.currentVideo.paused) {
                 this.currentVideo.pause();
-                this.currentVideo.currentTime = 0;
             }
             this.resetAllVideos();
         },

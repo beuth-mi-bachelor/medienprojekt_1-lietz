@@ -59,7 +59,7 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                     $item.data("id", id);
                     self.initResizable(self.settings.videoList, $item);
                     self.order = $(this).sortable('toArray');
-                    self.eventHandler.publish("preview-item", [$item, self.order]);
+                    self.eventHandler.publish("preview-item", [$item, self.order, self.id]);
                 },
                 update: function () {
                     self.order = $(this).sortable('toArray');
@@ -130,23 +130,18 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                     var $elem = $(ui.element);
 
                     if (self.direction > 0) {
-
                         var newEnd = currentVideoItem.settings.end + difference;
-
                         if (newEnd > currentVideoItem.settings.length) {
                             newEnd = currentVideoItem.settings.length;
                             $(this).resizable("option", "maxWidth", ((newEnd - currentVideoItem.settings.start) * self.settings.scaleFactor) + self.settings.minWidth);
                         }
                         $elem.attr("data-end", Utils.timeFormat(newEnd));
                     } else if (self.direction < 0) {
-
                         var newStart = currentVideoItem.settings.start - difference;
-
                         if (newStart < 0) {
                             newStart = 0;
                             $(this).resizable("option", "maxWidth", ((newStart + currentVideoItem.settings.end) * self.settings.scaleFactor) + self.settings.minWidth);
                         }
-
                         $elem.attr("data-start", Utils.timeFormat(newStart));
                     }
                 },
