@@ -57,13 +57,15 @@ body {
         }
         .background-img {
             position: absolute;
-            width: 200px;
-            height: 200px;
+            width: 90px;
+            height: 90px;
             display: block;
             z-index: 100;
             bottom: 0;
             left: 0;
-            background-image: url(../../videochop/media/img/alpha.png);
+            background: url(../../videochop/media/img/alpha.png) no-repeat;
+            background-size: contain;
+
         }
     }
 
