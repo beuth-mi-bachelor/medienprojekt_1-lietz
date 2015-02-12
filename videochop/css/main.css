@@ -2901,6 +2901,51 @@ body {
   background: url(../../videochop/media/img/alpha.png) no-repeat;
   background-size: contain;
 }
+/* line 70, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 200;
+}
+/* line 80, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-videolist {
+  position: absolute;
+  top: 80px;
+  left: 10px;
+  width: 330px;
+}
+/* line 86, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-timeline {
+  position: absolute;
+  bottom: 0;
+  left: 100px;
+  height: 320px;
+}
+/* line 92, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-show-preview {
+  position: absolute;
+  top: 200px;
+  right: 400px;
+  width: 350px;
+}
+/* line 98, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-ready {
+  position: absolute;
+  top: 10px;
+  left: 220px;
+  width: 600px;
+}
+/* line 104, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-show-love {
+  position: absolute;
+  top: -47px;
+  right: -20px;
+  width: 360px;
+}
 /* line 2, ../scss/partials/_placeholder.scss */
 .video-chop-application .application .file-list .file .small:before, .video-chop-application .application .file-list .file .small:after {
   content: "";

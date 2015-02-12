@@ -65,6 +65,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
 
         var $preloader,
             $appWrapper,
+            $overlay,
             $impress,
             $navItems,
             $closeImpress,
@@ -113,6 +114,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
         function initializeVariables() {
             $preloader = $(".preloader");
             $appWrapper = $(".application-wrapper");
+            $overlay = $(".overlay-wrapper");
             $impress = $(".impress-wrapper");
             $navItems = $(".nav-item");
             $closeImpress = $(".close-impress");
@@ -128,6 +130,10 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
         function bindEvents() {
 
             $(".time-slider").disableSelection();
+
+            $overlay.on("click", function() {
+                $(this).hide();
+            });
 
             $navItems.on("click", function() {
                 if ($(this).hasClass("impress")) {
