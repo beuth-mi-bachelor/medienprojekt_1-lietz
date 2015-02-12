@@ -51,6 +51,7 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             this.eventHandler.subscribe("preview-size-update", function(itemId, start, end) {
                 var current = self.videoObjects[self.settings.prefix + itemId];
                 current.videoitem.start = start;
+                current.video.currentTime = start;
                 current.videoitem.end = end;
             });
             $(this.settings.playButton).on("click", function() {
@@ -65,39 +66,44 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
         },
         updateIndices: function (indices) {
             this.indices = indices;
-            if (this.indices.length > 0) {
-                $(".preview video:not(#video-item-"+this.indices[0]+")").hide();
-                $(this.videoObjects[this.indices[0]].video).show();
+            if (this.currentVideo) {
+                this.stop();
             }
         },
         addVideo: function ($element) {
+
             var self = this;
+
             var id = self.settings.prefix + $element.data("id");
             var item = $element.data("item");
+            var $videoElem = $(item.settings.videoElement).attr("id", "");
+            $videoElem.data("id", id);
             this.videoObjects[id] = {
                 videoitem: item,
-                video: item.settings.videoElement
+                video: $videoElem[0]
             };
-            this.currentVideo = item.settings.videoElement;
-            this.$vidContainer.append(this.currentVideo);
-            if (this.indices[0] !== id) {
-                console.log("NOT FIRST"  + id);
-                console.log(this.indices[0], this.indices);
-                $(this.currentVideo).hide();
+            if (this.indices.length === 0) {
+                this.currentVideo = $videoElem[0];
+                $(this.currentVideo).addClass("current");
             }
-            this.currentVideo.addEventListener("canplayall", function() {
+            this.$vidContainer.append($videoElem[0]);
+            $videoElem[0].addEventListener("canplayall", function() {
                 self.currentVideo.currentTime = item.settings.start;
             }, false);
-            this.currentVideo.addEventListener("timeupdate", function() {
-                var id = Utils.splitId($(self.currentVideo));
-                var now = $("#" + self.settings.prefix + id);
-                var itemNew = now.data("item");
-                if (self.currentVideo.currentTime === itemNew.settings.end) {
+            $videoElem[0].addEventListener("timeupdate", function() {
+
+                var id = $(self.currentVideo).data("id");
+                var vidObj = self.videoObjects[id].videoitem;
+
+                console.error(this.currentTime);
+
+                if (self.currentVideo.currentTime >= vidObj.settings.end) {
+                    $(self.currentVideo).removeClass("current");
                     self.currentVideo.pause();
-                    $(self.currentVideo).hide();
                     self.positionVideo += 1;
-                    console.log(itemNew.settings.start);
-                    self.currentVideo.currentTime = itemNew.settings.start;
+                    window.setTimeout(function() {
+                        self.currentVideo.currentTime = vidObj.settings.start;
+                    }, 200);
                     self.play(self.loopThrough());
                 }
             }, false);
@@ -109,24 +115,35 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             this.currentVideo.pause();
         },
         play: function (id) {
-            var current = this.videoObjects[this.indices[id]];
-            this.currentVideo = current.video;
-            $(this.currentVideo).show();
-            if (this.currentVideo.paused) {
-                this.currentVideo.play();
-            }
-            else {
-                this.currentVideo.pause();
+            if (this.currentVideo) {
+                var current = this.videoObjects[this.indices[id]];
+                this.currentVideo = current.video;
+                $(this.currentVideo).addClass("current");
+                if (this.currentVideo.paused) {
+                    this.currentVideo.play();
+                }
+                else {
+                    this.currentVideo.pause();
+                }
             }
         },
         stop: function () {
             this.positionVideo = 0;
+            this.$vidContainer.find("video").removeClass("current");
+            $(this.videoObjects[this.indices[this.positionVideo]].video).addClass("current");
             if (this.currentVideo.paused) {
                 this.currentVideo.currentTime = 0;
             }
             else {
                 this.currentVideo.pause();
                 this.currentVideo.currentTime = 0;
+            }
+            this.resetAllVideos();
+        },
+        resetAllVideos: function() {
+            for (var item in this.videoObjects) {
+                var currentObj = this.videoObjects[item];
+                currentObj.video.currentTime = currentObj.videoitem.settings.start;
             }
         },
         /**

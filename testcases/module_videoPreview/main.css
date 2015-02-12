@@ -7,6 +7,18 @@ body {
 * {
     box-sizing: border-box;
 }
+
+/*preview*/
+.preview video {
+    display: none;
+}
+.preview video.current {
+    display: block;
+}
+
+
+
+
 .timeline-wrapper {
     height: 200px;
     width: 100%;
