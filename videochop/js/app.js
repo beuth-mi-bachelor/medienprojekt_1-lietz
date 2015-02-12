@@ -37,7 +37,6 @@ var percentage = 0;
 /**
  * element bindings for displaying preloading
  */
-var percentageContainer = document.getElementById("percentage");
 var percentageText = document.getElementById("percentage-text");
 var currentModuleText = document.getElementById("currently-loading");
 
@@ -55,7 +54,6 @@ require.onResourceLoad = function(context, map) {
 var displayLoadProgress = function(p) {
     "use strict";
     percentageText.textContent = p;
-    percentageContainer.style.height = p + "%";
 };
 
 define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, FileReaderJS, FileSaver, VideoItemLoader, VideoList, VideoTimeline, VideoExporter, VideoPreview) {

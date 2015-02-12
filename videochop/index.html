@@ -325,17 +325,14 @@
                 <div class="temporary-video no-content"></div>
                 <div class="background-img"></div>
             </main>
-            <aside class="preloader">
+            <aside class="preloader" style="display:block !important;">
                 <h3 class="no-content">Preloader</h3>
-                <img class="logo-animated outer-logo" src="media/img/preloader/outer.png" alt="VideoChop Preloader" />
-                <div class="inner-logo">
-                    <div class="inner-logo-wrapper">
-                        <div id="percentage" class="inner-logo-content">
-                            <span id="percentage-text" class="percentage">0</span>
-                        </div>
-                    </div>
+                <div class="preloader-hold">
+                    <img class="logo-main outer-logo" src="media/img/preloader/videochop.png" width="400" alt="VideoChop Logo" />
+                    <img class="logo-animated outer-logo" src="media/img/preloader/logomid.png" width="300" alt="VideoChop Preloader" />
+                    <p id="percentage-text" class="percentage">0</p>
+                    <p id="currently-loading" class="currently-loading"></p>
                 </div>
-                <p id="currently-loading" class="currently-loading"></p>
             </aside>
         </div>
         <script data-main="js/app" src="js/lib/require.js"></script>

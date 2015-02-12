@@ -10,73 +10,73 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(to bottom, $color-lightest 0%, $color-highlight 50%);
+    background: url(../media/img/preloader/loaderbg.png) center center no-repeat fixed;
+    .percentage {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        margin: 0 auto;
+        margin-top: 170px;
+        bottom: 0;
+        width: auto;
+        height: 3vh;
+        line-height: 3vh;
+        font-size: 24px;
+        text-align: center;
+        display: block;
+        color: $color-darker;
+        font-family: $base-font;
+        font-weight: 100;
+        &:after {
+            content: "%";
+        }
+    }
+
+    .currently-loading {
+        position: absolute;
+        top: 50%;
+        margin: 0 auto;
+        margin-top: 195px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: auto;
+        height: 3vh;
+        text-align: center;
+        display: block;
+        font-size: 24px;
+        color: $color-darker;
+        font-family: $base-font;
+        font-weight: 100;
+    }
+
+
     .logo-animated {
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        height: 25vh;
-        width: 25vh;
         margin: auto;
     }
-    .inner-logo {
-        @extend .logo-animated;
-        transform-origin: 50% 50%;
-        padding: 5vh;
-    }
-    .inner-logo-wrapper {
-        position: static;
-        border-radius: 100%;
-        border: 1px solid $color-dark;
-        width: 15vh;
-        height: 15vh;
-        overflow: hidden;
-    }
-    .inner-logo-content {
-        position: static;
-        width: 100%;
-        height: 0%;
-        overflow: hidden;
-        background: $color-darker url(../media/img/preloader/inner.png) center center no-repeat;
-        background-attachment: fixed;
-        background-size: 15vh 15vh;
-    }
-    .outer-logo {
-        animation: spin 3s ease 0s infinite;
-        animation-fill-mode: forward;
-    }
-    .percentage {
+
+    .logo-main {
         position: absolute;
+        top: 0;
+        margin: auto;
         left: 0;
         right: 0;
-        top: 30vh;
-        bottom: 0;
-        width: auto;
-        height: 3vh;
-        line-height: 3vh;
-        font-size: 1.5vh;
-        text-align: center;
-        display: block;
-        margin: auto;
-        color: $color-darker;
-        &:after {
-            content: "%";
-        }
     }
-    .currently-loading {
+
+    .preloader-hold {
         position: absolute;
-        top: 35vh;
+        top: 100px;
         left: 0;
         right: 0;
         bottom: 0;
-        width: auto;
-        height: 3vh;
         margin: auto;
-        text-align: center;
-        display: block;
-        font-size: 1.5vh;
-        color: $color-darker;
+        width: 400px;
+        height: 570px;
     }
 }

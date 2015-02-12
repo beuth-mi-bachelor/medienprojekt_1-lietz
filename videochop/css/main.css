@@ -2782,87 +2782,76 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: -webkit-linear-gradient(top, #fff 0%, #ff6400 50%);
-  background: linear-gradient(to bottom, #fff 0%, #ff6400 50%);
+  background: url(../media/img/preloader/loaderbg.png) center center no-repeat fixed;
 }
 /* line 14, ../scss/_preloader.scss */
-.video-chop-application .preloader .logo-animated, .video-chop-application .preloader .inner-logo {
+.video-chop-application .preloader .percentage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin: 0 auto;
+  margin-top: 170px;
+  bottom: 0;
+  width: auto;
+  height: 3vh;
+  line-height: 3vh;
+  font-size: 24px;
+  text-align: center;
+  display: block;
+  color: #1d1d1b;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+}
+/* line 31, ../scss/_preloader.scss */
+.video-chop-application .preloader .percentage:after {
+  content: "%";
+}
+/* line 36, ../scss/_preloader.scss */
+.video-chop-application .preloader .currently-loading {
+  position: absolute;
+  top: 50%;
+  margin: 0 auto;
+  margin-top: 195px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: 3vh;
+  text-align: center;
+  display: block;
+  font-size: 24px;
+  color: #1d1d1b;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+}
+/* line 55, ../scss/_preloader.scss */
+.video-chop-application .preloader .logo-animated {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 25vh;
-  width: 25vh;
   margin: auto;
-}
-/* line 24, ../scss/_preloader.scss */
-.video-chop-application .preloader .inner-logo {
-  -webkit-transform-origin: 50% 50%;
-      -ms-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
-  padding: 5vh;
-}
-/* line 29, ../scss/_preloader.scss */
-.video-chop-application .preloader .inner-logo-wrapper {
-  position: static;
-  border-radius: 100%;
-  border: 1px solid #353535;
-  width: 15vh;
-  height: 15vh;
-  overflow: hidden;
-}
-/* line 37, ../scss/_preloader.scss */
-.video-chop-application .preloader .inner-logo-content {
-  position: static;
-  width: 100%;
-  height: 0%;
-  overflow: hidden;
-  background: #1d1d1b url(../media/img/preloader/inner.png) center center no-repeat;
-  background-attachment: fixed;
-  background-size: 15vh 15vh;
-}
-/* line 46, ../scss/_preloader.scss */
-.video-chop-application .preloader .outer-logo {
-  -webkit-animation: spin 3s ease 0s infinite;
-          animation: spin 3s ease 0s infinite;
-  -webkit-animation-fill-mode: forward;
-          animation-fill-mode: forward;
-}
-/* line 50, ../scss/_preloader.scss */
-.video-chop-application .preloader .percentage {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 30vh;
-  bottom: 0;
-  width: auto;
-  height: 3vh;
-  line-height: 3vh;
-  font-size: 1.5vh;
-  text-align: center;
-  display: block;
-  margin: auto;
-  color: #1d1d1b;
 }
 /* line 64, ../scss/_preloader.scss */
-.video-chop-application .preloader .percentage:after {
-  content: "%";
-}
-/* line 68, ../scss/_preloader.scss */
-.video-chop-application .preloader .currently-loading {
+.video-chop-application .preloader .logo-main {
   position: absolute;
-  top: 35vh;
+  top: 0;
+  margin: auto;
+  left: 0;
+  right: 0;
+}
+/* line 72, ../scss/_preloader.scss */
+.video-chop-application .preloader .preloader-hold {
+  position: absolute;
+  top: 100px;
   left: 0;
   right: 0;
   bottom: 0;
-  width: auto;
-  height: 3vh;
   margin: auto;
-  text-align: center;
-  display: block;
-  font-size: 1.5vh;
-  color: #1d1d1b;
+  width: 400px;
+  height: 570px;
 }
 /* line 34, ../scss/main.scss */
 .video-chop-application .application-wrapper {
@@ -4075,25 +4064,4 @@ body {
 /* line 59, ../scss/_help.scss */
 .video-chop-application .help-wrapper dl dd .solution:before {
   content: "Solution: ";
-}
-
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-@keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
 }
