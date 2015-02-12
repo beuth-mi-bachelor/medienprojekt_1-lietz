@@ -185,17 +185,22 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
             this.timings = [];
             this.lengthOfVideos = 0;
             this.listToExport.forEach(function(videoItem) {
+                var timestamp = new Date().getTime() * Math.random();
                 self.files.push({
                     data: videoItem.settings.data,
-                    name: videoItem.settings.name + "." + videoItem.settings.type.split("video/")[1]
+                    name: videoItem.settings.name + "-" + parseInt(timestamp, 10) + "." + videoItem.settings.type.split("video/")[1],
+                    timestamp: timestamp
                 });
                 self.timings.push({
-                    start: Math.floor(videoItem.settings.start * (videoItem.settings.fps)),
-                    end: Math.floor(videoItem.settings.end * (videoItem.settings.fps))
+                    startFps: Math.floor(videoItem.settings.start * (videoItem.settings.fps)),
+                    endFps: Math.floor(videoItem.settings.end * (videoItem.settings.fps)),
+                    start: videoItem.settings.start,
+                    end: videoItem.settings.end
                 });
                 self.lengthOfVideos += (videoItem.settings.end - videoItem.settings.start);
             });
             this.args = this.generateArguments();
+            console.log(self.timings);
 
             console.log(this.args);
             this.startExporting();
@@ -216,12 +221,13 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
             var self = this;
             var filter = '-filter_complex "';
             for (var i = 0; i < this.timings.length; i++) {
-                filter += "[" + i + ":v]trim="+self.timings[i].start+":"+self.timings[i].end+",setpts=PTS-STARTPTS[v"+i+"];" +  "[" + i + ":a]atrim="+self.timings[i].start+":"+self.timings[i].end+",asetpts=PTS-STARTPTS[a"+i+"]; ";
+                filter += "[" + i + ":v]trim=start_frame="+self.timings[i].startFps+":end_frame="+(self.timings[i].endFps+1)+",setpts=PTS-STARTPTS[v"+i+"];" +
+                "[" + i + ":a]atrim=start="+self.timings[i].start+":end="+self.timings[i].end+",asetpts=PTS-STARTPTS[a"+i+"]; ";
             }
             for (var j = 0; j < this.timings.length; j++) {
                 filter += "[v" + j + "]" + "[a" + j + "]";
             }
-            filter += ' concat=n='+this.timings.length+':v=1:a=1 [out]" -map "[out]" ';
+            filter += ' concat=n='+this.timings.length+':v=1:a=1 [v] [a]" -map "[v]" -map "[a]" ';
             return filter;
         },
         startExporting: function() {

@@ -49,11 +49,14 @@ requirejs.config({
         "utilities": {
             deps: ["jquery"]
         },
+        "filesaver": {
+            deps: ["jquery"]
+        },
         "videoList": {
             deps: ["jquery", "videoItem", "jqueryui"]
         },
         "videoPreview": {
-            deps: ["jquery", "videoList", "videoItem", "eventHandler"]
+            deps: ["jquery", "videoList", "videoItem", "eventHandler", "utilities"]
         },
         "videoTimeline": {
             deps: ["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"]

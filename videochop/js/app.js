@@ -5,13 +5,13 @@ requirejs.config({
  * what is to load
  * @type {string[]}
  */
-var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "utilities", "filereader", "videoItemLoader", "videoList", "videoTimeline", "videoExporter"];
+var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "utilities", "filereader", "filesaver", "videoItemLoader", "videoList", "videoTimeline", "videoExporter", "videoPreview", "eventHandler", "videoItem", "popcorn", "popcorn-capture"];
 /**
  * counter for loading modules
  * @type {number}
  */
 var modulesLoaded = 0,
-    modulesToLoad = modulesToLoadInDefine.length - 1;
+    modulesToLoad = modulesToLoadInDefine.length + 1;
 
 for (var i = 0; i < modulesToLoadInDefine.length; i++) {
     var currentModule = modulesToLoadInDefine[i];
@@ -58,7 +58,7 @@ var displayLoadProgress = function(p) {
     percentageContainer.style.height = p + "%";
 };
 
-define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, FileReaderJS, VideoItemLoader, VideoList, VideoTimeline, VideoExporter) {
+define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, FileReaderJS, FileSaver, VideoItemLoader, VideoList, VideoTimeline, VideoExporter, VideoPreview) {
     "use strict";
 
     $(document).ready(function() {
@@ -75,6 +75,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
         var moduleVideoList,
             moduleVideoItemLoader,
             moduleVideoExporter,
+            moduleVideoPreview,
             moduleVideoTimeline,
             $wrapperVideoDrop,
             $wrapperVideoAdd,
@@ -122,7 +123,6 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $wrapperVideoDrop = $appWrapper.find(".file-list");
             $wrapperVideoAdd = $appWrapper.find(".file-add");
             $fileLoading = $wrapperVideoDrop.find(".video-loading");
-
         }
 
         function bindEvents() {
@@ -162,7 +162,6 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             /**
              * VideoItemLoader
              */
-
             var files = 0;
 
             moduleVideoItemLoader = new VideoItemLoader({
@@ -214,9 +213,17 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
              */
             moduleVideoTimeline = new VideoTimeline({
                 minWidth: 200,
-                scaleFactor: 5,
+                scaleFactor: 10,
                 container: ".timeline",
                 videoList: moduleVideoList
+            });
+
+            moduleVideoPreview = new VideoPreview({
+                vidContainer: ".video-wrapper",
+                playButton: ".play",
+                pauseButton: ".pause",
+                stopButton: ".stop",
+                durationField: ".video-length"
             });
 
             moduleVideoExporter = new VideoExporter({
@@ -232,7 +239,6 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
                 },
                 timeLineInstance: moduleVideoTimeline
             });
-
         }
 
         /**

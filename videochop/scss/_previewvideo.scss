@@ -13,7 +13,7 @@
         top: 0;
         bottom: $controls-height;
         background: $color-darker;
-        .preview-video {
+        video {
             position: absolute;
             top: 0;
             left: 0;
@@ -22,8 +22,11 @@
             max-height: 100%;
             width: 100%;
             margin: auto;
-            display: block;
             vertical-align: middle;
+            display: none;
+            &.current {
+                display: block;
+            }
         }
     }
     .controls-wrapper {
