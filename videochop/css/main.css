@@ -2911,14 +2911,14 @@ body {
 .video-chop-application .application-wrapper .overlay-timeline {
   position: absolute;
   bottom: 0;
-  left: 100px;
+  left: 10px;
   height: 320px;
 }
 /* line 92, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-show-preview {
   position: absolute;
-  top: 200px;
-  right: 400px;
+  bottom: 230px;
+  left: 80px;
   width: 350px;
 }
 /* line 98, ../scss/main.scss */
@@ -2933,6 +2933,13 @@ body {
   position: absolute;
   top: -47px;
   right: -20px;
+  width: 360px;
+}
+/* line 110, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-best-exp {
+  position: absolute;
+  top: 110px;
+  left: 770px;
   width: 360px;
 }
 /* line 2, ../scss/partials/_placeholder.scss */
