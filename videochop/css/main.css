@@ -2889,6 +2889,18 @@ body {
   background: rgba(0, 0, 0, 0.6);
   content: '';
 }
+/* line 58, ../scss/main.scss */
+.video-chop-application .application-wrapper .background-img {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  display: block;
+  z-index: 100;
+  bottom: 0;
+  left: 0;
+  background: url(../../videochop/media/img/alpha.png) no-repeat;
+  background-size: contain;
+}
 /* line 2, ../scss/partials/_placeholder.scss */
 .video-chop-application .application .file-list .file .small:before, .video-chop-application .application .file-list .file .small:after {
   content: "";
