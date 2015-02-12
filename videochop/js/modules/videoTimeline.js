@@ -24,7 +24,8 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
             minWidth: 200,
             scaleFactor: 5,
             container: ".default",
-            videoList: null
+            videoList: null,
+            deleteIcon: ".file-delete"
         };
 
         // if settings where not set by initializing, fill with default settings
@@ -73,7 +74,7 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
         },
         bindEvents: function() {
             var self = this;
-            self.$container.on("mousedown", ".ui-resizable-handle", function() {
+            this.$container.on("mousedown", ".ui-resizable-handle", function() {
                 var $this = $(this);
                 if ($this.hasClass("ui-resizable-e")) {
                     self.direction = 1;
@@ -81,7 +82,10 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                     self.direction = -1;
                 }
             });
-        },
+            this.$container.on("mousedown", this.settings.deleteIcon, function() {
+                self.deleteItem($(this).parent());
+            });
+                },
         initResizable: function (videoList, $item) {
             var self = this;
 
@@ -172,6 +176,10 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
         },
         getCurrentList: function() {
             return this.$container.sortable("toArray");
+        },
+        deleteItem: function($item) {
+            this.eventHandler.publish("preview-delete", [$item.attr("id")]);
+            $item.remove();
         },
         /**
          * describes this Object to the user
