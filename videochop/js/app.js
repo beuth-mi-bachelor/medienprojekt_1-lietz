@@ -135,7 +135,6 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $fileLoading = $wrapperVideoDrop.find(".video-loading");
         }
 
-        console.log(ua.getResult());
         if (ua.getDevice().type === "mobile") {
             $mobileStop.show();
         }
