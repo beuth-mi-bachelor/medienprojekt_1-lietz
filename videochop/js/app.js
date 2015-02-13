@@ -240,11 +240,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             });
 
             moduleVideoPreview = new VideoPreview({
-                vidContainer: ".video-wrapper",
-                playButton: ".play",
-                pauseButton: ".pause",
-                stopButton: ".stop",
-                durationField: ".video-length"
+                vidContainer: ".video-wrapper"
             });
 
             moduleVideoExporter = new VideoExporter({

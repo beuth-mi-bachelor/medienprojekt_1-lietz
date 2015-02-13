@@ -22,7 +22,16 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
     function PreviewVideo(settings) {
         this.settings = {
             vidContainer: ".default",
-            prefix: "timeline-item-"
+            prefix: "timeline-item-",
+            time: {
+                current: ".video-current",
+                length: ".video-length"
+            },
+            playButton: ".play",
+            pauseButton: ".pause",
+            stopButton: ".stop",
+            fullscreenButton: ".fullscreen",
+            slider: ".range-slider"
         };
 
         // if settings where not set by initializing, fill with default settings
@@ -36,7 +45,16 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             this.videoObjects = {};
             this.indices = [];
             this.positionVideo = 0;
+            this.lengthOfVideos = 0;
             this.eventHandler = new EventHandler();
+            this.$time = {
+                current: $(this.settings.time.current),
+                length: $(this.settings.time.length)
+            };
+            this.$slider = $(this.settings.slider);
+            this.currentTimePosition = 0;
+            this.globalTime = 0;
+            this.isPlayingAlone = false;
             this.bindEvents();
         },
         bindEvents: function() {
@@ -47,25 +65,44 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             this.eventHandler.subscribe("preview-item", function($item, order, id) {
                 self.updateIndices(order);
                 self.addVideo($item, id);
+                self.calculateLength();
+                self.$slider.attr("max", (parseInt(self.lengthOfVideos, 10) * 10));
             });
             this.eventHandler.subscribe("preview-size-update", function(itemId, start, end) {
                 var current = self.videoObjects[self.settings.prefix + itemId];
                 current.videoitem.start = start;
                 current.video.currentTime = start;
                 current.videoitem.end = end;
+                current.itemLength = end - start;
+                self.calculateLength();
+                self.$slider.attr("max", (parseInt(self.lengthOfVideos, 10) * 10));
             });
             $(this.settings.playButton).on("click", function() {
                 self.play(self.loopThrough());
+                self.isPlayingAlone = true;
             });
             $(this.settings.pauseButton).on("click", function() {
                 self.pause();
             });
+            $(this.settings.fullscreenButton).on("click", function() {
+                self.enterFullscreen();
+            });
             $(this.settings.stopButton).on("click", function() {
                 self.stop();
+            });
+            this.$slider.on("input", function() {
+                self.updateToVideo(this.value);
+                self.isPlayingAlone = false;
             });
         },
         updateIndices: function (indices) {
             this.indices = indices;
+        },
+        enterFullscreen: function() {
+
+        },
+        exitFullscreen: function() {
+
         },
         addVideo: function ($element, vidItemId) {
 
@@ -80,7 +117,8 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
                 videoitem: item,
                 video: $videoElem[0],
                 vidItemId: vidItemId,
-                id: id
+                id: id,
+                itemLength: item.settings.end - item.settings.start
             };
 
             if (this.indices.length === 1) {
@@ -101,24 +139,71 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
                 var vidObj = self.videoObjects[id].videoitem;
                 var vidVideo = self.videoObjects[id].video;
 
+                self.updateTime((this.currentTime - vidObj.settings.start));
+                if (!this.paused) {
+                    self.$slider.val((self.globalTime + this.currentTime) * 10);
+                }
                 if (vidVideo.currentTime >= vidObj.settings.end) {
-                    $(vidVideo).removeClass("current");
-                    vidVideo.pause();
-                    self.positionVideo += 1;
-                    vidVideo.currentTime = vidObj.settings.start;
-                    self.play(self.loopThrough());
+                    if (!this.paused || self.isPlayingAlone) {
+                        self.globalTime += (vidObj.settings.end - vidObj.settings.start);
+                        self.currentTimePosition = self.globalTime;
+                        $(vidVideo).removeClass("current");
+                        vidVideo.pause();
+                        self.positionVideo += 1;
+                        vidVideo.currentTime = vidObj.settings.start;
+                        self.play(self.loopThrough());
+                    }
                 }
             }, false);
-
         },
         loopThrough: function() {
-            return this.positionVideo % this.indices.length;
+            var next = this.positionVideo % this.indices.length;
+            if (next === 0) {
+                this.globalTime = 0;
+            }
+            return next;
         },
         pause: function() {
             this.currentVideo.pause();
         },
+        updateToVideo: function(time) {
+            if (!this.currentVideo.paused) {
+                this.stop();
+            }
+            var i = 0;
+            var newTime = 0;
+            var currentLength = 0;
+
+            while (newTime < time) {
+                var current = this.videoObjects[this.indices[i]];
+                currentLength = current.itemLength * 10;
+                newTime += currentLength;
+                i++;
+            }
+
+            var vidId = i - 1;
+            if (vidId < 0) {
+                vidId = 0;
+            }
+
+            this.globalTime = (newTime - currentLength) / 10;
+            this.currentTimePosition = (time - (newTime - currentLength)) / 10;
+            this.positionVideo = vidId;
+            if (this.currentVideo !== this.videoObjects[this.indices[vidId]].video) {
+                $(this.currentVideo).removeClass("current");
+                this.currentVideo = this.videoObjects[this.indices[vidId]].video;
+                $(this.currentVideo).addClass("current");
+            }
+            this.currentVideo.currentTime = this.currentTimePosition;
+        },
+        updateTime: function(time) {
+            this.currentTimePosition = (time + this.globalTime);
+            var timeFormatted = Utils.timeFormat(this.currentTimePosition).split(".")[0];
+            this.$time.current.text(timeFormatted);
+        },
         play: function (id) {
             if (this.currentVideo) {
+                this.isPlayingAlone = true;
                 var current = this.videoObjects[this.indices[id]];
                 this.currentVideo = current.video;
                 $(this.currentVideo).addClass("current");
@@ -130,6 +215,15 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
                 }
             }
         },
+        calculateLength: function() {
+            this.lengthOfVideos = 0;
+            for (var item in this.videoObjects) {
+                var currentObj = this.videoObjects[item];
+                this.lengthOfVideos += (currentObj.videoitem.settings.end - currentObj.videoitem.settings.start);
+            }
+            var time = Utils.timeFormat(this.lengthOfVideos).split(".")[0];
+            this.$time.length.text(time);
+        },
         stop: function () {
             this.positionVideo = 0;
             this.$vidContainer.find("video").removeClass("current");
@@ -137,6 +231,8 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             if (!this.currentVideo.paused) {
                 this.currentVideo.pause();
             }
+            this.currentTimePosition = 0;
+            this.globalTime = 0;
             this.resetAllVideos();
         },
         resetAllVideos: function() {

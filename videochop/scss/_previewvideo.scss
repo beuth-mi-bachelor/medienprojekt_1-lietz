@@ -98,6 +98,9 @@
             line-height: $control-icon-size;
             border-bottom: 3px solid $color-medium-dark;
             transition: border .1s ease;
+            &.fullscreen {
+                opacity: .3;
+            }
             &:hover {
                 background: $color-light;
                 border-bottom: 6px solid $color-highlight;
@@ -109,6 +112,7 @@
             cursor: default;
             line-height: $control-icon-size;
             font-size: 2em;
+            min-width: 120px;
             color: $color-lightest;
             background: $color-medium-dark;
             font-family: $time-font;

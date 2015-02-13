@@ -47,6 +47,7 @@ body {
         .help-open &{
             &:after {
                 position: absolute;
+                z-index: 90;
                 top: 0;
                 left: 0;
                 width: 100%;
@@ -54,18 +55,6 @@ body {
                 background: rgba(0, 0, 0, .6);
                 content: '';
             }
-        }
-        .background-img {
-            position: absolute;
-            width: 90px;
-            height: 90px;
-            display: block;
-            z-index: 100;
-            bottom: 0;
-            left: 0;
-            background: url(../../videochop/media/img/alpha.png) no-repeat;
-            background-size: contain;
-
         }
         .overlay-wrapper {
             position: absolute;
@@ -140,5 +129,16 @@ body {
 
     @import "_help";
 
+    .background-img {
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        display: block;
+        z-index: 1000;
+        bottom: 0;
+        left: 0;
+        background: url(../../videochop/media/img/alpha.png) no-repeat;
+        background-size: contain;
+    }
 
 }
