@@ -13,6 +13,11 @@ var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "ut
 var modulesLoaded = 0,
     modulesToLoad = modulesToLoadInDefine.length + 1;
 
+var circle = new ProgressBar.Circle('.preloader-hold',{
+    color: '#FF6400',
+    strokeWidth: 5
+});
+
 for (var i = 0; i < modulesToLoadInDefine.length; i++) {
     var currentModule = modulesToLoadInDefine[i];
     var shims = requirejs.s.contexts._.config.shim;
@@ -54,6 +59,7 @@ require.onResourceLoad = function(context, map) {
 var displayLoadProgress = function(p) {
     "use strict";
     percentageText.textContent = p;
+    circle.animate(p/100, {duration: 100});
 };
 
 define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, FileReaderJS, FileSaver, VideoItemLoader, VideoList, VideoTimeline, VideoExporter, VideoPreview) {
