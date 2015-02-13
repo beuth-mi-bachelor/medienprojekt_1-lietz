@@ -85,9 +85,13 @@ body {
             background: rgba(0,0,0,1.0);
             z-index: 210;
         }
-        .mobile-stop-message {
-            text-align: center;
-            color: $color-lightest;
+        .mobile-stop-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
         }
         .overlay-videolist {
             position: absolute;

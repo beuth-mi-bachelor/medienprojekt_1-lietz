@@ -2925,46 +2925,50 @@ body {
   z-index: 210;
 }
 /* line 88, ../scss/main.scss */
-.video-chop-application .application-wrapper .mobile-stop-message {
-  text-align: center;
-  color: #fff;
+.video-chop-application .application-wrapper .mobile-stop-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
 }
-/* line 92, ../scss/main.scss */
+/* line 96, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-videolist {
   position: absolute;
   top: 80px;
   left: 10px;
   width: 330px;
 }
-/* line 98, ../scss/main.scss */
+/* line 102, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-timeline {
   position: absolute;
   bottom: 0;
   left: 10px;
   height: 320px;
 }
-/* line 104, ../scss/main.scss */
+/* line 108, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-show-preview {
   position: absolute;
   bottom: 230px;
   left: 80px;
   width: 350px;
 }
-/* line 110, ../scss/main.scss */
+/* line 114, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-ready {
   position: absolute;
   top: -3px;
   left: 230px;
   width: 350px;
 }
-/* line 116, ../scss/main.scss */
+/* line 120, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-show-love {
   position: absolute;
   top: -31px;
   right: -25px;
   width: 650px;
 }
-/* line 122, ../scss/main.scss */
+/* line 126, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-best-exp {
   position: absolute;
   top: 110px;
