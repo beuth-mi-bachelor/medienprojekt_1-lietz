@@ -3319,7 +3319,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: #ebebeb;
+  background: #ebebeb url(../media/img/grid.png) repeat-x left bottom;
   box-shadow: inset 0 8px 8px -8px rgba(0, 0, 0, 0.6), inset 0 -8px 8px -8px rgba(0, 0, 0, 0.6);
 }
 /* line 19, ../scss/_timeline.scss */
@@ -3334,7 +3334,7 @@ body {
 /* line 27, ../scss/_timeline.scss */
 .video-chop-application .application .timeline-wrapper .timeline li {
   height: 150px;
-  margin: 40px 10px 0;
+  margin: 35px 10px 0;
   width: 100px;
   list-style: none;
   float: left;
@@ -3361,8 +3361,8 @@ body {
 .video-chop-application .application .timeline-wrapper .timeline li:before {
   position: absolute;
   left: 0;
-  top: -22px;
-  height: 15px;
+  top: -24px;
+  height: 17px;
   background: #000;
   color: #fff;
   padding: 2px 4px;
@@ -3890,7 +3890,7 @@ body {
   bottom: 0;
   width: 66%;
   height: 200px;
-  padding: 15px 15px;
+  padding: 15px;
   border-radius: 3px;
   background-color: #fff;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
@@ -3934,7 +3934,23 @@ body {
   display: table;
   vertical-align: middle;
 }
-/* line 61, ../scss/_export.scss */
+/* line 60, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper .export-info span {
+  display: block;
+}
+/* line 63, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper .export-info .export-link a {
+  background: rgba(255, 100, 0, 0.5);
+  color: #fff;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 4px;
+}
+/* line 69, ../scss/_export.scss */
+.video-chop-application .application .export-overlay .progress-bar-wrapper .export-info .export-link a:hover {
+  background: #ff6400;
+}
+/* line 74, ../scss/_export.scss */
 .video-chop-application .application .export-overlay .progress-bar-wrapper .export-text {
   display: table-cell;
   vertical-align: middle;
@@ -3943,7 +3959,7 @@ body {
   height: 100%;
   margin: 30px auto 20px auto;
 }
-/* line 69, ../scss/_export.scss */
+/* line 82, ../scss/_export.scss */
 .video-chop-application .application .export-overlay .progress-bar-wrapper progress {
   background-color: #f3f3f3;
   height: 18px;
@@ -3955,22 +3971,22 @@ body {
           flex: 9 auto;
   margin-top: 20px;
 }
-/* line 77, ../scss/_export.scss */
+/* line 90, ../scss/_export.scss */
 .video-chop-application .application .export-overlay .progress-bar-wrapper progress::-webkit-progress-bar {
   background-color: #f3f3f3;
   border-radius: 9px;
 }
-/* line 81, ../scss/_export.scss */
+/* line 94, ../scss/_export.scss */
 .video-chop-application .application .export-overlay .progress-bar-wrapper progress::-webkit-progress-value {
   background: #ff6400;
   border-radius: 9px;
 }
-/* line 85, ../scss/_export.scss */
+/* line 98, ../scss/_export.scss */
 .video-chop-application .application .export-overlay .progress-bar-wrapper progress::-moz-progress-bar {
   background: #ff6400;
   border-radius: 9px;
 }
-/* line 89, ../scss/_export.scss */
+/* line 102, ../scss/_export.scss */
 .video-chop-application .application .export-overlay .progress-bar-wrapper .progress-value {
   margin-top: 20px;
   line-height: 20px;
