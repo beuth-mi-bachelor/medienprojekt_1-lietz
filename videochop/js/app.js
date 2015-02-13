@@ -5,7 +5,7 @@ requirejs.config({
  * what is to load
  * @type {string[]}
  */
-var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "utilities", "filereader", "filesaver", "videoItemLoader", "videoList", "videoTimeline", "videoExporter", "videoPreview", "eventHandler", "videoItem", "popcorn", "popcorn-capture"];
+var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "utilities", "filereader", "filesaver", "videoItemLoader", "videoList", "videoTimeline", "videoExporter", "videoPreview", "videoInformationRetriever", "eventHandler", "videoItem", "popcorn", "popcorn-capture"];
 /**
  * counter for loading modules
  * @type {number}
@@ -63,7 +63,7 @@ var displayLoadProgress = function(p) {
     circle.animate(p/100, {duration: 100});
 };
 
-define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, FileReaderJS, FileSaver, VideoItemLoader, VideoList, VideoTimeline, VideoExporter, VideoPreview) {
+define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, FileReaderJS, FileSaver, VideoItemLoader, VideoList, VideoTimeline, VideoExporter, VideoPreview, VideoInformationRetriever) {
     "use strict";
 
     $(document).ready(function() {
@@ -84,6 +84,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             moduleVideoExporter,
             moduleVideoPreview,
             moduleVideoTimeline,
+            moduleVIR,
             $wrapperVideoDrop,
             $wrapperVideoAdd,
             $fileLoading;
@@ -182,6 +183,13 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
                 container: ".file-list"
             });
 
+            moduleVIR = new VideoInformationRetriever({
+                defaultFPS: 24,
+                callback: function(item) {
+                    //$(".debug").append(item.toString());
+                }
+            });
+
             /**
              * VideoItemLoader
              */
@@ -191,6 +199,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
                 tempWrapper: ".temporary-video",
                 callback: function(item) {
                     moduleVideoList.addItem(item);
+                    moduleVIR.addVideoItemToQueue(item);
                     files--;
                     if (files === 0) {
                         $fileLoading.fadeOut(200);

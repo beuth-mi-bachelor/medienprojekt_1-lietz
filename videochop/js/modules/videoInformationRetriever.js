@@ -26,7 +26,6 @@ define(["jquery", "utilities"], (function ($, Utils) {
 
         this.settings = {
             defaultFPS: 24,
-            exportButton: ".export",
             callback: function (item) {
                 console.log(item);
             }
@@ -45,7 +44,7 @@ define(["jquery", "utilities"], (function ($, Utils) {
 
     VideoInformationRetriever.prototype = {
         initialize: function () {
-            this.worker = new Worker("../../videochop/js/lib/webworker.js");
+            this.worker = new Worker("./js/lib/webworker.js");
             this.initMessageHandler();
         },
         initMessageHandler: function () {
