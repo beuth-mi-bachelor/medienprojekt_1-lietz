@@ -128,14 +128,13 @@ body {
         z-index: 1000;
         bottom: 0;
         left: 0;
-        background: url(../../videochop/media/img/alpha.png) no-repeat;
+        background: url(../media/img/alpha.png) no-repeat;
         background-size: contain;
         .mobile-fallback & {
             display: none;
 
         }
     }
-
     .mobile-stop {
         position: absolute;
         display: none;

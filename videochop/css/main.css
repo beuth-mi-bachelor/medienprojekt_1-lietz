@@ -4190,14 +4190,14 @@ body {
   z-index: 1000;
   bottom: 0;
   left: 0;
-  background: url(../../videochop/media/img/alpha.png) no-repeat;
+  background: url(../media/img/alpha.png) no-repeat;
   background-size: contain;
 }
 /* line 133, ../scss/main.scss */
 .mobile-fallback .video-chop-application .background-img {
   display: none;
 }
-/* line 139, ../scss/main.scss */
+/* line 138, ../scss/main.scss */
 .video-chop-application .mobile-stop {
   position: absolute;
   display: none;
@@ -4208,7 +4208,7 @@ body {
   background: #fff;
   z-index: 210;
 }
-/* line 149, ../scss/main.scss */
+/* line 148, ../scss/main.scss */
 .video-chop-application .mobile-stop-image {
   position: absolute;
   max-width: 100%;
