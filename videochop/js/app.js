@@ -64,6 +64,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
         var $preloader,
             $appWrapper,
             $overlay,
+            $mobileStop,
             $impress,
             $navItems,
             $closeImpress,
@@ -81,7 +82,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $fileLoading;
 
         // User-Agent helper to identify user
-        var ua = new UserAgent();
+        var ua = new UAParser();
+
 
         // disableing selection of navigational elements
         $(".nav").disableSelection();
@@ -113,6 +115,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $preloader = $(".preloader");
             $appWrapper = $(".application-wrapper");
             $overlay = $(".overlay-wrapper");
+            $mobileStop = $(".mobile-stop");
             $impress = $(".impress-wrapper");
             $navItems = $(".nav-item");
             $closeImpress = $(".close-impress");
@@ -123,6 +126,14 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $wrapperVideoDrop = $appWrapper.find(".file-list");
             $wrapperVideoAdd = $appWrapper.find(".file-add");
             $fileLoading = $wrapperVideoDrop.find(".video-loading");
+        }
+
+        console.log(ua.getResult());
+        if (ua.getDevice().type === "mobile") {
+            $mobileStop.show();
+        }
+        else {
+            $mobileStop.hide();
         }
 
         function bindEvents() {
