@@ -2782,9 +2782,10 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: url(../media/img/preloader/loaderbg.png) center center no-repeat fixed;
+  background: url(../media/img/preloader/loaderbg.jpg) center center no-repeat;
+  background-size: cover;
 }
-/* line 14, ../scss/_preloader.scss */
+/* line 16, ../scss/_preloader.scss */
 .video-chop-application .preloader .percentage {
   position: absolute;
   left: 0;
@@ -2803,11 +2804,11 @@ body {
   font-family: "Roboto", sans-serif;
   font-weight: 100;
 }
-/* line 31, ../scss/_preloader.scss */
+/* line 33, ../scss/_preloader.scss */
 .video-chop-application .preloader .percentage:after {
   content: "%";
 }
-/* line 36, ../scss/_preloader.scss */
+/* line 38, ../scss/_preloader.scss */
 .video-chop-application .preloader .currently-loading {
   position: absolute;
   top: 50%;
@@ -2825,7 +2826,7 @@ body {
   font-family: "Roboto", sans-serif;
   font-weight: 100;
 }
-/* line 55, ../scss/_preloader.scss */
+/* line 57, ../scss/_preloader.scss */
 .video-chop-application .preloader .logo-animated {
   position: absolute;
   top: 0;
@@ -2833,8 +2834,21 @@ body {
   right: 0;
   bottom: 0;
   margin: auto;
+  z-index: 2;
 }
-/* line 64, ../scss/_preloader.scss */
+/* line 67, ../scss/_preloader.scss */
+.video-chop-application .preloader .preloader-hold > svg {
+  display: block;
+  width: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 1;
+}
+/* line 79, ../scss/_preloader.scss */
 .video-chop-application .preloader .logo-main {
   position: absolute;
   top: 0;
@@ -2842,7 +2856,7 @@ body {
   left: 0;
   right: 0;
 }
-/* line 72, ../scss/_preloader.scss */
+/* line 87, ../scss/_preloader.scss */
 .video-chop-application .preloader .preloader-hold {
   position: absolute;
   top: 100px;
