@@ -128,6 +128,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $closeImpress = $(".close-impress");
             $closeHelp = $(".close-help");
             $body = $("body");
+            
 
             // placeholders for module wrappers
             $wrapperVideoDrop = $appWrapper.find(".file-list");
