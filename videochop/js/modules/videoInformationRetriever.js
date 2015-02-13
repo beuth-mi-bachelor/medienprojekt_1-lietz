@@ -3,6 +3,7 @@
  *
  * @module: VideoInformationRetriever
  * @requires: jQuery
+ * @requires: Utilities
  *
  * module is for receiving detailed information about a videoItem
  */
@@ -26,7 +27,7 @@ define(["jquery", "utilities"], (function ($, Utils) {
         this.settings = {
             defaultFPS: 24,
             exportButton: ".export",
-            callback: function(item) {
+            callback: function (item) {
                 console.log(item);
             }
         };
@@ -47,7 +48,7 @@ define(["jquery", "utilities"], (function ($, Utils) {
             this.worker = new Worker("../../videochop/js/lib/webworker.js");
             this.initMessageHandler();
         },
-        initMessageHandler: function() {
+        initMessageHandler: function () {
             var self = this;
             var fps = self.settings.defaultFPS;
             this.worker.onmessage = function (event) {
@@ -89,16 +90,16 @@ define(["jquery", "utilities"], (function ($, Utils) {
                 }
             };
         },
-        checkForNext: function() {
+        checkForNext: function () {
             return this.queue.length !== 0;
         },
-        getNextItem: function() {
+        getNextItem: function () {
             if (this.queue.length > 0) {
                 this.currentItem = this.queue.shift();
                 this.startWorkingOnCurrentItem();
             }
         },
-        startWorkingOnCurrentItem: function() {
+        startWorkingOnCurrentItem: function () {
             var file = {
                 data: this.currentItem.settings.data,
                 name: this.currentItem.settings.name + "." + this.currentItem.settings.type.split("video/")[1]
@@ -112,7 +113,7 @@ define(["jquery", "utilities"], (function ($, Utils) {
             });
 
         },
-        addVideoItemToQueue: function(item) {
+        addVideoItemToQueue: function (item) {
             this.queue.push(item);
             if (!this.isBusy && this.isReady) {
                 this.getNextItem();

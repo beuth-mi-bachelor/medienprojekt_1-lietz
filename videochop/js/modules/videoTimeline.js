@@ -73,9 +73,9 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
             this.$container.find("li").disableSelection();
 
         },
-        bindEvents: function() {
+        bindEvents: function () {
             var self = this;
-            this.$container.on("mousedown", ".ui-resizable-handle", function() {
+            this.$container.on("mousedown", ".ui-resizable-handle", function () {
                 var $this = $(this);
                 if ($this.hasClass("ui-resizable-e")) {
                     self.direction = 1;
@@ -83,10 +83,10 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                     self.direction = -1;
                 }
             });
-            this.$container.on("mousedown", this.settings.deleteIcon, function() {
+            this.$container.on("mousedown", this.settings.deleteIcon, function () {
                 self.deleteItem($(this).parent());
             });
-                },
+        },
         initResizable: function (videoList, $item) {
             var self = this;
 
@@ -167,14 +167,14 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                 }
             });
         },
-        getDataForItemId: function(item) {
-            var $item = $("#"+item);
+        getDataForItemId: function (item) {
+            var $item = $("#" + item);
             return $item.data("item");
         },
-        getCurrentList: function() {
+        getCurrentList: function () {
             return this.$container.sortable("toArray");
         },
-        deleteItem: function($item) {
+        deleteItem: function ($item) {
             this.eventHandler.publish("preview-delete", [$item.attr("id")]);
             $item.remove();
         },

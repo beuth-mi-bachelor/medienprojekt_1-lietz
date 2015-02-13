@@ -3,6 +3,7 @@
  *
  * @module: VideoItem
  * @requires: jQuery
+ * @requires: Utilities
  *
  * This module describes the properties of an video item.
  * video: adress of the video file, name: name of the video, length: duration of the video,
@@ -48,30 +49,30 @@ define(["jquery", "utilities"], (function ($, Utils) {
         initialize: function () {
             VideoItem.indices = (VideoItem.indices || 0) + 1;
             this.id = VideoItem.indices;
-            $(this.settings.videoElement).attr("id", "video-item-"+this.id);
+            $(this.settings.videoElement).attr("id", "video-item-" + this.id);
 
         },
         getMarkUp: function () {
             return '<li class="file" id="video-item-' + this.id + '">' +
                 '<div class="file-delete icon_close"></div>' +
-                '<img class="file-thumb" src="'+this.settings.thumbnail+'" alt="'+this.settings.name+'" />' +
+                '<img class="file-thumb" src="' + this.settings.thumbnail + '" alt="' + this.settings.name + '" />' +
                 '<div class="file-info">' +
-                '<p><span class="file-name">'+this.settings.name+'</span></p>' +
-                '<p><span class="file-duration">'+Utils.timeFormat(this.settings.length)+' min</span></p>' +
-                '<p class="small"><span class="file-resolution">'+this.settings.resolution.width + " x " + this.settings.resolution.height +' px</span><span class="file-size">'+this.settings.prettySize+'</span></p>' +
+                '<p><span class="file-name">' + this.settings.name + '</span></p>' +
+                '<p><span class="file-duration">' + Utils.timeFormat(this.settings.length) + ' min</span></p>' +
+                '<p class="small"><span class="file-resolution">' + this.settings.resolution.width + " x " + this.settings.resolution.height + ' px</span><span class="file-size">' + this.settings.prettySize + '</span></p>' +
                 '</div></li>';
         },
         deleteItem: function () {
             $("#video-item-" + this.id).remove();
-             this.settings = null;
-             delete this.settings;
+            this.settings = null;
+            delete this.settings;
         },
         /**
          * describes this Object to the user
          * @returns {String} representation of this Object
          */
         toString: function () {
-            var replacer = function(key, value) {
+            var replacer = function (key, value) {
                 console.log(key);
                 if (key === "data" || key === "thumbnail" || key === "video" || key === "videoElement") {
                     return undefined;

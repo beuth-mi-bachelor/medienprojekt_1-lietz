@@ -6,6 +6,7 @@
  * @requires: VideoItem
  * @requires: Popcorn
  * @requires: Popcorn.capture
+ * @requiers: Utilities
  *
  * this module handles the communication between video and videoItem
  */
@@ -23,7 +24,7 @@ define(["jquery", "videoItem", "utilities", "popcorn", "popcorn-capture"], (func
         this.settings = {
             type: "video/mp4",
             tempWrapper: "#temp-video",
-            callback: function() {
+            callback: function () {
 
             }
         };
@@ -69,7 +70,7 @@ define(["jquery", "videoItem", "utilities", "popcorn", "popcorn-capture"], (func
             video.appendChild(src);
             var $vidwrapper = $(this.settings.tempWrapper);
             $vidwrapper.append(video);
-            var $pop = Popcorn("#"+tempName);
+            var $pop = Popcorn("#" + tempName);
 
             $pop.videoName = this.video.name.split(' ').join('-');
             $pop.videoElement = video;
@@ -78,7 +79,7 @@ define(["jquery", "videoItem", "utilities", "popcorn", "popcorn-capture"], (func
             $pop.videoPrettySize = this.video.prettySize;
 
             var self = this;
-            $pop.listen('canplayall', function() {
+            $pop.listen('canplayall', function () {
 
                 var item = new VideoItem({
                     video: this.media.currentSrc,
@@ -103,8 +104,8 @@ define(["jquery", "videoItem", "utilities", "popcorn", "popcorn-capture"], (func
                 item.settings.thumbnail = url;
                 this.videoElement.poster = url;
 
-                $("#"+tempName).remove();
-                $("#popcorn-canvas-"+tempName).remove();
+                $("#" + tempName).remove();
+                $("#popcorn-canvas-" + tempName).remove();
 
                 self.settings.callback(item);
 
@@ -112,7 +113,7 @@ define(["jquery", "videoItem", "utilities", "popcorn", "popcorn-capture"], (func
 
             });
         },
-        baseToBlob: function(b64Data, contentType) {
+        baseToBlob: function (b64Data, contentType) {
             // convert data to correct base64 type
             b64Data = b64Data.replace(/^data:image\/(png|jpg);base64,/, "");
             contentType = contentType || '';
@@ -127,12 +128,12 @@ define(["jquery", "videoItem", "utilities", "popcorn", "popcorn-capture"], (func
                 var end = Math.min(begin + sliceSize, bytesLength);
 
                 var bytes = new Array(end - begin);
-                for (var offset = begin, i = 0 ; offset < end; ++i, ++offset) {
+                for (var offset = begin, i = 0; offset < end; ++i, ++offset) {
                     bytes[i] = byteCharacters[offset].charCodeAt(0);
                 }
                 byteArrays[sliceIndex] = new Uint8Array(bytes);
             }
-            return new Blob(byteArrays, { type: contentType });
+            return new Blob(byteArrays, {type: contentType});
         },
 
         /**

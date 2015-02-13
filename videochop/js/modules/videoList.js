@@ -3,6 +3,7 @@
  *
  * @module: VideoList
  * @requires: jQuery
+ * @requires: jQueryUI
  * @requires: videoItem
  *
  * VideoList can save VideoItems in it. It provides the possibility to delete videos out of the list.
@@ -20,7 +21,7 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
         this.settings = {
             container: ".default",
             listname: "files",
-            items:[]
+            items: []
         };
 
         // if settings where not set by initializing, fill with default settings
@@ -39,32 +40,32 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
             this.bindEvents();
         },
 
-        addItem: function(listOfItems) {
-            if(!Array.isArray(listOfItems)){
+        addItem: function (listOfItems) {
+            if (!Array.isArray(listOfItems)) {
                 listOfItems = [listOfItems];
             }
             var self = this;
-            $.each(listOfItems, function(key,videoItem) {
-                if(videoItem instanceof VideoItem){
+            $.each(listOfItems, function (key, videoItem) {
+                if (videoItem instanceof VideoItem) {
                     self.$list.append(videoItem.getMarkUp());
                     self.videolist[videoItem.id] = videoItem;
                 }
             });
         },
 
-        deleteItem: function(itemToBeRemoved) {
+        deleteItem: function (itemToBeRemoved) {
             this.videolist[itemToBeRemoved].deleteItem();
             delete this.videolist[itemToBeRemoved];
         },
-        bindEvents: function(){
+        bindEvents: function () {
             var self = this;
 
             this.$list.on("click", ".file-delete", function () {
                 var $this = $(this).parent();
                 var id = $this.attr("id");
                 var splittedarray = id.split("-");
-                id = splittedarray[splittedarray.length-1];
-                id = parseInt(id,10);
+                id = splittedarray[splittedarray.length - 1];
+                id = parseInt(id, 10);
                 self.deleteItem(id);
             });
 
@@ -78,7 +79,7 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
                 },
                 cursor: "move",
                 connectWith: ".connected",
-                helper: function(event, li) {
+                helper: function (event, li) {
                     this.copyHelper = li.clone().insertAfter(li);
                     this.copyHelper.addClass("active");
                     $(this).data('copied', false);

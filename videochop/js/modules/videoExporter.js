@@ -3,6 +3,8 @@
  *
  * @module: VideoExporter
  * @requires: jQuery
+ * @requires: Filesaver
+ * @requires: Utilities
  *
  * module is for receiving detailed information about a videoItem
  */
@@ -50,7 +52,7 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
     VideoExporter.prototype = {
         initialize: function () {
             var self = this;
-            this.$export =  {
+            this.$export = {
                 bar: $(self.settings.exportBindings.bar),
                 value: $(self.settings.exportBindings.value),
                 text: $(self.settings.exportBindings.text),
@@ -60,37 +62,37 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
                 button: $(self.settings.exportBindings.button),
                 overlay: $(self.settings.exportBindings.overlay)
             };
-            this.$close =  $(self.settings.close);
+            this.$close = $(self.settings.close);
             self.$export.button.addClass("disabled");
             this.setUpWorker();
             this.initMessageHandler();
             this.bindEvents();
         },
-        setUpWorker: function() {
+        setUpWorker: function () {
             this.worker = new Worker("./js/lib/webworker.js");
         },
-        bindEvents: function() {
+        bindEvents: function () {
             var self = this;
-            this.$export.link.on("click", function(e) {
+            this.$export.link.on("click", function (e) {
                 e.preventDefault();
                 self.saveFile();
                 return false;
             });
-            this.$export.button.on("click", function() {
+            this.$export.button.on("click", function () {
                 if (self.$export.button.hasClass("disabled")) {
                     window.alert("Please wait while loading ffmpeg");
                     return false;
                 }
                 self.prepareToExport();
             });
-            this.$close.on("click", function() {
+            this.$close.on("click", function () {
                 self.cancelExporting();
             });
         },
-        saveFile: function() {
+        saveFile: function () {
             saveAs(this.blobData, "output");
         },
-        initMessageHandler: function() {
+        initMessageHandler: function () {
             var self = this;
             this.worker.onmessage = function (event) {
                 var message = event.data;
@@ -116,7 +118,7 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
                 }
             };
         },
-        cancelExporting: function() {
+        cancelExporting: function () {
             this.isBusy = false;
             this.ready = false;
             this.$export.button.addClass("disabled");
@@ -126,20 +128,20 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
             this.setUpWorker();
             this.initMessageHandler();
         },
-        createURL: function(item) {
+        createURL: function (item) {
             var fileArray = new Uint8Array(item.data);
             var blob = new Blob([fileArray], {type: "video/mp4"});
             this.blobData = blob;
             var url = window.URL.createObjectURL(blob);
-            return $("<a href='"+url+"'>Download "+item.name+"</a>");
+            return $("<a href='" + url + "'>Download " + item.name + "</a>");
         },
-        handleMessages: function(message) {
+        handleMessages: function (message) {
             var conversionInfo = /size=(\s)*(\d)*(\w*) time=(\d|\:|\.)*/g;
 
             if (conversionInfo.test(message)) {
                 var info = message.match(conversionInfo)[0];
                 var size = info.match(/(\d)*(\w)* /g);
-                size = size[size.length-1];
+                size = size[size.length - 1];
                 var time = info.match(/(\d)*:(\d)*:(\d)*\.(\d)*/g);
                 time = time[0];
                 this.$export.progress.text("handled " + size + " and encoded " + time + " hours");
@@ -148,12 +150,12 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
                 this.$export.status.text("encoding\n");
             }
         },
-        showProgress: function(time) {
+        showProgress: function (time) {
             var splitted = time.split(":");
 
-            var secsAndMillis = splitted[splitted.length-1];
-            var mins = splitted[splitted.length-2];
-            var hours = splitted[splitted.length-3];
+            var secsAndMillis = splitted[splitted.length - 1];
+            var mins = splitted[splitted.length - 2];
+            var hours = splitted[splitted.length - 3];
             var seconds = parseFloat(secsAndMillis) + (parseInt(mins, 10) * 60) + (parseInt(hours, 10) * 3600);
             var percentage = parseFloat((seconds / this.lengthOfVideos) * 100).toFixed(2);
 
@@ -163,14 +165,14 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
             this.$export.bar.val(percentage);
             this.$export.value.text(percentage + "%");
         },
-        prepareToExport: function() {
+        prepareToExport: function () {
             this.getFilesToExport();
         },
-        getFilesToExport: function() {
+        getFilesToExport: function () {
             var self = this;
             var list = this.settings.timeLineInstance.getCurrentList();
             this.listToExport = [];
-            list.forEach( function(currentItem) {
+            list.forEach(function (currentItem) {
                 self.listToExport.push(self.settings.timeLineInstance.getDataForItemId(currentItem));
             });
             if (this.listToExport.length < 2) {
@@ -179,12 +181,12 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
             }
             this.generateExportList();
         },
-        generateExportList: function() {
+        generateExportList: function () {
             var self = this;
             this.files = [];
             this.timings = [];
             this.lengthOfVideos = 0;
-            this.listToExport.forEach(function(videoItem) {
+            this.listToExport.forEach(function (videoItem) {
                 var timestamp = new Date().getTime() * Math.random();
                 self.files.push({
                     data: videoItem.settings.data,
@@ -205,9 +207,9 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
             console.log(this.args);
             this.startExporting();
         },
-        generateArguments: function() {
+        generateArguments: function () {
             var fileString = "";
-            this.files.forEach(function(item) {
+            this.files.forEach(function (item) {
                 fileString += "-i " + item.name + " ";
             });
 
@@ -217,20 +219,20 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
 
             return fileString;
         },
-        buildComplexFilter: function() {
+        buildComplexFilter: function () {
             var self = this;
             var filter = '-filter_complex "';
             for (var i = 0; i < this.timings.length; i++) {
-                filter += "[" + i + ":v]trim=start_frame="+self.timings[i].startFps+":end_frame="+(self.timings[i].endFps+1)+",setpts=PTS-STARTPTS[v"+i+"];" +
-                "[" + i + ":a]atrim=start="+self.timings[i].start+":end="+self.timings[i].end+",asetpts=PTS-STARTPTS[a"+i+"]; ";
+                filter += "[" + i + ":v]trim=start_frame=" + self.timings[i].startFps + ":end_frame=" + (self.timings[i].endFps + 1) + ",setpts=PTS-STARTPTS[v" + i + "];" +
+                "[" + i + ":a]atrim=start=" + self.timings[i].start + ":end=" + self.timings[i].end + ",asetpts=PTS-STARTPTS[a" + i + "]; ";
             }
             for (var j = 0; j < this.timings.length; j++) {
                 filter += "[v" + j + "]" + "[a" + j + "]";
             }
-            filter += ' concat=n='+this.timings.length+':v=1:a=1 [v] [a]" -map "[v]" -map "[a]" ';
+            filter += ' concat=n=' + this.timings.length + ':v=1:a=1 [v] [a]" -map "[v]" -map "[a]" ';
             return filter;
         },
-        startExporting: function() {
+        startExporting: function () {
             var self = this;
             this.worker.postMessage({
                 type: 'command',

@@ -3,10 +3,10 @@
  *
  * @module: PreviewVideo
  * @requires: jQuery
- * @requires: videoList
- * @requires: videoItem
- *
- * TODO: add more dependencies here
+ * @requires: VideoList
+ * @requires: VideoItem
+ * @requires: EventHandler
+ * @requires: Utilities
  *
  * this module shows a video and controls it
  */
@@ -57,24 +57,22 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             this.isPlayingAlone = false;
             this.bindEvents();
         },
-        bindEvents: function() {
+        bindEvents: function () {
             var self = this;
-            this.eventHandler.subscribe("preview-order", function(order) {
+            this.eventHandler.subscribe("preview-order", function (order) {
                 self.updateIndices(order);
             });
-            this.eventHandler.subscribe("preview-item", function($item, order, id) {
+            this.eventHandler.subscribe("preview-item", function ($item, order, id) {
                 self.updateIndices(order);
                 self.addVideo($item, id);
                 self.calculateLength();
                 self.$slider.attr("max", (parseInt(self.lengthOfVideos, 10) * 10));
             });
-            this.eventHandler.subscribe("preview-delete", function(id) {
+            this.eventHandler.subscribe("preview-delete", function (id) {
                 self.stop();
                 self.deleteItem(id);
-                self.calculateLength();
-                self.$slider.attr("max", (parseInt(self.lengthOfVideos, 10) * 10));
             });
-            this.eventHandler.subscribe("preview-size-update", function(itemId, start, end) {
+            this.eventHandler.subscribe("preview-size-update", function (itemId, start, end) {
                 var current = self.videoObjects[self.settings.prefix + itemId];
                 current.videoitem.start = start;
                 current.video.currentTime = start;
@@ -83,20 +81,20 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
                 self.calculateLength();
                 self.$slider.attr("max", (parseInt(self.lengthOfVideos, 10) * 10));
             });
-            $(this.settings.playButton).on("click", function() {
+            $(this.settings.playButton).on("click", function () {
                 self.play(self.loopThrough());
                 self.isPlayingAlone = true;
             });
-            $(this.settings.pauseButton).on("click", function() {
+            $(this.settings.pauseButton).on("click", function () {
                 self.pause();
             });
-            $(this.settings.fullscreenButton).on("click", function() {
+            $(this.settings.fullscreenButton).on("click", function () {
                 self.enterFullscreen();
             });
-            $(this.settings.stopButton).on("click", function() {
+            $(this.settings.stopButton).on("click", function () {
                 self.stop();
             });
-            this.$slider.on("input", function() {
+            this.$slider.on("input", function () {
                 self.updateToVideo(this.value);
                 self.isPlayingAlone = false;
             });
@@ -104,10 +102,10 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
         updateIndices: function (indices) {
             this.indices = indices;
         },
-        enterFullscreen: function() {
+        enterFullscreen: function () {
 
         },
-        exitFullscreen: function() {
+        exitFullscreen: function () {
 
         },
         addVideo: function ($element, vidItemId) {
@@ -134,11 +132,11 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
 
             this.$vidContainer.append($videoElem);
 
-            $videoElem[0].addEventListener("canplayall", function() {
+            $videoElem[0].addEventListener("canplayall", function () {
                 self.currentVideo.currentTime = item.settings.start;
             }, false);
 
-            $videoElem[0].addEventListener("timeupdate", function() {
+            $videoElem[0].addEventListener("timeupdate", function () {
 
                 var id = $(this).data("id");
 
@@ -148,7 +146,6 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
                 self.updateTime((this.currentTime - vidObj.settings.start));
                 if (!this.paused) {
                     self.$slider.val((self.globalTime + (this.currentTime - vidObj.settings.start)) * 10);
-                    console.error(self.globalTime, this.currentTime, (self.globalTime + this.currentTime) * 10);
                 }
                 if (vidVideo.currentTime >= vidObj.settings.end) {
                     if (!this.paused || self.isPlayingAlone) {
@@ -163,19 +160,19 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
                 }
             }, false);
         },
-        loopThrough: function() {
+        loopThrough: function () {
             var next = this.positionVideo % this.indices.length;
             if (next === 0) {
                 this.globalTime = 0;
             }
             return next;
         },
-        pause: function() {
+        pause: function () {
             if (this.currentVideo) {
                 this.currentVideo.pause();
             }
         },
-        updateToVideo: function(time) {
+        updateToVideo: function (time) {
             if (!this.currentVideo.paused) {
                 this.stop();
             }
@@ -195,8 +192,6 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
                 vidId = 0;
             }
 
-            console.log(this.globalTime, this.currentTimePosition);
-
             this.globalTime = (newTime - currentLength) / 10;
             this.currentTimePosition = (time - (newTime - currentLength)) / 10;
             this.positionVideo = vidId;
@@ -207,15 +202,15 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             }
             this.currentVideo.currentTime = this.currentTimePosition;
         },
-        updateTime: function(time) {
+        updateTime: function (time) {
             this.currentTimePosition = (time + this.globalTime);
             var timeFormatted = Utils.timeFormat(this.currentTimePosition).split(".")[0];
             this.$time.current.text(timeFormatted);
         },
-        deleteItem: function(id) {
-            var remove = function(arr, item) {
-                for(var i = arr.length; i--;) {
-                    if(arr[i] === item) {
+        deleteItem: function (id) {
+            var remove = function (arr, item) {
+                for (var i = arr.length; i--;) {
+                    if (arr[i] === item) {
                         arr.splice(i, 1);
                     }
                 }
@@ -224,7 +219,7 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             this.videoObjects[id].video.pause();
 
             var self = this;
-            window.setTimeout(function() {
+            window.setTimeout(function () {
                 if (self.currentVideo === self.videoObjects[id].video) {
                     self.currentVideo = undefined;
                 }
@@ -233,6 +228,10 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
 
                 delete self.videoObjects[id];
                 remove(self.indices, id);
+
+                self.calculateLength();
+                self.$slider.attr("max", (parseInt(self.lengthOfVideos, 10) * 10));
+
             }, 100);
 
         },
@@ -250,7 +249,7 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
                 }
             }
         },
-        calculateLength: function() {
+        calculateLength: function () {
             this.lengthOfVideos = 0;
             for (var item in this.videoObjects) {
                 var currentObj = this.videoObjects[item];
@@ -272,7 +271,7 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
                 this.resetAllVideos();
             }
         },
-        resetAllVideos: function() {
+        resetAllVideos: function () {
             for (var item in this.videoObjects) {
                 var currentObj = this.videoObjects[item];
                 currentObj.video.currentTime = currentObj.videoitem.settings.start;
