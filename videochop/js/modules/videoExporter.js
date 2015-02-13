@@ -174,7 +174,7 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
             list.forEach(function (currentItem) {
                 self.listToExport.push(self.settings.timeLineInstance.getDataForItemId(currentItem));
             });
-            if (this.listToExport.length < 2) {
+            if (this.listToExport.length < 1) {
                 window.alert("You need items in your timeline to start export");
                 return false;
             }
