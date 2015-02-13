@@ -3654,18 +3654,50 @@ body {
   width: 1px;
 }
 /* line 7, ../scss/_previewvideo.scss */
+.video-chop-application .application .preview:-webkit-full-screen {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+/* line 11, ../scss/_previewvideo.scss */
+.video-chop-application .application .preview:-moz-full-screen {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+/* line 15, ../scss/_previewvideo.scss */
+.video-chop-application .application .preview:-ms-fullscreen {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+/* line 19, ../scss/_previewvideo.scss */
+.video-chop-application .application .preview:-webkit-full-screen {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+.video-chop-application .application .preview:-moz-full-screen {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+.video-chop-application .application .preview:-ms-fullscreen {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+.video-chop-application .application .preview:fullscreen {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+/* line 23, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .video-wrapper,
 .video-chop-application .application .preview .controls-wrapper {
   position: absolute;
   width: 100%;
 }
-/* line 12, ../scss/_previewvideo.scss */
+/* line 28, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .video-wrapper {
   top: 0;
   bottom: 80px;
   background: #1d1d1b;
 }
-/* line 16, ../scss/_previewvideo.scss */
+/* line 32, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .video-wrapper video {
   position: absolute;
   top: 0;
@@ -3678,11 +3710,11 @@ body {
   vertical-align: middle;
   display: none;
 }
-/* line 27, ../scss/_previewvideo.scss */
+/* line 43, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .video-wrapper video.current {
   display: block;
 }
-/* line 32, ../scss/_previewvideo.scss */
+/* line 48, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .controls-wrapper {
   display: -webkit-box;
   display: -webkit-flex;
@@ -3701,7 +3733,7 @@ body {
           justify-content: center;
   height: 80px;
 }
-/* line 40, ../scss/_previewvideo.scss */
+/* line 56, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .range-slider {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -3710,15 +3742,15 @@ body {
   width: 90%;
   margin: 10px auto;
 }
-/* line 47, ../scss/_previewvideo.scss */
+/* line 63, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .range-slider:focus {
   outline: 0;
 }
-/* line 51, ../scss/_previewvideo.scss */
+/* line 67, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .range-slider:hover::-webkit-slider-thumb {
   background: #ff6400;
 }
-/* line 55, ../scss/_previewvideo.scss */
+/* line 71, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .range-slider::-webkit-slider-thumb {
   background: #686868;
   -webkit-appearance: none;
@@ -3732,21 +3764,21 @@ body {
   margin-top: -7px;
   cursor: ew-resize;
 }
-/* line 67, ../scss/_previewvideo.scss */
+/* line 83, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .range-slider::-webkit-slider-thumb:focus {
   outline: 0;
 }
-/* line 71, ../scss/_previewvideo.scss */
+/* line 87, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .range-slider::-webkit-slider-runnable-track {
   height: 2px;
   background: #fff;
   border: 0;
 }
-/* line 75, ../scss/_previewvideo.scss */
+/* line 91, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .range-slider::-webkit-slider-runnable-track:focus {
   outline: 0;
 }
-/* line 80, ../scss/_previewvideo.scss */
+/* line 96, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .controls {
   width: 90%;
   margin: 0 auto;
@@ -3756,7 +3788,7 @@ body {
   display: flex;
   border: 1px solid #686868;
 }
-/* line 85, ../scss/_previewvideo.scss */
+/* line 101, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .controls div {
   -webkit-box-flex: 1;
   -webkit-flex: 1 auto;
@@ -3766,11 +3798,11 @@ body {
   height: 40px;
   border-left: 1px solid #686868;
 }
-/* line 90, ../scss/_previewvideo.scss */
+/* line 106, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .controls div:first-child {
   border-left: 0;
 }
-/* line 94, ../scss/_previewvideo.scss */
+/* line 110, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .controls .control {
   cursor: pointer;
   color: #686868;
@@ -3780,16 +3812,12 @@ body {
   -webkit-transition: border .1s ease;
           transition: border .1s ease;
 }
-/* line 101, ../scss/_previewvideo.scss */
-.video-chop-application .application .preview .controls .control.fullscreen {
-  opacity: .3;
-}
-/* line 104, ../scss/_previewvideo.scss */
+/* line 117, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .controls .control:hover {
   background: #ebebeb;
   border-bottom: 6px solid #ff6400;
 }
-/* line 109, ../scss/_previewvideo.scss */
+/* line 122, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .controls .time-slider {
   display: -webkit-box;
   display: -webkit-flex;
@@ -3807,7 +3835,7 @@ body {
   background: #686868;
   font-family: "league_gothicregular", sans-serif;
 }
-/* line 119, ../scss/_previewvideo.scss */
+/* line 132, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .controls .time-slider > span {
   position: relative;
   -webkit-box-flex: 1;
@@ -3815,7 +3843,7 @@ body {
       -ms-flex: 1 auto;
           flex: 1 auto;
 }
-/* line 122, ../scss/_previewvideo.scss */
+/* line 135, ../scss/_previewvideo.scss */
 .video-chop-application .application .preview .controls .time-slider > span:last-child:before {
   position: absolute;
   content: "-";
