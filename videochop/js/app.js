@@ -13,6 +13,7 @@ var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "ut
 var modulesLoaded = 0,
     modulesToLoad = modulesToLoadInDefine.length + 1;
 
+
 var circle = new ProgressBar.Circle('.preloader-hold',{
     color: '#FF6400',
     strokeWidth: 5
