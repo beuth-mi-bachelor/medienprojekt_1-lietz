@@ -13,6 +13,7 @@ var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "ut
 var modulesLoaded = 0,
     modulesToLoad = modulesToLoadInDefine.length + 1;
 
+
 var circle = new ProgressBar.Circle('.preloader-hold',{
     color: '#FF6400',
     strokeWidth: 5
@@ -70,6 +71,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
         var $preloader,
             $appWrapper,
             $overlay,
+            $mobileStop,
             $impress,
             $navItems,
             $closeImpress,
@@ -87,7 +89,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $fileLoading;
 
         // User-Agent helper to identify user
-        var ua = new UserAgent();
+        var ua = new UAParser();
+
 
         // disableing selection of navigational elements
         $(".nav").disableSelection();
@@ -119,6 +122,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $preloader = $(".preloader");
             $appWrapper = $(".application-wrapper");
             $overlay = $(".overlay-wrapper");
+            $mobileStop = $(".mobile-stop");
             $impress = $(".impress-wrapper");
             $navItems = $(".nav-item");
             $closeImpress = $(".close-impress");
@@ -129,6 +133,13 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $wrapperVideoDrop = $appWrapper.find(".file-list");
             $wrapperVideoAdd = $appWrapper.find(".file-add");
             $fileLoading = $wrapperVideoDrop.find(".video-loading");
+        }
+
+        if (ua.getDevice().type === "mobile") {
+            $mobileStop.show();
+        }
+        else {
+            $mobileStop.hide();
         }
 
         function bindEvents() {
