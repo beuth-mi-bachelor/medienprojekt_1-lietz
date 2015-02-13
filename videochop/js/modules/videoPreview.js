@@ -68,6 +68,12 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
                 self.calculateLength();
                 self.$slider.attr("max", (parseInt(self.lengthOfVideos, 10) * 10));
             });
+            this.eventHandler.subscribe("preview-delete", function(id) {
+                self.stop();
+                self.deleteItem(id);
+                self.calculateLength();
+                self.$slider.attr("max", (parseInt(self.lengthOfVideos, 10) * 10));
+            });
             this.eventHandler.subscribe("preview-size-update", function(itemId, start, end) {
                 var current = self.videoObjects[self.settings.prefix + itemId];
                 current.videoitem.start = start;
@@ -141,7 +147,8 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
 
                 self.updateTime((this.currentTime - vidObj.settings.start));
                 if (!this.paused) {
-                    self.$slider.val((self.globalTime + this.currentTime) * 10);
+                    self.$slider.val((self.globalTime + (this.currentTime - vidObj.settings.start)) * 10);
+                    console.error(self.globalTime, this.currentTime, (self.globalTime + this.currentTime) * 10);
                 }
                 if (vidVideo.currentTime >= vidObj.settings.end) {
                     if (!this.paused || self.isPlayingAlone) {
@@ -188,6 +195,8 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
                 vidId = 0;
             }
 
+            console.log(this.globalTime, this.currentTimePosition);
+
             this.globalTime = (newTime - currentLength) / 10;
             this.currentTimePosition = (time - (newTime - currentLength)) / 10;
             this.positionVideo = vidId;
@@ -202,6 +211,30 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             this.currentTimePosition = (time + this.globalTime);
             var timeFormatted = Utils.timeFormat(this.currentTimePosition).split(".")[0];
             this.$time.current.text(timeFormatted);
+        },
+        deleteItem: function(id) {
+            var remove = function(arr, item) {
+                for(var i = arr.length; i--;) {
+                    if(arr[i] === item) {
+                        arr.splice(i, 1);
+                    }
+                }
+            };
+
+            this.videoObjects[id].video.pause();
+
+            var self = this;
+            window.setTimeout(function() {
+                if (self.currentVideo === self.videoObjects[id].video) {
+                    self.currentVideo = undefined;
+                }
+
+                $(self.videoObjects[id].video).remove();
+
+                delete self.videoObjects[id];
+                remove(self.indices, id);
+            }, 100);
+
         },
         play: function (id) {
             if (this.currentVideo) {

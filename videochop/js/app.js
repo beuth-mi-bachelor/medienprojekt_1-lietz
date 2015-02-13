@@ -141,9 +141,6 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $mobileStop.show();
             $appWrapper.hide();
         }
-        else {
-            $mobileStop.hide();
-        }
 
         function bindEvents() {
 

@@ -58,6 +58,7 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                     self.id++;
                     $item.attr("id", "timeline-item-" + self.id);
                     $item.data("id", id);
+                    $item.data("timelineId", self.id);
                     self.initResizable(self.settings.videoList, $item);
                     self.order = $(this).sortable('toArray');
                     self.eventHandler.publish("preview-item", [$item, self.order, self.id]);
@@ -90,9 +91,7 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
             var self = this;
 
             var id = parseInt($item.data("id"), 10);
-
-            var currentVideoItem = videoList.getItem(id);
-
+            var currentVideoItem = new VideoItem(videoList.getItem(id).settings);
             var maxWidth = self.settings.minWidth + parseInt(currentVideoItem.settings.end * self.settings.scaleFactor, 10);
 
             $item.attr("data-start", Utils.timeFormat(currentVideoItem.settings.start));
@@ -117,8 +116,6 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                     var widthBefore = $parent.width();
                     $parent.width(widthBefore + maxWidth);
 
-                    var id = parseInt($elem.data("id"), 10);
-                    var currentVideoItem = videoList.getItem(id);
                     $(this).data('item', currentVideoItem);
                     $(this).data('max', maxWidth);
                     $(this).data('min', self.settings.minWidth);
@@ -165,7 +162,7 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                     }
                     self.direction = 0;
 
-                    self.eventHandler.publish("preview-size-update", [$(this).data("id"), currentVideoItem.settings.start, currentVideoItem.settings.end]);
+                    self.eventHandler.publish("preview-size-update", [$(this).data("timelineId"), currentVideoItem.settings.start, currentVideoItem.settings.end]);
 
                 }
             });
