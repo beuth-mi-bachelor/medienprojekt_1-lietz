@@ -2893,19 +2893,7 @@ body {
   background: rgba(0, 0, 0, 0.6);
   content: '';
 }
-/* line 58, ../scss/main.scss */
-.video-chop-application .application-wrapper .background-img {
-  position: absolute;
-  width: 90px;
-  height: 90px;
-  display: block;
-  z-index: 100;
-  bottom: 0;
-  left: 0;
-  background: url(../../videochop/media/img/alpha.png) no-repeat;
-  background-size: contain;
-}
-/* line 70, ../scss/main.scss */
+/* line 59, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-wrapper {
   position: absolute;
   top: 0;
@@ -2915,7 +2903,7 @@ body {
   background: rgba(0, 0, 0, 0.6);
   z-index: 200;
 }
-/* line 79, ../scss/main.scss */
+/* line 68, ../scss/main.scss */
 .video-chop-application .application-wrapper .mobile-stop {
   position: absolute;
   top: 0;
@@ -2925,47 +2913,47 @@ body {
   background: black;
   z-index: 210;
 }
-/* line 88, ../scss/main.scss */
+/* line 77, ../scss/main.scss */
 .video-chop-application .application-wrapper .mobile-stop-message {
   text-align: center;
   color: #fff;
 }
-/* line 92, ../scss/main.scss */
+/* line 81, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-videolist {
   position: absolute;
   top: 80px;
   left: 10px;
   width: 330px;
 }
-/* line 98, ../scss/main.scss */
+/* line 87, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-timeline {
   position: absolute;
   bottom: 0;
   left: 10px;
   height: 320px;
 }
-/* line 104, ../scss/main.scss */
+/* line 93, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-show-preview {
   position: absolute;
   bottom: 230px;
   left: 80px;
   width: 350px;
 }
-/* line 110, ../scss/main.scss */
+/* line 99, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-ready {
   position: absolute;
   top: -3px;
   left: 230px;
   width: 350px;
 }
-/* line 116, ../scss/main.scss */
+/* line 105, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-show-love {
   position: absolute;
   top: -31px;
   right: -25px;
   width: 650px;
 }
-/* line 122, ../scss/main.scss */
+/* line 111, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-best-exp {
   position: absolute;
   top: 110px;
@@ -4151,4 +4139,16 @@ body {
 /* line 59, ../scss/_help.scss */
 .video-chop-application .help-wrapper dl dd .solution:before {
   content: "Solution: ";
+}
+/* line 128, ../scss/main.scss */
+.video-chop-application .background-img {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  display: block;
+  z-index: 1000;
+  bottom: 0;
+  left: 0;
+  background: url(../../videochop/media/img/alpha.png) no-repeat;
+  background-size: contain;
 }
