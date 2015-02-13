@@ -137,7 +137,9 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
         }
 
         if (ua.getDevice().type === "mobile") {
+            $body.parent().addClass("mobile-fallback");
             $mobileStop.show();
+            $appWrapper.hide();
         }
         else {
             $mobileStop.hide();
