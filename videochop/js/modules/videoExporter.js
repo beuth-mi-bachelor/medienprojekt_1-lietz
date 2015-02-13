@@ -106,7 +106,6 @@ define(["jquery", "utilities", "filesaver"], (function ($, Utils, FileSaver) {
                     self.$export.status.text("starting export");
                     self.$export.link.html("");
                     self.$export.progress.text("");
-
                 } else if (message.type === "stdout") {
                     self.handleMessages(message.data);
                 } else if (message.type === "done") {
