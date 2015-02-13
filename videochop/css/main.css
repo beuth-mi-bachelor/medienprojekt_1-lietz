@@ -2782,87 +2782,90 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: -webkit-linear-gradient(top, #fff 0%, #ff6400 50%);
-  background: linear-gradient(to bottom, #fff 0%, #ff6400 50%);
+  background: url(../media/img/preloader/loaderbg.jpg) center center no-repeat;
+  background-size: cover;
 }
-/* line 14, ../scss/_preloader.scss */
-.video-chop-application .preloader .logo-animated, .video-chop-application .preloader .inner-logo {
+/* line 16, ../scss/_preloader.scss */
+.video-chop-application .preloader .percentage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin: 0 auto;
+  margin-top: 170px;
+  bottom: 0;
+  width: auto;
+  height: 3vh;
+  line-height: 3vh;
+  font-size: 24px;
+  text-align: center;
+  display: block;
+  color: #1d1d1b;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+}
+/* line 33, ../scss/_preloader.scss */
+.video-chop-application .preloader .percentage:after {
+  content: "%";
+}
+/* line 38, ../scss/_preloader.scss */
+.video-chop-application .preloader .currently-loading {
+  position: absolute;
+  top: 50%;
+  margin: 0 auto;
+  margin-top: 195px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: 3vh;
+  text-align: center;
+  display: block;
+  font-size: 24px;
+  color: #1d1d1b;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+}
+/* line 57, ../scss/_preloader.scss */
+.video-chop-application .preloader .logo-animated {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 25vh;
-  width: 25vh;
   margin: auto;
+  z-index: 2;
 }
-/* line 24, ../scss/_preloader.scss */
-.video-chop-application .preloader .inner-logo {
-  -webkit-transform-origin: 50% 50%;
-      -ms-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
-  padding: 5vh;
-}
-/* line 29, ../scss/_preloader.scss */
-.video-chop-application .preloader .inner-logo-wrapper {
-  position: static;
-  border-radius: 100%;
-  border: 1px solid #353535;
-  width: 15vh;
-  height: 15vh;
-  overflow: hidden;
-}
-/* line 37, ../scss/_preloader.scss */
-.video-chop-application .preloader .inner-logo-content {
-  position: static;
-  width: 100%;
-  height: 0%;
-  overflow: hidden;
-  background: #1d1d1b url(../media/img/preloader/inner.png) center center no-repeat;
-  background-attachment: fixed;
-  background-size: 15vh 15vh;
-}
-/* line 46, ../scss/_preloader.scss */
-.video-chop-application .preloader .outer-logo {
-  -webkit-animation: spin 3s ease 0s infinite;
-          animation: spin 3s ease 0s infinite;
-  -webkit-animation-fill-mode: forward;
-          animation-fill-mode: forward;
-}
-/* line 50, ../scss/_preloader.scss */
-.video-chop-application .preloader .percentage {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 30vh;
-  bottom: 0;
-  width: auto;
-  height: 3vh;
-  line-height: 3vh;
-  font-size: 1.5vh;
-  text-align: center;
+/* line 67, ../scss/_preloader.scss */
+.video-chop-application .preloader .preloader-hold > svg {
   display: block;
-  margin: auto;
-  color: #1d1d1b;
-}
-/* line 64, ../scss/_preloader.scss */
-.video-chop-application .preloader .percentage:after {
-  content: "%";
-}
-/* line 68, ../scss/_preloader.scss */
-.video-chop-application .preloader .currently-loading {
+  width: 300px;
   position: absolute;
-  top: 35vh;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  width: auto;
-  height: 3vh;
   margin: auto;
-  text-align: center;
-  display: block;
-  font-size: 1.5vh;
-  color: #1d1d1b;
+  z-index: 1;
+}
+/* line 79, ../scss/_preloader.scss */
+.video-chop-application .preloader .logo-main {
+  position: absolute;
+  top: 0;
+  margin: auto;
+  left: 0;
+  right: 0;
+}
+/* line 87, ../scss/_preloader.scss */
+.video-chop-application .preloader .preloader-hold {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 400px;
+  height: 570px;
 }
 /* line 34, ../scss/main.scss */
 .video-chop-application .application-wrapper {
@@ -2889,6 +2892,85 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
   content: '';
+}
+/* line 58, ../scss/main.scss */
+.video-chop-application .application-wrapper .background-img {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  display: block;
+  z-index: 100;
+  bottom: 0;
+  left: 0;
+  background: url(../../videochop/media/img/alpha.png) no-repeat;
+  background-size: contain;
+}
+/* line 70, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 200;
+}
+/* line 79, ../scss/main.scss */
+.video-chop-application .application-wrapper .mobile-stop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 210;
+}
+/* line 88, ../scss/main.scss */
+.video-chop-application .application-wrapper .mobile-stop-message {
+  text-align: center;
+  color: #fff;
+}
+/* line 92, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-videolist {
+  position: absolute;
+  top: 80px;
+  left: 10px;
+  width: 330px;
+}
+/* line 98, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-timeline {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  height: 320px;
+}
+/* line 104, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-show-preview {
+  position: absolute;
+  bottom: 230px;
+  left: 80px;
+  width: 350px;
+}
+/* line 110, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-ready {
+  position: absolute;
+  top: -3px;
+  left: 230px;
+  width: 350px;
+}
+/* line 116, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-show-love {
+  position: absolute;
+  top: -31px;
+  right: -25px;
+  width: 650px;
+}
+/* line 122, ../scss/main.scss */
+.video-chop-application .application-wrapper .overlay-best-exp {
+  position: absolute;
+  top: 110px;
+  right: 370px;
+  width: 360px;
 }
 /* line 2, ../scss/partials/_placeholder.scss */
 .video-chop-application .application .file-list .file .small:before, .video-chop-application .application .file-list .file .small:after {
@@ -3366,6 +3448,26 @@ body {
   height: 150px;
   background: rgba(255, 100, 0, 0.6);
   border: 1px solid #ff6400;
+}
+/* line 117, ../scss/_timeline.scss */
+.video-chop-application .application .timeline-wrapper .file-delete {
+  z-index: 100;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  line-height: 2;
+  cursor: pointer;
+  color: #686868;
+}
+/* line 127, ../scss/_timeline.scss */
+.video-chop-application .application .timeline-wrapper .file-delete:before {
+  content: "\e019";
+}
+/* line 130, ../scss/_timeline.scss */
+.video-chop-application .application .timeline-wrapper .file-delete:hover {
+  color: #353535;
 }
 /* line 2, ../scss/partials/_placeholder.scss */
 .video-chop-application .application .file-list .file .small:before, .video-chop-application .application .file-list .file .small:after {
@@ -4049,25 +4151,4 @@ body {
 /* line 59, ../scss/_help.scss */
 .video-chop-application .help-wrapper dl dd .solution:before {
   content: "Solution: ";
-}
-
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-@keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
 }

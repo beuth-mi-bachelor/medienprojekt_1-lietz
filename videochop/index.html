@@ -20,6 +20,7 @@
         <link href='fonts/elegant-icons/style.css' rel='stylesheet' type='text/css'>
         <link href='fonts/league/style.css' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300,100' rel='stylesheet' type='text/css'>
+        <script src="js/lib/progressbar.min.js"></script>
 
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -31,14 +32,25 @@
             ga('send', 'pageview');
             ga('set', 'anonymizeIp', true)
         </script>
-
     </head>
     <body>
         <div class="video-chop-application">
             <h1 class="no-content">Video Chop</h1>
-
             <main class="application-wrapper">
-                <nav class="nav">
+            <section class="mobile-stop">
+                <p class="mobile-stop-message">
+                    This application does not support mobile devices
+                </p>
+            </section>
+            <section class="overlay-wrapper">
+                <img class="overlay-videolist" src="media/img/videolist.png">
+                <img class="overlay-timeline" src="media/img/timeline.png">
+                <img class="overlay-show-preview" src="media/img/showprev.png">
+                <img class="overlay-ready" src="media/img/ready.png">
+                <img class="overlay-show-love" src="media/img/showlove.png">
+                <img class="overlay-best-exp" src="media/img/best-exp.png">
+            </section>
+            <nav class="nav">
                     <h2 class="no-content">Menü</h2>
                     <a class="logo" href="index.html" target="_self">
                         <img class="logo-full" src="media/img/logo.png" alt="VideoChop Logo"/>
@@ -323,18 +335,16 @@
                     </section>
                 </article>
                 <div class="temporary-video no-content"></div>
+                <div class="background-img"></div>
             </main>
             <aside class="preloader">
                 <h3 class="no-content">Preloader</h3>
-                <img class="logo-animated outer-logo" src="media/img/preloader/outer.png" alt="VideoChop Preloader" />
-                <div class="inner-logo">
-                    <div class="inner-logo-wrapper">
-                        <div id="percentage" class="inner-logo-content">
-                            <span id="percentage-text" class="percentage">0</span>
-                        </div>
-                    </div>
+                <div class="preloader-hold">
+                    <img class="logo-main outer-logo" src="media/img/preloader/videochop.png" width="400" alt="VideoChop Logo" />
+                    <img id="preload-animation" class="logo-animated outer-logo" src="media/img/preloader/logomid.png" width="300" alt="VideoChop Preloader" />
+                    <p id="percentage-text" class="percentage">0</p>
+                    <p id="currently-loading" class="currently-loading"></p>
                 </div>
-                <p id="currently-loading" class="currently-loading"></p>
             </aside>
         </div>
         <script data-main="js/app" src="js/lib/require.js"></script>

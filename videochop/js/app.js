@@ -13,6 +13,12 @@ var modulesToLoadInDefine = ["jquery", "jqueryui", "modernizr", "useragent", "ut
 var modulesLoaded = 0,
     modulesToLoad = modulesToLoadInDefine.length + 1;
 
+
+var circle = new ProgressBar.Circle('.preloader-hold',{
+    color: '#FF6400',
+    strokeWidth: 5
+});
+
 for (var i = 0; i < modulesToLoadInDefine.length; i++) {
     var currentModule = modulesToLoadInDefine[i];
     var shims = requirejs.s.contexts._.config.shim;
@@ -37,7 +43,6 @@ var percentage = 0;
 /**
  * element bindings for displaying preloading
  */
-var percentageContainer = document.getElementById("percentage");
 var percentageText = document.getElementById("percentage-text");
 var currentModuleText = document.getElementById("currently-loading");
 
@@ -55,7 +60,7 @@ require.onResourceLoad = function(context, map) {
 var displayLoadProgress = function(p) {
     "use strict";
     percentageText.textContent = p;
-    percentageContainer.style.height = p + "%";
+    circle.animate(p/100, {duration: 100});
 };
 
 define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, FileReaderJS, FileSaver, VideoItemLoader, VideoList, VideoTimeline, VideoExporter, VideoPreview) {
@@ -65,6 +70,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
 
         var $preloader,
             $appWrapper,
+            $overlay,
+            $mobileStop,
             $impress,
             $navItems,
             $closeImpress,
@@ -82,7 +89,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $fileLoading;
 
         // User-Agent helper to identify user
-        var ua = new UserAgent();
+        var ua = new UAParser();
+
 
         // disableing selection of navigational elements
         $(".nav").disableSelection();
@@ -113,6 +121,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
         function initializeVariables() {
             $preloader = $(".preloader");
             $appWrapper = $(".application-wrapper");
+            $overlay = $(".overlay-wrapper");
+            $mobileStop = $(".mobile-stop");
             $impress = $(".impress-wrapper");
             $navItems = $(".nav-item");
             $closeImpress = $(".close-impress");
@@ -125,9 +135,20 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $fileLoading = $wrapperVideoDrop.find(".video-loading");
         }
 
+        if (ua.getDevice().type === "mobile") {
+            $mobileStop.show();
+        }
+        else {
+            $mobileStop.hide();
+        }
+
         function bindEvents() {
 
             $(".time-slider").disableSelection();
+
+            $overlay.on("click", function() {
+                $(this).hide();
+            });
 
             $navItems.on("click", function() {
                 if ($(this).hasClass("impress")) {
