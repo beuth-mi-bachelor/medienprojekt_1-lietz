@@ -14,6 +14,7 @@ body {
     padding: 0;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 .mobile-fallback,
 .mobile-fallback body {
@@ -93,7 +94,7 @@ body {
         .overlay-ready {
             position: absolute;
             top: -3px;
-            left: 230px;
+            left: 130px;
             width: 350px;
         }
         .overlay-show-love {
@@ -101,12 +102,15 @@ body {
             top: -31px;
             right: -25px;
             width: 650px;
+            margin-left: 300px;
         }
         .overlay-best-exp {
             position: absolute;
             top: 110px;
-            right: 370px;
+            right: -80px;
             width: 360px;
+            left: 300px;
+            margin: auto;
 
         }
     }
@@ -137,6 +141,7 @@ body {
 
     .mobile-stop {
         position: absolute;
+        display: none;
         top: 0;
         left: 0;
         width: 100%;

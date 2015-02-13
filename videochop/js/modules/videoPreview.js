@@ -164,7 +164,9 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             return next;
         },
         pause: function() {
-            this.currentVideo.pause();
+            if (this.currentVideo) {
+                this.currentVideo.pause();
+            }
         },
         updateToVideo: function(time) {
             if (!this.currentVideo.paused) {
@@ -225,15 +227,17 @@ define(["jquery", "videoList", "videoItem", "eventHandler", "utilities"], (funct
             this.$time.length.text(time);
         },
         stop: function () {
-            this.positionVideo = 0;
-            this.$vidContainer.find("video").removeClass("current");
-            $(this.videoObjects[this.indices[this.positionVideo]].video).addClass("current");
-            if (!this.currentVideo.paused) {
-                this.currentVideo.pause();
+            if (this.currentVideo) {
+                this.positionVideo = 0;
+                this.$vidContainer.find("video").removeClass("current");
+                $(this.videoObjects[this.indices[this.positionVideo]].video).addClass("current");
+                if (!this.currentVideo.paused) {
+                    this.currentVideo.pause();
+                }
+                this.currentTimePosition = 0;
+                this.globalTime = 0;
+                this.resetAllVideos();
             }
-            this.currentTimePosition = 0;
-            this.globalTime = 0;
-            this.resetAllVideos();
         },
         resetAllVideos: function() {
             for (var item in this.videoObjects) {

@@ -2715,9 +2715,10 @@ body {
   padding: 0;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 }
 
-/* line 18, ../scss/main.scss */
+/* line 19, ../scss/main.scss */
 .mobile-fallback,
 .mobile-fallback body {
   overflow: hidden;
@@ -2725,13 +2726,13 @@ body {
   height: 100%;
 }
 
-/* line 24, ../scss/main.scss */
+/* line 25, ../scss/main.scss */
 * {
   box-sizing: border-box;
 }
 
 /* general classes */
-/* line 28, ../scss/main.scss */
+/* line 29, ../scss/main.scss */
 .helper.ui-sortable-helper {
   padding: 10px;
   background: #fff url(../../videochop/media/img/logo-small.png) center center no-repeat;
@@ -2739,7 +2740,7 @@ body {
   background-size: 50px 50px;
 }
 
-/* line 34, ../scss/main.scss */
+/* line 35, ../scss/main.scss */
 .video-chop-application {
   font-family: "Roboto", sans-serif;
   /* color definitions */
@@ -2875,7 +2876,7 @@ body {
   width: 400px;
   height: 570px;
 }
-/* line 40, ../scss/main.scss */
+/* line 41, ../scss/main.scss */
 .video-chop-application .application-wrapper {
   position: absolute;
   top: 0;
@@ -2886,11 +2887,11 @@ body {
   -webkit-transition: opacity .3s ease;
           transition: opacity .3s ease;
 }
-/* line 49, ../scss/main.scss */
+/* line 50, ../scss/main.scss */
 .video-chop-application .application-wrapper.loading-complete {
   opacity: 1;
 }
-/* line 54, ../scss/main.scss */
+/* line 55, ../scss/main.scss */
 .impress-open .video-chop-application .application-wrapper:after, .help-open .video-chop-application .application-wrapper:after {
   position: absolute;
   z-index: 90;
@@ -2901,7 +2902,7 @@ body {
   background: rgba(0, 0, 0, 0.6);
   content: '';
 }
-/* line 65, ../scss/main.scss */
+/* line 66, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-wrapper {
   position: absolute;
   top: 0;
@@ -2911,47 +2912,50 @@ body {
   background: rgba(0, 0, 0, 0.6);
   z-index: 200;
 }
-/* line 75, ../scss/main.scss */
+/* line 76, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-videolist {
   position: absolute;
   top: 80px;
   left: 10px;
   width: 330px;
 }
-/* line 81, ../scss/main.scss */
+/* line 82, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-timeline {
   position: absolute;
   bottom: 0;
   left: 10px;
   height: 320px;
 }
-/* line 87, ../scss/main.scss */
+/* line 88, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-show-preview {
   position: absolute;
   bottom: 230px;
   left: 80px;
   width: 350px;
 }
-/* line 93, ../scss/main.scss */
+/* line 94, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-ready {
   position: absolute;
   top: -3px;
-  left: 230px;
+  left: 130px;
   width: 350px;
 }
-/* line 99, ../scss/main.scss */
+/* line 100, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-show-love {
   position: absolute;
   top: -31px;
   right: -25px;
   width: 650px;
+  margin-left: 300px;
 }
-/* line 105, ../scss/main.scss */
+/* line 107, ../scss/main.scss */
 .video-chop-application .application-wrapper .overlay-best-exp {
   position: absolute;
   top: 110px;
-  right: 370px;
+  right: -80px;
   width: 360px;
+  left: 300px;
+  margin: auto;
 }
 /* line 2, ../scss/partials/_placeholder.scss */
 .video-chop-application .application .file-list .file .small:before, .video-chop-application .application .file-list .file .small:after {
@@ -4133,7 +4137,7 @@ body {
 .video-chop-application .help-wrapper dl dd .solution:before {
   content: "Solution: ";
 }
-/* line 122, ../scss/main.scss */
+/* line 126, ../scss/main.scss */
 .video-chop-application .background-img {
   position: absolute;
   width: 90px;
@@ -4145,13 +4149,14 @@ body {
   background: url(../../videochop/media/img/alpha.png) no-repeat;
   background-size: contain;
 }
-/* line 132, ../scss/main.scss */
+/* line 136, ../scss/main.scss */
 .mobile-fallback .video-chop-application .background-img {
   display: none;
 }
-/* line 138, ../scss/main.scss */
+/* line 142, ../scss/main.scss */
 .video-chop-application .mobile-stop {
   position: absolute;
+  display: none;
   top: 0;
   left: 0;
   width: 100%;
@@ -4159,7 +4164,7 @@ body {
   background: #fff;
   z-index: 210;
 }
-/* line 147, ../scss/main.scss */
+/* line 152, ../scss/main.scss */
 .video-chop-application .mobile-stop-image {
   position: absolute;
   max-width: 100%;
