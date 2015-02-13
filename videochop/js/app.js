@@ -142,6 +142,8 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
             $appWrapper.hide();
         }
 
+        $(document).disableSelection();
+
         function bindEvents() {
 
             $(".time-slider").disableSelection();

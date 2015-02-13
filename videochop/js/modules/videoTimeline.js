@@ -50,6 +50,7 @@ define(["jquery", "jqueryui", "videoItem", "utilities", "eventHandler"], (functi
                 revert: 10,
                 opacity: 0.3,
                 axis: "x",
+                tolerance: "pointer",
                 placeholder: "placeholder",
                 receive: function (e, ui) {
                     ui.sender.data('copied', true);

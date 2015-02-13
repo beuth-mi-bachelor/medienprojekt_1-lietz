@@ -70,13 +70,14 @@ define(["jquery", "videoItem", "jqueryui"], (function ($, VideoItem, ui) {
             });
 
             this.$list.sortable({
-                appendTo: document.body,
+                appendTo: ".application-wrapper",
                 placeholder: 'placeholder',
                 opacity: 0.5,
                 cursorAt: {
                     top: 0,
                     left: 0
                 },
+                tolerance: "pointer",
                 cursor: "move",
                 connectWith: ".connected",
                 helper: function (event, li) {

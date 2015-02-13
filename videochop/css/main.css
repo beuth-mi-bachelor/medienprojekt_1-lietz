@@ -3429,7 +3429,7 @@ body {
 }
 /* line 111, ../scss/_timeline.scss */
 .video-chop-application .application .timeline-wrapper li.placeholder {
-  width: 200px;
+  width: 300px;
   height: 150px;
   background: rgba(255, 100, 0, 0.6);
   border: 1px solid #ff6400;
