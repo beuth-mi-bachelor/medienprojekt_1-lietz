@@ -213,7 +213,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
 
             var fileReaderOpts = {
                 readAsDefault: 'ArrayBuffer',
-                accept: "video/*",
+                accept: "video/webm|video/mp4|video/ogg",
                 on: {
                     loadstart: function(e, file) {
                         $fileLoading.show();
@@ -232,6 +232,7 @@ define(modulesToLoadInDefine, function ($, ui, Modernizr, UserAgent, Utils, File
                         });
                     },
                     skip: function() {
+                        window.alert("Only webm, ogv and mp4 supported");
                         files--;
                     }
                 }
